@@ -43,7 +43,7 @@ class _AddEmployeeSheetState extends State<AddEmployeeSheet> {
     return Container(
       padding: const EdgeInsets.all(8),
       color: Colors.black54,
-      height: MediaQuery.sizeOf(context).height * 0.7,
+      height: MediaQuery.sizeOf(context).height * 0.5,
       width: double.infinity,
       child: Form(
         key: myKey,
@@ -91,6 +91,7 @@ class _AddEmployeeSheetState extends State<AddEmployeeSheet> {
                       backgroundColor: Colors.green,
                     ),
                   );
+                  Navigator.of(context).pop();
                 } else if (state is EmployeeFail) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
