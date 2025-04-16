@@ -150,8 +150,8 @@ class UserItem extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
-        subtitle: const Text(
-          "Role",
+        subtitle: Text(
+          userModel.roleName,
         ),
       ),
     );
