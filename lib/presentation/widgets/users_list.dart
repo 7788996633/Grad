@@ -35,38 +35,66 @@ class _UserListState extends State<UsersList> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<UserBloc, UserState>(
-      builder: (context, state) {
-        if (state is UsersListLoaded) {
-          usersList = state.usersList;
-          return usersList.isEmpty
-              ? const Text('There is no users')
-              : buildUserModel();
-        } else if (state is UserFail) {
-          return Column(
-            children: [
-              const Text(
-                "There is an error:",
-                style: TextStyle(
-                  fontSize: 30,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
+    return BlocListener<UserBloc, UserState>(
+      listener: (context, state) {
+        if (state is UserSuccess) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                state.successmsg,
+                style: const TextStyle(fontSize: 16),
               ),
-              Text(
-                state.errmsg,
-                style: const TextStyle(
-                  fontSize: 30,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
+              backgroundColor: Colors.green,
+            ),
           );
-        } else {
-          return const CircularProgressIndicator();
+          BlocProvider.of<UserBloc>(context).add(
+            GetAllUsers(),
+          );
+        } else if (state is UserFail) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                state.errmsg,
+                style: const TextStyle(fontSize: 16),
+              ),
+              backgroundColor: Colors.red,
+            ),
+          );
         }
       },
+      child: BlocBuilder<UserBloc, UserState>(
+        builder: (context, state) {
+          if (state is UsersListLoaded) {
+            usersList = state.usersList;
+            return usersList.isEmpty
+                ? const Text('There is no users')
+                : buildUserModel();
+          } else if (state is UserFail) {
+            return Column(
+              children: [
+                const Text(
+                  "There is an error:",
+                  style: TextStyle(
+                    fontSize: 30,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  state.errmsg,
+                  style: const TextStyle(
+                    fontSize: 30,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            );
+          } else {
+            return const CircularProgressIndicator();
+          }
+        },
+      ),
     );
   }
 }
