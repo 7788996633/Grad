@@ -76,19 +76,11 @@ class UserBloc extends Bloc<UserEvent, UserState> {
           try {
             String value =
                 await UsersServices().changeUserRole(event.userId, event.role);
-            if (value.contains('success')) {
-              emit(
-                UserSuccess(
-                  successmsg: value,
-                ),
-              );
-            } else {
-              emit(
-                UserFail(
-                  errmsg: value,
-                ),
-              );
-            }
+            emit(
+              UserSuccess(
+                successmsg: value,
+              ),
+            );
           } catch (e) {
             emit(
               UserFail(
