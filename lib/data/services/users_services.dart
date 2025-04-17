@@ -55,4 +55,32 @@ class UsersServices {
       return [];
     }
   }
+
+  Future changeUserRole(int userId, String role) async {
+    var headers = {
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $myToken',
+      'Content-Type': 'application/x-www-form-urlencoded'
+    };
+    var request =
+        http.Request('PUT', Uri.parse('${myUrl}users/change-role/$userId'));
+    request.bodyFields = {'role_name': role};
+    request.headers.addAll(headers);
+
+    var streamedResponse = await request.send();
+
+    var response = await http.Response.fromStream(streamedResponse);
+    var jsonResponse = json.decode(response.body);
+    print(jsonResponse);
+
+    if (response.statusCode == 200) {
+      if (jsonResponse['status'] == 'success') {
+        return jsonResponse['message'];
+      } else {
+        return 'failed: ${jsonResponse['message']}';
+      }
+    } else {
+      return 'failed: ${response.statusCode} - ${response.reasonPhrase}';
+    }
+  }
 }

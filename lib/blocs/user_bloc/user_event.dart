@@ -11,6 +11,14 @@ class DeleteUserById extends UserEvent {
   DeleteUserById({required this.userId});
 }
 
+class ChangeUserRole extends UserEvent {
+  final int userId;
+  final String role;
+
+  ChangeUserRole({required this.userId, required this.role});
+
+}
+
 // class GetUserById extends UserEvent {
 //   final int userId;
 
