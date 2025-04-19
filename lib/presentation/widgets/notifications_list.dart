@@ -4,8 +4,6 @@ import 'package:graduated/blocs/notification_bloc/notification_bloc.dart';
 import 'package:graduated/data/models/notification_model.dart';
 import 'package:graduated/presentation/widgets/notification_item.dart';
 
-import '../../blocs/user_bloc/user_bloc.dart';
-
 class NotificationsList extends StatefulWidget {
   const NotificationsList({super.key});
 
