@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:untitled5/presentation/screen/LawyerScreen.dart';
 import 'package:untitled5/presentation/screen/login_screen.dart';
+import 'package:untitled5/presentation/screen/register_screen.dart';
 
 import 'package:untitled5/presentation/widgets/add_lawyer_sheet.dart';
 import 'blocs/add_lawyer_sheet/add_lawyer_bloc.dart';
 import 'blocs/auth_bloc/auth_bloc.dart';
+import 'blocs/lawyer/lawyer_bloc.dart';
 import 'data/services/add_lawyer_service.dart';
 
 void main() {
@@ -24,9 +27,8 @@ class MyApp extends StatelessWidget {
       ),
       home: BlocProvider(
         create: (context) => AuthBloc(
-
         ),
-        child: const LoginScreen(),
+        child:  RegisterScreen(),
       ),
     );
   }

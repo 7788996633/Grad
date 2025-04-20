@@ -100,8 +100,8 @@ class _LoginScreenState extends State<LoginScreen> {
               decoration: const BoxDecoration(
                 color: Color(0xFF2196F3),
                 borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(90),
-                  bottomRight: Radius.circular(90),
+                  bottomLeft: Radius.circular(30),
+                  bottomRight: Radius.circular(30),
                 ),
               ),
             ),
@@ -142,7 +142,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           validator: emailValidator,
                           controller: emailController,
                           text: "Email",
-                        //  isPassword: false,
+                          //  isPassword: false,
                         ),
                         const SizedBox(height: 12),
                         CustomTextFeild(
@@ -150,7 +150,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           validator: passwordValidator,
                           controller: passwordController,
                           text: "Password",
-                        //  isPassword: true,
+                          //  isPassword: true,
                         ),
                         const SizedBox(height: 16),
                         SizedBox(

@@ -1,16 +1,15 @@
 import 'dart:convert';
-
-
 import 'package:http/http.dart' as http;
-
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../const.dart';
 
 class AuthServices {
+
+  // Login method
   Future<String> login(String email, String password) async {
     var headers = {'Accept': 'application/json'};
     var request = http.MultipartRequest('POST', Uri.parse('${myUrl}login'));
     request.fields.addAll({'email': email, 'password': password});
-
     request.headers.addAll(headers);
 
     var streamedResponse = await request.send();
@@ -20,7 +19,13 @@ class AuthServices {
 
     if (response.statusCode == 200) {
       if (jsonResponse['status'] == 'success') {
-        return jsonResponse['data']['token'];
+        final token = jsonResponse['data']['token'];
+
+        // 📝 Save token to SharedPreferences
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setString('token', token);
+
+        return token;
       } else {
         return jsonResponse['message'];
       }
@@ -29,11 +34,15 @@ class AuthServices {
     }
   }
 
-  Future register(String email, String name, String password) async {
+  // Register method
+  Future<String> register(String name, String password, String email) async {
     var headers = {'Accept': 'application/json'};
     var request = http.MultipartRequest('POST', Uri.parse('${myUrl}register'));
-    request.fields.addAll({'name': name, 'email': email, 'password': password});
-
+    request.fields.addAll({
+      'name': name,
+      'email': email,
+      'password': password,
+    });
     request.headers.addAll(headers);
 
     var streamedResponse = await request.send();
@@ -43,7 +52,13 @@ class AuthServices {
 
     if (response.statusCode == 200) {
       if (jsonResponse['status'] == 'success') {
-        return jsonResponse['data']['token'];
+        final token = jsonResponse['data']['token'];
+
+        // 📝 Save token to SharedPreferences
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setString('token', token);
+
+        return token;
       } else {
         return jsonResponse['message'];
       }

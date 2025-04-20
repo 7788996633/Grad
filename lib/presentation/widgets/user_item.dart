@@ -36,7 +36,7 @@ class UserItem extends StatelessWidget {
                     create: (_) => AddLawyerBloc(
                       service: AddLawyerService(),
                       userId: userModel.id,
-                      token: myToken, // تأكد من أن `myToken` متوفر
+                      token: myToken,
                     ),
                     child: const AddLawyerSheet(),
                   ),

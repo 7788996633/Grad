@@ -1,52 +1,62 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-
 import '../../blocs/auth_bloc/auth_bloc.dart';
 import '../../const.dart';
-
 import '../widgets/CustomTextField.dart';
 import 'login_screen.dart';
+import 'home.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
 
   @override
-  State<RegisterScreen> createState() => RegisterScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class RegisterScreenState extends State<RegisterScreen> {
-  TextEditingController nameController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  GlobalKey<FormState> myKey = GlobalKey<FormState>();
-
-  // Validators
-  String? emailValidator(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Please enter your email';
-    }
-    if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
-      return 'Please enter a valid email';
-    }
-    return null;
-  }
+class _RegisterScreenState extends State<RegisterScreen> {
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final GlobalKey<FormState> myKey = GlobalKey<FormState>();
 
   String? nameValidator(String? value) {
-    if (value == null || value.isEmpty) {
+    if (value == null || value.trim().isEmpty) {
       return 'Please enter your name';
     }
     return null;
   }
 
+  String? emailValidator(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return 'Please enter your email';
+    }
+    if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value.trim())) {
+      return 'Please enter a valid email address';
+    }
+    return null;
+  }
+
   String? passwordValidator(String? value) {
-    if (value == null || value.isEmpty) {
+    if (value == null || value.trim().isEmpty) {
       return 'Please enter your password';
     }
     if (value.length < 8) {
       return 'Password must be at least 8 characters long';
     }
     return null;
+  }
+
+  void handleRegister() {
+    if (myKey.currentState?.validate() ?? false) {
+      BlocProvider.of<AuthBloc>(context).add(
+        RegisterEvent(
+          name: nameController.text.trim(),
+          email: emailController.text.trim(),
+          password: passwordController.text,
+        ),
+      );
+    }
   }
 
   @override
@@ -57,9 +67,11 @@ class RegisterScreenState extends State<RegisterScreen> {
           setState(() {
             myToken = state.token;
           });
-          // Navigator.of(context).push(
-          //   MaterialPageRoute(builder: (context) => const Home()),
-          // );
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => const Home(),
+            ),
+          );
         } else if (state is AuthFail) {
           Navigator.of(context).pop();
           showDialog(
@@ -85,94 +97,116 @@ class RegisterScreenState extends State<RegisterScreen> {
             ),
           );
         }
-        print(state);
       },
       builder: (context, state) => Scaffold(
-        body: Container(
-          padding: const EdgeInsets.all(8),
-          child: Form(
-            key: myKey,
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  const Text(
-                    "Register",
-                    style: TextStyle(
-                        color: Color.fromARGB(255, 176, 138, 190),
-                        fontWeight: FontWeight.bold,
-                        fontSize: 40),
-                  ),
-                  SizedBox(height: MediaQuery.sizeOf(context).height * 0.2),
-                  CustomTextFeild(
-                    color: const Color.fromARGB(255, 68, 107, 214),
-
-                    validator: nameValidator,
-                    controller: nameController,
-                    text: "Name",
-                  ),
-                  SizedBox(height: MediaQuery.sizeOf(context).height * 0.03),
-                  CustomTextFeild(
-                    color: const Color.fromARGB(255, 68, 107, 214),
-
-                    validator: emailValidator,
-                    controller: emailController,
-                    text: "Email",
-                  ),
-                  SizedBox(height: MediaQuery.sizeOf(context).height * 0.03),
-                  CustomTextFeild(
-                    color: const Color.fromARGB(255, 68, 107, 214),
-
-                    validator: passwordValidator,
-                    controller: passwordController,
-                    text: "Password",
-                  ),
-                  SizedBox(height: MediaQuery.sizeOf(context).height * 0.07),
-                  Container(
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(50),
-                      ),
-                    ),
-                    width: MediaQuery.sizeOf(context).width * 0.2,
-                    child: MaterialButton(
-                      color: const Color.fromARGB(255, 176, 138, 190),
-                      onPressed: () async {
-                        if (myKey.currentState?.validate() ?? false) {
-                          BlocProvider.of<AuthBloc>(context).add(
-                            RegisterEvent(
-                              email: emailController.text,
-                              password: passwordController.text,
-                              name: nameController.text,
-                            ),
-                          );
-                        }
-                      },
-                      child: const Text(
-                        "Register",
-                        style: TextStyle(
-                          fontSize: 25,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: MediaQuery.sizeOf(context).height * 0.02),
-                  InkWell(
-                    onTap: () {
-                      Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(
-                          builder: (context) => const LoginScreen(),
-                        ),
-                      );
-                    },
-                    child: const Text(
-                      "Already have an account? Login",
-                    ),
-                  ),
-                ],
+        backgroundColor: Colors.grey[200],
+        body: Stack(
+          children: [
+            // Top blue curved container
+            Container(
+              height: 250,
+              width: double.infinity,
+              decoration: const BoxDecoration(
+                color: Color(0xFF2196F3),
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(30),
+                  bottomRight: Radius.circular(30),
+                ),
               ),
             ),
-          ),
+
+            // Register form
+            Align(
+              alignment: Alignment.center,
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                child: Form(
+                  key: myKey,
+                  child: Container(
+                    padding: const EdgeInsets.all(24),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(30),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.1),
+                          blurRadius: 10,
+                          offset: const Offset(0, 5),
+                        )
+                      ],
+                    ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Text(
+                          "Register",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        CustomTextFeild(
+                          color: Colors.grey[200]!,
+                          validator: nameValidator,
+                          controller: nameController,
+                          text: "Name",
+                        ),
+                        const SizedBox(height: 12),
+                        CustomTextFeild(
+                          color: Colors.grey[200]!,
+                          validator: emailValidator,
+                          controller: emailController,
+                          text: "Email",
+                        ),
+                        const SizedBox(height: 12),
+                        CustomTextFeild(
+                          color: Colors.grey[200]!,
+                          validator: passwordValidator,
+                          controller: passwordController,
+                          text: "Password",
+                        ),
+                        const SizedBox(height: 16),
+                        SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xFF2196F3),
+                              padding:
+                              const EdgeInsets.symmetric(vertical: 14),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                            ),
+                            onPressed: handleRegister,
+                            child: const Text(
+                              "Register",
+                              style: TextStyle(fontSize: 16),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        const Divider(),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                builder: (context) => const LoginScreen(),
+                              ),
+                            );
+                          },
+                          child: const Text(
+                            "Already have an account? Login",
+                            style: TextStyle(color: Colors.black54),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

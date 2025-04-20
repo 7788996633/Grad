@@ -79,15 +79,15 @@ class _AddLawyerSheetState extends State<AddLawyerSheet> {
             listener: (context, state) {
               if (state is AddLawyerLoading) {
                 setState(() {
-                  resultMessage = "Uploading... ⏳";
+                  resultMessage = "Uploading... ";
                 });
               } else if (state is AddLawyerSuccess) {
                 setState(() {
-                  resultMessage = "Upload successful ✅";
+                  resultMessage = "Upload successful ";
                 });
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
-                    content: Text("Upload successful ✅"),
+                    content: Text("Upload successful "),
                     backgroundColor: Colors.green,
                   ),
                 );

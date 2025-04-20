@@ -27,8 +27,8 @@ class AddLawyerService {
         'type': event.type,
       });
 
-      // هنا نرسل مسار الملف بدلاً من إرسال الملف نفسه
-      request.fields['certificate'] = event.filePath!;  // إضافة مسار الملف كـ string
+
+      request.fields['certificate'] = event.filePath!;
 
       request.headers.addAll(headers);
 
@@ -41,11 +41,11 @@ class AddLawyerService {
 
       if (response.statusCode == 200) {
         if (jsonResponse['status'] == 'success') {
-          print("✅ Lawyer data uploaded successfully.");
+          print(" Lawyer data uploaded successfully.");
           return true;
         } else {
           final message = jsonResponse['message'] ?? 'Unknown server error';
-          print("❌ Server error: $message");
+          print(" Server error: $message");
           throw Exception(message);
         }
       } else {
