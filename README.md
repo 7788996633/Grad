@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # graduated
+=======
+# untitled5
+>>>>>>> origin/Fareza
 
 A new Flutter project.
 

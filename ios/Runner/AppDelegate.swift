@@ -1,7 +1,14 @@
+<<<<<<< HEAD
 import Flutter
 import UIKit
 
 @main
+=======
+import UIKit
+import Flutter
+
+@UIApplicationMain
+>>>>>>> origin/Fareza
 @objc class AppDelegate: FlutterAppDelegate {
   override func application(
     _ application: UIApplication,

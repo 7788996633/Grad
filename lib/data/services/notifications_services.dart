@@ -22,10 +22,10 @@ class NotificationsServices {
     if (response.statusCode == 200) {
       return jsonResponse['notifications'];
 
-      if (jsonResponse['status'] == 'success') {
-      } else {
-        return [];
-      }
+      // if (jsonResponse['status'] == 'success') {
+      // } else {
+      //   return [];
+      // }
     } else {
       return [];
     }

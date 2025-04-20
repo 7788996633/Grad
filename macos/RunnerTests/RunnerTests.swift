@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 import Cocoa
 import FlutterMacOS
+=======
+import FlutterMacOS
+import Cocoa
+>>>>>>> origin/Fareza
 import XCTest
 
 class RunnerTests: XCTestCase {

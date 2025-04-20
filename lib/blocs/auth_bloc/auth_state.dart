@@ -17,4 +17,8 @@ final class AuthFail extends AuthState {
   AuthFail({required this.errmsg});
 }
 
+<<<<<<< HEAD
 final class AuthLoading extends AuthState {}
+=======
+final class AuthLoading extends AuthState {}
+>>>>>>> origin/Fareza
