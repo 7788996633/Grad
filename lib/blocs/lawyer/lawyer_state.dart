@@ -1,5 +1,5 @@
 // blocs/lawyer/lawyer_state.dart
-import '../../data/model/lawyer_model.dart';
+import '../../data/models/lawyer_model.dart';
 
 abstract class LawyerState {}
 

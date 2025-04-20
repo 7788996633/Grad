@@ -6,10 +6,10 @@ import '../../blocs/add_lawyer_sheet/add_lawyer_bloc.dart';
 import '../../blocs/add_lawyer_sheet/add_lawyer_event.dart';
 import '../../blocs/add_lawyer_sheet/add_lawyer_state.dart';
 import '../../const.dart';
-import '../../data/model/user_model.dart';
 import '../../data/repositories/users_repositories.dart';
 import '../../data/services/add_lawyer_service.dart';
-import 'CustomTextField.dart';
+import '../widgets/custom_text_field.dart';
+import '../../data/models/user_model.dart';
 
 class AddLawyerSheet extends StatefulWidget {
   const AddLawyerSheet({super.key});

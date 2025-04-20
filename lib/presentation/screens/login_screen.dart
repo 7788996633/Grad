@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:graduated/blocs/auth_bloc/auth_bloc.dart';
-import 'package:graduated/presentation/screens/home.dart';
-import 'package:graduated/presentation/widgets/custom_text_field.dart';
-
-import '../../constant.dart';
+import '../../blocs/auth_bloc/auth_bloc.dart';
+import '../../const.dart';
+import '../widgets/custom_text_field.dart';
+import 'home.dart';
 import 'register_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -17,11 +16,8 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final FocusNode emailFocusNode = FocusNode();
-  final FocusNode passwordFocusNode = FocusNode();
   final GlobalKey<FormState> myKey = GlobalKey<FormState>();
 
-  /// التحقق من البريد الإلكتروني
   String? emailValidator(String? value) {
     if (value == null || value.trim().isEmpty) {
       return 'Please enter your email';
@@ -32,7 +28,6 @@ class _LoginScreenState extends State<LoginScreen> {
     return null;
   }
 
-  /// التحقق من كلمة المرور
   String? passwordValidator(String? value) {
     if (value == null || value.trim().isEmpty) {
       return 'Please enter your password';
@@ -43,7 +38,6 @@ class _LoginScreenState extends State<LoginScreen> {
     return null;
   }
 
-  /// استدعاء تسجيل الدخول مع التحقق
   void handleLogin() {
     if (myKey.currentState?.validate() ?? false) {
       BlocProvider.of<AuthBloc>(context).add(
@@ -95,79 +89,118 @@ class _LoginScreenState extends State<LoginScreen> {
         }
       },
       builder: (context, state) => Scaffold(
-        body: Container(
-          padding: const EdgeInsets.all(8),
-          child: Form(
-            key: myKey,
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    "Login",
-                    style: TextStyle(
-                        color: Color.fromARGB(255, 42, 91, 213),
-                        fontWeight: FontWeight.bold,
-                        fontSize: 40),
-                  ),
-                  SizedBox(height: MediaQuery.sizeOf(context).height * 0.1),
-                  CustomTextFeild(
-                    color: const Color.fromARGB(255, 68, 107, 214),
-                    validator: emailValidator,
-                    controller: emailController,
-                    text: "Email",
-                  ),
-                  SizedBox(height: MediaQuery.sizeOf(context).height * 0.03),
-                  CustomTextFeild(
-                    color: const Color.fromARGB(255, 68, 107, 214),
-
-                    validator: passwordValidator,
-                    controller: passwordController,
-                    text: "Password",
-                  ),
-                  SizedBox(height: MediaQuery.sizeOf(context).height * 0.07),
-                  Container(
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(
-                          50,
-                        ),
-                      ),
-                    ),
-                    width: MediaQuery.sizeOf(context).width * 0.4,
-                    child: MaterialButton(
-                      color: const Color.fromARGB(255, 152, 138, 190),
-                      onPressed: handleLogin,
-                      child: const Text(
-                        "Login",
-                        style: TextStyle(
-                          fontSize: 25,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: MediaQuery.sizeOf(context).height * 0.02),
-                  InkWell(
-                    onTap: () {
-                      Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(
-                          builder: (context) => BlocProvider(
-                            create: (context) => AuthBloc(),
-                            child: const RegisterScreen(),
-                          ),
-                        ),
-                      );
-                    },
-                    child: const Text(
-                      "don't have an account ? register",
-                    ),
-                  ),
-                ],
+        backgroundColor: Colors.grey[200],
+        body: Stack(
+          children: [
+            // Top blue curved container
+            Container(
+              height: 250,
+              width: double.infinity,
+              decoration: const BoxDecoration(
+                color: Color(0xFF2196F3),
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(30),
+                  bottomRight: Radius.circular(30),
+                ),
               ),
             ),
-          ),
+
+            // Login form
+            Align(
+              alignment: Alignment.center,
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                child: Form(
+                  key: myKey,
+                  child: Container(
+                    padding: const EdgeInsets.all(24),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(30),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.1),
+                          blurRadius: 10,
+                          offset: const Offset(0, 5),
+                        )
+                      ],
+                    ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Text(
+                          "Login",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        CustomTextFeild(
+                          color: Colors.grey[200]!,
+                          validator: emailValidator,
+                          controller: emailController,
+                          text: "Email",
+                          //  isPassword: false,
+                        ),
+                        const SizedBox(height: 12),
+                        CustomTextFeild(
+                          color: Colors.grey[200]!,
+                          validator: passwordValidator,
+                          controller: passwordController,
+                          text: "Password",
+                          //  isPassword: true,
+                        ),
+                        const SizedBox(height: 16),
+                        SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xFF2196F3),
+                              padding: const EdgeInsets.symmetric(vertical: 14),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                            ),
+                            onPressed: handleLogin,
+                            child: const Text(
+                              "Login",
+                              style: TextStyle(fontSize: 16),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        TextButton(
+                          onPressed: () {},
+                          child: const Text(
+                            "Forgot password?",
+                            style: TextStyle(color: Colors.black54),
+                          ),
+                        ),
+                        const Divider(),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                builder: (context) => BlocProvider(
+                                  create: (context) => AuthBloc(),
+                                  child: const RegisterScreen(),
+                                ),
+                              ),
+                            );
+                          },
+                          child: const Text(
+                            "Create a new account",
+                            style: TextStyle(color: Colors.blue),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

@@ -3,11 +3,8 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
-<<<<<<< HEAD
-=======
   syncfusion_pdfviewer_windows
   url_launcher_windows
->>>>>>> origin/Fareza
 )
 
 list(APPEND FLUTTER_FFI_PLUGIN_LIST

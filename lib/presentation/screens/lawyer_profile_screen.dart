@@ -5,8 +5,10 @@ import '../../blocs/lawyer/lawyer_event.dart';
 import '../../blocs/lawyer/lawyer_state.dart';
 
 class LawyerProfileScreen extends StatefulWidget {
+  const LawyerProfileScreen({super.key});
+
   @override
-  _LawyerProfileScreenState createState() => _LawyerProfileScreenState();
+  State<LawyerProfileScreen> createState() => _LawyerProfileScreenState();
 }
 
 class _LawyerProfileScreenState extends State<LawyerProfileScreen> {
@@ -24,7 +26,7 @@ class _LawyerProfileScreenState extends State<LawyerProfileScreen> {
     return BlocProvider(
       create: (_) => LawyerBloc()..add(LoadLawyerEvent()),
       child: Scaffold(
-        appBar: AppBar(title: Text('Lawyer Profile')),
+        appBar: AppBar(title: const Text('Lawyer Profile')),
         body: BlocConsumer<LawyerBloc, LawyerState>(
           listener: (context, state) {
             if (state is LawyerError) {
@@ -32,18 +34,17 @@ class _LawyerProfileScreenState extends State<LawyerProfileScreen> {
                 SnackBar(content: Text(state.message)),
               );
             } else if (state is LawyerUpdated) {
-             
               setState(() {
                 isEditing = false;
               });
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('Salary updated successfully')),
+                const SnackBar(content: Text('Salary updated successfully')),
               );
             }
           },
           builder: (context, state) {
             if (state is LawyerLoading) {
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             } else if (state is LawyerLoaded || state is LawyerUpdated) {
               final lawyer = (state as dynamic).lawyer;
               if (!isEditing) salaryController.text = lawyer.salary;
@@ -63,7 +64,8 @@ class _LawyerProfileScreenState extends State<LawyerProfileScreen> {
                           child: TextField(
                             controller: salaryController,
                             enabled: isEditing,
-                            decoration: InputDecoration(labelText: "Salary"),
+                            decoration:
+                                const InputDecoration(labelText: "Salary"),
                             keyboardType: TextInputType.number,
                           ),
                         ),
@@ -74,8 +76,8 @@ class _LawyerProfileScreenState extends State<LawyerProfileScreen> {
                               final salary = salaryController.text.trim();
                               if (salary.isNotEmpty) {
                                 context.read<LawyerBloc>().add(
-                                  UpdateLawyerSalaryEvent(salary),
-                                );
+                                      UpdateLawyerSalaryEvent(salary),
+                                    );
                               }
                             } else {
                               setState(() => isEditing = true);
@@ -90,7 +92,7 @@ class _LawyerProfileScreenState extends State<LawyerProfileScreen> {
             } else if (state is LawyerError) {
               return Center(child: Text("Error: ${state.message}"));
             }
-            return Center(child: Text("Loading data..."));
+            return const Center(child: Text("Loading data..."));
           },
         ),
       ),

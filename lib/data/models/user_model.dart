@@ -3,8 +3,13 @@ class UserModel {
   final String name;
   final String email;
   final String roleName;
-
   final int roleId;
+  UserModel(
+      {required this.id,
+      required this.name,
+      required this.email,
+      required this.roleName,
+      required this.roleId});
 
   factory UserModel.fromJson(json) {
     return UserModel(
@@ -14,11 +19,4 @@ class UserModel {
         roleId: json['role']['id'],
         roleName: json['role']['name']);
   }
-
-  UserModel(
-      {required this.id,
-      required this.name,
-      required this.email,
-      required this.roleName,
-      required this.roleId});
 }

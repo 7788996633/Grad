@@ -7,17 +7,27 @@ class CustomButton extends StatelessWidget {
   final Color buttonColor;
 
   const CustomButton({
-    Key? key,
+    super.key,
     required this.onPressed,
     required this.buttonText,
     required this.iconData,
     this.buttonColor = const Color.fromARGB(255, 176, 138, 190), // اللون الافتراضي
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: onPressed,
+      style: ElevatedButton.styleFrom(
+        backgroundColor: buttonColor,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(25),
+        ),
+        padding: const EdgeInsets.symmetric(vertical: 15),
+        textStyle: const TextStyle(fontSize: 18),
+        minimumSize: const Size(double.infinity, 50),  // تعيين الزر ليأخذ العرض الكامل
+        elevation: 5,  // إضافة ظل للزر
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,  // لضبط النص والأيقونة في الوسط
         children: [
@@ -25,19 +35,9 @@ class CustomButton extends StatelessWidget {
             iconData,  // أيقونة التحميل
             color: Colors.white,  // لون الأيقونة
           ),
-          SizedBox(width: 10),  // مسافة بين الأيقونة والنص
+          const SizedBox(width: 10),  // مسافة بين الأيقونة والنص
           Text(buttonText),  // نص الزر
         ],
-      ),
-      style: ElevatedButton.styleFrom(
-        backgroundColor: buttonColor,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(25),
-        ),
-        padding: EdgeInsets.symmetric(vertical: 15),
-        textStyle: TextStyle(fontSize: 18),
-        minimumSize: Size(double.infinity, 50),  // تعيين الزر ليأخذ العرض الكامل
-        elevation: 5,  // إضافة ظل للزر
       ),
     );
   }

@@ -1,7 +1,5 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:http/http.dart' as http;
-import 'package:path/path.dart';
 
 import '../../blocs/add_lawyer_sheet/add_lawyer_event.dart';
 
@@ -28,7 +26,7 @@ class AddLawyerService {
       });
 
 
-      request.fields['certificate'] = event.filePath!;
+      request.fields['certificate'] = event.filePath;
 
       request.headers.addAll(headers);
 
