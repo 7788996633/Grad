@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../const.dart';
 import '../model/lawyer_model.dart';
 
 class LawyerRepository {
-  final String baseUrl = 'http://192.168.43.216:8000/api';
 
   Future<String?> _getToken() async {
     final prefs = await SharedPreferences.getInstance();
@@ -15,8 +15,7 @@ class LawyerRepository {
     final token = await _getToken();
     if (token == null) throw Exception('Token not found');
 
-    final response = await http.get(
-      Uri.parse('$baseUrl/lawyers'),
+    final response = await http.get(Uri.parse('$myUrl/lawyers'),
       headers: {'Authorization': 'Bearer $token'},
     );
 
@@ -37,7 +36,7 @@ class LawyerRepository {
     if (token == null) throw Exception('Token not found');
 
     final response = await http.get(
-      Uri.parse('$baseUrl/lawyers/$id'),
+      Uri.parse('$myUrl/lawyers/$id'),
       headers: {'Authorization': 'Bearer $token'},
     );
 
@@ -57,7 +56,7 @@ class LawyerRepository {
     if (token == null) throw Exception('Token not found');
 
     final response = await http.get(
-      Uri.parse('$baseUrl/lawyer/profile'),
+      Uri.parse('$myUrl/lawyer/profile'),
       headers: {'Authorization': 'Bearer $token'},
     );
 
@@ -77,7 +76,7 @@ class LawyerRepository {
     if (token == null) throw Exception('Token not found');
 
     final response = await http.post(
-      Uri.parse('$baseUrl/lawyer/profile'),
+      Uri.parse('$myUrl/lawyer/profile'),
       headers: {
         'Authorization': 'Bearer $token',
         'Content-Type': 'application/json',
