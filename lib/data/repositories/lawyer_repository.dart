@@ -1,11 +1,10 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../const.dart';
+import '../../constant.dart';
 import '../models/lawyer_model.dart';
 
 class LawyerRepository {
-
   Future<String?> _getToken() async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getString('token');
@@ -15,7 +14,8 @@ class LawyerRepository {
     final token = await _getToken();
     if (token == null) throw Exception('Token not found');
 
-    final response = await http.get(Uri.parse('$myUrl/lawyers'),
+    final response = await http.get(
+      Uri.parse('$myUrl/lawyers'),
       headers: {'Authorization': 'Bearer $token'},
     );
 

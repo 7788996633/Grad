@@ -5,7 +5,7 @@ import 'package:path/path.dart';
 import '../../blocs/add_lawyer_sheet/add_lawyer_bloc.dart';
 import '../../blocs/add_lawyer_sheet/add_lawyer_event.dart';
 import '../../blocs/add_lawyer_sheet/add_lawyer_state.dart';
-import '../../const.dart';
+import '../../constant.dart';
 import '../../data/repositories/users_repositories.dart';
 import '../../data/services/add_lawyer_service.dart';
 import '../widgets/custom_text_field.dart';
