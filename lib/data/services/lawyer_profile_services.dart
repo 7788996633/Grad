@@ -1,17 +1,17 @@
 import 'dart:convert';
 
-import 'package:graduation/data/models/profile_model.dart';
+import 'package:graduation/data/models/lawyer_model.dart';
 import 'package:http/http.dart' as http;
 
 import '../../constant.dart';
 
-class ProfileService {
-  Future<ProfileModel> showProfile() async {
+class LawyerProfileServices {
+  Future<LawyerModel> getLawyerProfile() async {
     var headers = {
       'Accept': 'application/json',
       'Authorization': 'Bearer $myToken'
     };
-    var request = http.Request('GET', Uri.parse('${myUrl}profile'));
+    var request = http.Request('GET', Uri.parse('${myUrl}lawyer/profile'));
     request.headers.addAll(headers);
     var streamedResponse = await request.send();
     var response = await http.Response.fromStream(streamedResponse);
@@ -19,7 +19,7 @@ class ProfileService {
     print(jsonResponse);
     if (response.statusCode == 200) {
       if (jsonResponse['status'] == 'success') {
-        return ProfileModel.fromJson(jsonResponse['data']);
+        return LawyerModel.fromJson(jsonResponse['data']);
       } else {
         throw Exception('failed: ${jsonResponse['message']}');
       }
@@ -29,61 +29,35 @@ class ProfileService {
     }
   }
 
-  Future<dynamic> updateProfile(
-      String phone, String address, String age, String scientificLevel) async {
-    var headers = {
-      'Accept': 'application/json',
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Authorization': 'Bearer $myToken'
-    };
-    var request = http.Request('PUT', Uri.parse('${myUrl}profile'));
-    request.bodyFields = {
-      'phone': phone,
-      'address': address,
-      'age': age,
-      'scientificLevel': scientificLevel
-    };
-    request.headers.addAll(headers);
-    var streamedResponse = await request.send();
-    var response = await http.Response.fromStream(streamedResponse);
-    var jsonResponse = json.decode(response.body);
-    print(jsonResponse);
-    if (response.statusCode == 200) {
-      if (jsonResponse['status'] == 'success') {
-        return jsonResponse['message'];
-      } else {
-        return 'failed: ${jsonResponse['message']}';
-      }
-    } else {
-      return 'failed: ${response.statusCode} - ${response.reasonPhrase}';
-    }
-  }
-
-  Future<dynamic> createProfile(
-    String phone,
-    String address,
-    String age,
-    String scientificLevel,
+  Future<String> creatLawyerProrile(
+    String licenseNumber,
+    String experienceYears,
+    String specialization,
+    String certificatePath,
   ) async {
     var headers = {
       'Accept': 'application/json',
-      'Authorization': 'Bearer $myToken'
+      'Authorization': 'Bearer $myToken',
     };
     var request =
-        http.MultipartRequest('POST', Uri.parse('${myUrl}profiles/create/'));
-    request.fields.addAll(
-      {
-        'phone': phone,
-        'address': address,
-        'age': age,
-        'scientificLevel': scientificLevel
-      },
-    );
+        http.MultipartRequest('POST', Uri.parse('${myUrl}lawyers/create'));
+    request.fields.addAll({
+      'license_number': licenseNumber,
+      'experience_years': experienceYears,
+      'specialization': specialization,
+      'certificate': certificatePath,
+      'type': 'lawyer',
+      'salary': '12000'
+    });
+
     request.headers.addAll(headers);
+
     var streamedResponse = await request.send();
+
     var response = await http.Response.fromStream(streamedResponse);
     var jsonResponse = json.decode(response.body);
     print(jsonResponse);
+
     if (response.statusCode == 200) {
       if (jsonResponse['status'] == 'success') {
         return jsonResponse['message'];
@@ -95,17 +69,31 @@ class ProfileService {
     }
   }
 
-  Future<String> deleteProfile() async {
+  Future<String> updateLawyerProrile(
+    String licenseNumber,
+    String experienceYears,
+    String specialization,
+    String certificatePath,
+  ) async {
     var headers = {
       'Accept': 'application/json',
-      'Authorization': 'Bearer $myToken'
+      'Authorization': 'Bearer $myToken',
+      'Content-Type': 'application/x-www-form-urlencoded'
     };
-    var request = http.Request('DELETE', Uri.parse('${myUrl}profile'));
+    var request = http.Request('PUT', Uri.parse('${myUrl}lawyers/create'));
+    request.bodyFields = {
+      'salary': '7899.9',
+      'certificate': 'updated/certificate.pdf'
+    };
+
     request.headers.addAll(headers);
+
     var streamedResponse = await request.send();
+
     var response = await http.Response.fromStream(streamedResponse);
     var jsonResponse = json.decode(response.body);
     print(jsonResponse);
+
     if (response.statusCode == 200) {
       if (jsonResponse['status'] == 'success') {
         return jsonResponse['message'];

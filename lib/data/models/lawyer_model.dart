@@ -1,5 +1,5 @@
 
-class Lawyer {
+class LawyerModel {
   final int id;
   final String licenseNumber;
   final int experienceYears;
@@ -10,7 +10,7 @@ class Lawyer {
   final int userId;
   final String createdAt;
 
-  Lawyer({
+  LawyerModel({
     required this.id,
     required this.licenseNumber,
     required this.experienceYears,
@@ -22,8 +22,8 @@ class Lawyer {
     required this.createdAt,
   });
 
-  factory Lawyer.fromJson(Map<String, dynamic> json) {
-    return Lawyer(
+  factory LawyerModel.fromJson(Map<String, dynamic> json) {
+    return LawyerModel(
       id: json['id'],
       licenseNumber: json['license_number'],
       experienceYears: json['experience_years'],

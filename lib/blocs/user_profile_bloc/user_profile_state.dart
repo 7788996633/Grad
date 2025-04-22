@@ -11,9 +11,9 @@ class UserProfileSuccess extends UserProfileState {
 }
 
 class UserProfileLoadedSuccessfully extends UserProfileState {
-  final ProfileModel profileModel;
+  final UserProfileModel userProfileModel;
 
-  UserProfileLoadedSuccessfully({required this.profileModel});
+  UserProfileLoadedSuccessfully({required this.userProfileModel});
 }
 
 final class UserProfileLoading extends UserProfileState {}

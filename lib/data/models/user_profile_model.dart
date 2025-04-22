@@ -1,4 +1,4 @@
-class ProfileModel {
+class UserProfileModel {
   final int id;
   final String address;
   final String phone;
@@ -8,8 +8,8 @@ class ProfileModel {
   final String createdAt;
   final String updatedAt;
 
-  factory ProfileModel.fromJson(Map<String, dynamic> json) {
-    return ProfileModel(
+  factory UserProfileModel.fromJson(Map<String, dynamic> json) {
+    return UserProfileModel(
     id : json['id'],
     address : json['address'],
     phone : json['phone'],
@@ -21,7 +21,7 @@ class ProfileModel {
     );
   }
 
-  ProfileModel(
+  UserProfileModel(
       {required this.id,
       required this.address,
       required this.phone,
