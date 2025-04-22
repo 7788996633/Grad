@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:graduation/presentation/screens/add_user_profile_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation/blocs/profile_bloc/user_profile_bloc.dart';
+import 'package:graduation/presentation/screens/create_user_profile_screen.dart';
 import 'package:graduation/presentation/screens/modify_users_permissions_screen.dart';
 import 'package:graduation/presentation/screens/notifications_screen.dart';
 
@@ -41,7 +43,10 @@ class Home extends StatelessWidget {
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => const AddUserProfileScreen(),
+                  builder: (context) => BlocProvider(
+                    create: (context) => UserProfileBloc(),
+                    child: const CreateUserProfileScreen(),
+                  ),
                 ),
               );
             },
