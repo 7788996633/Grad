@@ -5,105 +5,110 @@ import 'package:http/http.dart' as http;
 import '../../constant.dart';
 
 class ProfileService {
-   Future<dynamic> showProfile()async{
-     var headers = {
-       'Accept': 'application/json',
-       'Authorization': 'Bearer $myToken'
-     };
-     var request = http.Request('GET', Uri.parse('${myUrl}profile'));
+  Future<dynamic> showProfile() async {
+    var headers = {
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $myToken'
+    };
+    var request = http.Request('GET', Uri.parse('${myUrl}profile'));
 
-     request.headers.addAll(headers);
-     var streamedResponse = await request.send();
-     var response = await http.Response.fromStream(streamedResponse);
-     var jsonResponse = json.decode(response.body);
-     print(jsonResponse);
+    request.headers.addAll(headers);
+    var streamedResponse = await request.send();
+    var response = await http.Response.fromStream(streamedResponse);
+    var jsonResponse = json.decode(response.body);
+    print(jsonResponse);
 
-     if (response.statusCode == 200) {
-       if (jsonResponse['status'] == 'success') {
-         return jsonResponse['message'];
-       } else {
-         return 'failed: ${jsonResponse['message']}';
-       }
-     } else {
-       return 'failed: ${response.statusCode} - ${response.reasonPhrase}';
-     }
-   }
-   Future<dynamic> updateProfile(String phone ,String address,String age ,String scientificLevel)async {
-     var headers = {
-       'Accept': 'application/json',
-       'Content-Type': 'application/x-www-form-urlencoded',
-       'Authorization': 'Bearer $myToken'
-     };
-     var request = http.Request('PUT', Uri.parse('${myUrl}profile'));
-     request.bodyFields = {
-       'phone': phone,
-       'address': address,
-       'age': age,
-       'scientificLevel': scientificLevel
-     };
-     request.headers.addAll(headers);
-     var streamedResponse = await request.send();
-     var response = await http.Response.fromStream(streamedResponse);
-     var jsonResponse = json.decode(response.body);
-     print(jsonResponse);
-     if (response.statusCode == 200) {
-       if (jsonResponse['status'] == 'success') {
-         return jsonResponse['message'];
-       } else {
-         return 'failed: ${jsonResponse['message']}';
-       }
-     } else {
-       return 'failed: ${response.statusCode} - ${response.reasonPhrase}';
-     }
-   }
-   Future<dynamic> createProfile(String phone ,String address,String age ,String scientificLevel)async{
-     var headers = {
-       'Accept': 'application/json',
-     };
-     var request = http.MultipartRequest('POST', Uri.parse('${myUrl}profiles/create/'));
-     request.fields.addAll({
-       'phone': phone,
-       'address': address,
-       'age': age,
-       'scientificLevel': scientificLevel
-     });
-
-     request.headers.addAll(headers);
-     var streamedResponse = await request.send();
-     var response = await http.Response.fromStream(streamedResponse);
-     var jsonResponse = json.decode(response.body);
-     print(jsonResponse);
-     if (response.statusCode == 200) {
-       if (jsonResponse['status'] == 'success') {
-         return jsonResponse['message'];
-       } else {
-         return 'failed: ${jsonResponse['message']}';
-       }
-     } else {
-       return 'failed: ${response.statusCode} - ${response.reasonPhrase}';
-     }
-
-   }
-Future<String>deleteProfile()async{
-  var headers = {
-    'Accept': 'application/json',
-  };
-  var request = http.Request('DELETE', Uri.parse('${myUrl}profile'));
-  request.headers.addAll(headers);
-  var streamedResponse = await request.send();
-  var response = await http.Response.fromStream(streamedResponse);
-  var jsonResponse = json.decode(response.body);
-  print(jsonResponse);
-  if (response.statusCode == 200) {
-    if (jsonResponse['status'] == 'success') {
-      return jsonResponse['message'];
+    if (response.statusCode == 200) {
+      if (jsonResponse['status'] == 'success') {
+        return jsonResponse['message'];
+      } else {
+        return 'failed: ${jsonResponse['message']}';
+      }
     } else {
-      return 'failed: ${jsonResponse['message']}';
+      return 'failed: ${response.statusCode} - ${response.reasonPhrase}';
     }
-  } else {
-    return 'failed: ${response.statusCode} - ${response.reasonPhrase}';
   }
 
-}
+  Future<dynamic> updateProfile(
+      String phone, String address, String age, String scientificLevel) async {
+    var headers = {
+      'Accept': 'application/json',
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Authorization': 'Bearer $myToken'
+    };
+    var request = http.Request('PUT', Uri.parse('${myUrl}profile'));
+    request.bodyFields = {
+      'phone': phone,
+      'address': address,
+      'age': age,
+      'scientificLevel': scientificLevel
+    };
+    request.headers.addAll(headers);
+    var streamedResponse = await request.send();
+    var response = await http.Response.fromStream(streamedResponse);
+    var jsonResponse = json.decode(response.body);
+    print(jsonResponse);
+    if (response.statusCode == 200) {
+      if (jsonResponse['status'] == 'success') {
+        return jsonResponse['message'];
+      } else {
+        return 'failed: ${jsonResponse['message']}';
+      }
+    } else {
+      return 'failed: ${response.statusCode} - ${response.reasonPhrase}';
+    }
+  }
 
+  Future<dynamic> createProfile(
+      String phone, String address, String age, String scientificLevel) async {
+    var headers = {
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $myToken'
+    };
+    var request =
+        http.MultipartRequest('POST', Uri.parse('${myUrl}profiles/create/'));
+    request.fields.addAll({
+      'phone': phone,
+      'address': address,
+      'age': age,
+      'scientificLevel': scientificLevel
+    });
+
+    request.headers.addAll(headers);
+    var streamedResponse = await request.send();
+    var response = await http.Response.fromStream(streamedResponse);
+    var jsonResponse = json.decode(response.body);
+    print(jsonResponse);
+    if (response.statusCode == 200) {
+      if (jsonResponse['status'] == 'success') {
+        return jsonResponse['message'];
+      } else {
+        return 'failed: ${jsonResponse['message']}';
+      }
+    } else {
+      return 'failed: ${response.statusCode} - ${response.reasonPhrase}';
+    }
+  }
+
+  Future<String> deleteProfile() async {
+    var headers = {
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $myToken'
+    };
+    var request = http.Request('DELETE', Uri.parse('${myUrl}profile'));
+    request.headers.addAll(headers);
+    var streamedResponse = await request.send();
+    var response = await http.Response.fromStream(streamedResponse);
+    var jsonResponse = json.decode(response.body);
+    print(jsonResponse);
+    if (response.statusCode == 200) {
+      if (jsonResponse['status'] == 'success') {
+        return jsonResponse['message'];
+      } else {
+        return 'failed: ${jsonResponse['message']}';
+      }
+    } else {
+      return 'failed: ${response.statusCode} - ${response.reasonPhrase}';
+    }
+  }
 }
