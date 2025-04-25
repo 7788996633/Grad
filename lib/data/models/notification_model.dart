@@ -13,7 +13,7 @@ class NotificationModel {
     required this.isRead,
   });
 
-  factory NotificationModel.fromJson(json) {
+  factory NotificationModel.fromJson(Map<String, dynamic> json) {
     return NotificationModel(
       id: json['id'],
       type: json['type'],

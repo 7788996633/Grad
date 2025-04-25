@@ -32,27 +32,27 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const CircleAvatar(
+              CircleAvatar(
                 radius: 50,
-                // backgroundImage:
-                // NetworkImage(userProfileModel.image!),
+                backgroundImage: NetworkImage(userProfileModel.image),
                 backgroundColor: Colors.grey,
               ),
               const SizedBox(height: 16),
-              const Text(
-                "Welcome ",
-                style: TextStyle(
+              Text(
+                "Welcome ${userProfileModel.name}",
+                style: const TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
                     color: Colors.blue),
               ),
               const Divider(height: 30, thickness: 1.2),
+              _buildInfoRow(Icons.email, "Email", userProfileModel.email),
               _buildInfoRow(Icons.phone, "Phone", userProfileModel.phone),
               _buildInfoRow(
                   Icons.location_on, "Address", userProfileModel.address),
               _buildInfoRow(Icons.cake, "Age", "${userProfileModel.age}"),
               _buildInfoRowWithNewLine(Icons.school, "Scientific Level",
-                  userProfileModel.scientificLevel!),
+                  userProfileModel.scientificLevel),
             ],
           ),
         ),

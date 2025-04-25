@@ -34,38 +34,81 @@ class _NotificationsListState extends State<NotificationsList> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<NotificationBloc, NotificationState>(
-      builder: (context, state) {
-        if (state is NotificationsListLoaded) {
-          notificationsList = state.notificationsList;
-          return notificationsList.isEmpty
-              ? const Text('There is no notifications')
-              : buildNotificationModel();
-        } else if (state is NotificationFail) {
-          return Column(
-            children: [
-              const Text(
-                "There is an error:",
-                style: TextStyle(
-                  fontSize: 30,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
+    return BlocListener<NotificationBloc, NotificationState>(
+      listener: (context, state) {
+        if (state is NotificationSuccess) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                state.successmsg,
+                style: const TextStyle(fontSize: 16),
               ),
-              Text(
-                state.errmsg,
-                style: const TextStyle(
-                  fontSize: 30,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
+              backgroundColor: Colors.green,
+            ),
           );
-        } else {
-          return const CircularProgressIndicator();
+          BlocProvider.of<NotificationBloc>(context).add(
+            GetAllNotificationsEvent(),
+          );
+        } else if (state is NotificationFail) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                state.errmsg,
+                style: const TextStyle(fontSize: 16),
+              ),
+              backgroundColor: Colors.red,
+            ),
+          );
+        } else if (state is NotificationLoading) {
+          const CircularProgressIndicator();
         }
       },
+      child: Column(
+        children: [
+          BlocBuilder<NotificationBloc, NotificationState>(
+            builder: (context, state) {
+              if (state is NotificationsListLoaded) {
+                notificationsList = state.notificationsList;
+                return notificationsList.isEmpty
+                    ? const Text('There is no notifications')
+                    : buildNotificationModel();
+              } else if (state is NotificationFail) {
+                return Column(
+                  children: [
+                    const Text(
+                      "There is an error:",
+                      style: TextStyle(
+                        fontSize: 30,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      state.errmsg,
+                      style: const TextStyle(
+                        fontSize: 30,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                );
+              } else {
+                return const CircularProgressIndicator();
+              }
+            },
+          ),
+          MaterialButton(
+            color: Colors.grey,
+            onPressed: () {
+              BlocProvider.of<NotificationBloc>(context).add(
+                MarkAllNotificationsReadEvent(),
+              );
+            },
+            child: const Text("Mark All As Read"),
+          ),
+        ],
+      ),
     );
   }
 }

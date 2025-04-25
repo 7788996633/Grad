@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../../constant.dart';
-import '../models/lawyer_model.dart';
 
 class LawyerServices {
   Future<List> getAllLawyers() async {
@@ -59,26 +58,26 @@ class LawyerServices {
     }
   }
 
-  Future<LawyerModel> getLawyerProfileById(int lawyerId) async {
-    var headers = {
-      'Accept': 'application/json',
-      'Authorization': 'Bearer $myToken'
-    };
-    var request = http.Request('GET', Uri.parse('${myUrl}lawyers/$lawyerId'));
-    request.headers.addAll(headers);
-    var streamedResponse = await request.send();
-    var response = await http.Response.fromStream(streamedResponse);
-    var jsonResponse = json.decode(response.body);
-    print(jsonResponse);
-    if (response.statusCode == 200) {
-      if (jsonResponse['status'] == 'success') {
-        return LawyerModel.fromJson(jsonResponse['data']);
-      } else {
-        throw Exception('failed: ${jsonResponse['message']}');
-      }
-    } else {
-      throw Exception(
-          'failed: ${response.statusCode} - ${response.reasonPhrase}');
-    }
-  }
+  // Future<LawyerModel> getLawyerProfileById(int lawyerId) async {
+  //   var headers = {
+  //     'Accept': 'application/json',
+  //     'Authorization': 'Bearer $myToken'
+  //   };
+  //   var request = http.Request('GET', Uri.parse('${myUrl}lawyers/$lawyerId'));
+  //   request.headers.addAll(headers);
+  //   var streamedResponse = await request.send();
+  //   var response = await http.Response.fromStream(streamedResponse);
+  //   var jsonResponse = json.decode(response.body);
+  //   print(jsonResponse);
+  //   if (response.statusCode == 200) {
+  //     if (jsonResponse['status'] == 'success') {
+  //       return LawyerModel.fromJson(jsonResponse['data']);
+  //     } else {
+  //       throw Exception('failed: ${jsonResponse['message']}');
+  //     }
+  //   } else {
+  //     throw Exception(
+  //         'failed: ${response.statusCode} - ${response.reasonPhrase}');
+  //   }
+  // }
 }
