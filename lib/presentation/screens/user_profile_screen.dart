@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:graduation/data/models/user_profile_model.dart';
 
 import '../../blocs/user_profile_bloc/user_profile_bloc.dart';
+import '../../data/models/user_profile_model.dart';
 
 class UserProfileScreen extends StatefulWidget {
   const UserProfileScreen({super.key});
@@ -34,12 +34,13 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
             children: [
               const CircleAvatar(
                 radius: 50,
-                // backgroundImage: AssetImage("assets/profile.png"),
+                // backgroundImage:
+                // NetworkImage(userProfileModel.image!),
                 backgroundColor: Colors.grey,
               ),
               const SizedBox(height: 16),
               const Text(
-                "Welcome",
+                "Welcome ",
                 style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
@@ -155,7 +156,9 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
               ],
             );
           } else {
-            return const Center(child: CircularProgressIndicator());
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
           }
         },
       ),

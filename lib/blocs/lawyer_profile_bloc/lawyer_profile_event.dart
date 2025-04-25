@@ -16,5 +16,17 @@ class CreateLawyerProfileEvent extends LawyerProfileEvent {
       required this.certificatePath});
 }
 
-class ShowLawyerProfileEvent extends LawyerProfileEvent {
+class ShowLawyerProfileEvent extends LawyerProfileEvent {}
+
+class UpdateLawyerProfileEvent extends LawyerProfileEvent {
+  final String licenseNumber;
+  final String experienceYears;
+  final String specialization;
+  final String certificatePath;
+
+  UpdateLawyerProfileEvent(
+      {required this.licenseNumber,
+      required this.experienceYears,
+      required this.specialization,
+      required this.certificatePath});
 }

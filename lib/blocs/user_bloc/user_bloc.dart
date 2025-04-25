@@ -58,6 +58,22 @@ class UserBloc extends Bloc<UserEvent, UserState> {
               ),
             );
           }
+        } else if (event is ChangeUserRole) {
+          try {
+            String value =
+                await UsersServices().changeUserRole(event.userId, event.role);
+            emit(
+              UserSuccess(
+                successmsg: value,
+              ),
+            );
+          } catch (e) {
+            emit(
+              UserFail(
+                errmsg: e.toString(),
+              ),
+            );
+          }
         } else if (event is DeleteUserById) {
           try {
             String value = await UsersServices().deleteUserById(event.userId);

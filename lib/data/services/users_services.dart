@@ -4,7 +4,7 @@ import 'package:graduation/constant.dart';
 import 'package:http/http.dart' as http;
 
 class UsersServices {
-  Future deleteUserById(int userId) async {
+  Future<String> deleteUserById(int userId) async {
     var headers = {
       'Accept': 'application/json',
       'Authorization': 'Bearer $myToken'
@@ -56,7 +56,7 @@ class UsersServices {
     }
   }
 
-  Future changeUserRole(int userId, String role) async {
+  Future<String> changeUserRole(int userId, String role) async {
     var headers = {
       'Accept': 'application/json',
       'Authorization': 'Bearer $myToken',

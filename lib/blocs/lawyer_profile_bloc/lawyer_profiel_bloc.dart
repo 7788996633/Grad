@@ -34,8 +34,8 @@ class LawyerProfileBloc extends Bloc<LawyerProfileEvent, LawyerProfileState> {
           LawyerProfileLoading(),
         );
         try {
-          LawyerModel value = await LawyerProfileServices().getLawyerProfile();
-
+          LawyerModel value =
+              await LawyerProfileServices().getMyLawyerProfile();
           emit(
             LawyerProfileLoadedSuccessfully(lawyerModel: value),
           );
@@ -46,7 +46,27 @@ class LawyerProfileBloc extends Bloc<LawyerProfileEvent, LawyerProfileState> {
             ),
           );
         }
+      } else if (event is UpdateLawyerProfileEvent) {
+        emit(
+          LawyerProfileLoading(),
+        );
+        try {
+          String value = await LawyerProfileServices().creatLawyerProrile(
+              event.licenseNumber,
+              event.experienceYears,
+              event.specialization,
+              event.certificatePath);
+          emit(
+            LawyerProfileSuccess(successmsg: value),
+          );
+        } catch (e) {
+          emit(
+            LawyerProfileFail(
+              errmsg: e.toString(),
+            ),
+          );
+        }
       }
-    });
+    },);
   }
 }

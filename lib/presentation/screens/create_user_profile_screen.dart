@@ -1,7 +1,8 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:graduation/presentation/screens/user_profile_screen.dart';
-
 import '../../blocs/user_profile_bloc/user_profile_bloc.dart';
 import '../widgets/custom_text_field.dart';
 
@@ -21,7 +22,19 @@ class _AddUserProfileScreenState extends State<CreateUserProfileScreen> {
   final TextEditingController scientificLevelController =
       TextEditingController();
 
-  final Color mainColor = const Color(0xFF1E9AD8); // Main color
+  final Color mainColor = const Color(0xFF1E9AD8);
+
+  File? _pickedImage;
+  final ImagePicker _picker = ImagePicker();
+
+  Future<void> _pickImage() async {
+    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    if (image != null) {
+      setState(() {
+        _pickedImage = File(image.path);
+      });
+    }
+  }
 
   @override
   void dispose() {
@@ -85,6 +98,40 @@ class _AddUserProfileScreenState extends State<CreateUserProfileScreen> {
                 icon: Icons.school,
               ),
               const SizedBox(height: 20),
+
+              // صورة البروفايل
+              if (_pickedImage != null)
+                Container(
+                  height: 150,
+                  width: 150,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    image: DecorationImage(
+                      image: FileImage(_pickedImage!),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              const SizedBox(height: 12),
+
+              // زر اختيار الصورة
+              ElevatedButton.icon(
+                onPressed: _pickImage,
+                icon: const Icon(Icons.image, color: Colors.black87),
+                label: const Text(
+                  "Pick Image",
+                  style: TextStyle(fontSize: 16, color: Colors.black87),
+                ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.grey.shade300,
+                  padding: const EdgeInsets.symmetric(vertical: 12),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
+
               BlocConsumer<UserProfileBloc, UserProfileState>(
                 listener: (context, state) {
                   if (state is UserProfileSuccess) {
@@ -121,12 +168,23 @@ class _AddUserProfileScreenState extends State<CreateUserProfileScreen> {
                   return ElevatedButton.icon(
                     onPressed: () {
                       if (myKey.currentState!.validate()) {
+                        if (_pickedImage == null) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text("Please pick an image first"),
+                              backgroundColor: Colors.orange,
+                            ),
+                          );
+                          return;
+                        }
+
                         BlocProvider.of<UserProfileBloc>(context).add(
                           CreateUserProfileEvent(
                             phone: phoneController.text,
                             address: addressController.text,
                             age: ageController.text,
                             scientificLevel: scientificLevelController.text,
+                            imagePath: _pickedImage!.path,
                           ),
                         );
                       }

@@ -4,7 +4,6 @@ import 'package:file_picker/file_picker.dart';
 import 'package:graduation/blocs/lawyer_profile_bloc/lawyer_profiel_bloc.dart';
 import 'package:graduation/presentation/screens/lawyer_profile_screen.dart';
 import 'package:path/path.dart';
-import '../widgets/custom_text_field.dart';
 
 class CreateLawyerProfileScreen extends StatefulWidget {
   const CreateLawyerProfileScreen({super.key});
@@ -22,6 +21,7 @@ class _CreateLawyerProfileScreenState extends State<CreateLawyerProfileScreen> {
       TextEditingController();
   final TextEditingController salaryController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   String? certificateFilePath;
   String? resultMessage;
 
@@ -48,19 +48,54 @@ class _CreateLawyerProfileScreenState extends State<CreateLawyerProfileScreen> {
     }
   }
 
+  Widget buildStyledTextField(String label, TextEditingController controller) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(label, style: const TextStyle(color: Colors.white)),
+        const SizedBox(height: 5),
+        TextFormField(
+          controller: controller,
+          validator: nameValidator,
+          decoration: InputDecoration(
+            filled: true,
+            fillColor: const Color(0xFFD9D9D9),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide:
+                  const BorderSide(color: Color(0xFF8E6944), width: 1.5),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: const BorderSide(color: Color(0xFF8E6944), width: 2),
+            ),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide:
+                  const BorderSide(color: Color(0xFF8E6944), width: 1.5),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFF1E1E1E),
       appBar: AppBar(
-        title: const Text("Create Lawyer Profile"),
+        title: const Text("Create Lawyer Profile",
+            style: TextStyle(color: Colors.white)),
+        backgroundColor: const Color(0xFF472A0C),
       ),
-      body: Container(
-        padding: const EdgeInsets.all(8),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
         child: Form(
           key: formKey,
           child: SingleChildScrollView(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
                   "Add As A Lawyer",
@@ -70,42 +105,25 @@ class _CreateLawyerProfileScreenState extends State<CreateLawyerProfileScreen> {
                       color: Colors.white),
                 ),
                 const SizedBox(height: 16),
-                CustomTextFeild(
-                  text: 'License Number',
-                  controller: licenseNumberController,
-                  validator: nameValidator,
-                  color: Colors.brown,
-                ),
+                buildStyledTextField('License Number', licenseNumberController),
                 const SizedBox(height: 10),
-                CustomTextFeild(
-                  text: 'Experience Years',
-                  controller: experienceYearsController,
-                  validator: nameValidator,
-                  color: Colors.brown,
-                ),
+                buildStyledTextField(
+                    'Experience Years', experienceYearsController),
                 const SizedBox(height: 10),
-                CustomTextFeild(
-                  text: 'Specialization',
-                  controller: specializationController,
-                  validator: nameValidator,
-                  color: Colors.brown,
-                ),
+                buildStyledTextField(
+                    'Specialization', specializationController),
                 const SizedBox(height: 10),
-                CustomTextFeild(
-                  text: 'Salary',
-                  controller: salaryController,
-                  validator: nameValidator,
-                  color: Colors.brown,
-                ),
+                buildStyledTextField('Salary', salaryController),
                 const SizedBox(height: 10),
                 MaterialButton(
-                  color: Colors.brown,
+                  color: const Color(0xFF472A0C),
                   onPressed: _pickCertificate,
                   child: const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("Add certificates "),
-                      Icon(Icons.upload_file),
+                      Text("Add certificates ",
+                          style: TextStyle(color: Colors.white)),
+                      Icon(Icons.upload_file, color: Colors.white),
                     ],
                   ),
                 ),
@@ -114,7 +132,7 @@ class _CreateLawyerProfileScreenState extends State<CreateLawyerProfileScreen> {
                     padding: const EdgeInsets.all(8),
                     child: Text(
                       "📎 File: ${basename(certificateFilePath!)}",
-                      style: const TextStyle(color: Colors.white),
+                      style: const TextStyle(color: Color(0xFF8E6944)),
                     ),
                   ),
                 const SizedBox(height: 10),
@@ -123,10 +141,8 @@ class _CreateLawyerProfileScreenState extends State<CreateLawyerProfileScreen> {
                     if (state is LawyerProfileSuccess) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                          content: Text(
-                            state.successmsg,
-                            style: const TextStyle(fontSize: 16),
-                          ),
+                          content: Text(state.successmsg,
+                              style: const TextStyle(fontSize: 16)),
                           backgroundColor: Colors.green,
                         ),
                       );
@@ -141,42 +157,48 @@ class _CreateLawyerProfileScreenState extends State<CreateLawyerProfileScreen> {
                     } else if (state is LawyerProfileFail) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                          content: Text(
-                            state.errmsg,
-                            style: const TextStyle(fontSize: 16),
-                          ),
+                          content: Text(state.errmsg,
+                              style: const TextStyle(fontSize: 16)),
                           backgroundColor: Colors.red,
                         ),
                       );
                     }
                   },
                   builder: (context, state) {
-                    return ElevatedButton(
-                      onPressed: () {
-                        if (formKey.currentState?.validate() ?? false) {
-                          if (certificateFilePath == null) {
-                            setState(() {
-                              resultMessage =
-                                  "Please select a certificate file first.";
-                            });
-                            return;
-                          }
+                    return Center(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          if (formKey.currentState?.validate() ?? false) {
+                            if (certificateFilePath == null) {
+                              setState(() {
+                                resultMessage =
+                                    "Please select a certificate file first.";
+                              });
+                              return;
+                            }
 
-                          BlocProvider.of<LawyerProfileBloc>(context).add(
-                            CreateLawyerProfileEvent(
-                              licenseNumber: licenseNumberController.text,
-                              experienceYears: experienceYearsController.text,
-                              specialization: specializationController.text,
-                              certificatePath: certificateFilePath!,
-                            ),
-                          );
-                        }
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.brown,
-                        foregroundColor: Colors.white,
+                            BlocProvider.of<LawyerProfileBloc>(context).add(
+                              CreateLawyerProfileEvent(
+                                licenseNumber: licenseNumberController.text,
+                                experienceYears: experienceYearsController.text,
+                                specialization: specializationController.text,
+                                certificatePath: certificateFilePath!,
+                              ),
+                            );
+                          }
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF0F6829),
+                          foregroundColor: Colors.white,
+                          elevation: 8,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 32, vertical: 12),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        child: const Text('Submit'),
                       ),
-                      child: const Text('Submit'),
                     );
                   },
                 ),

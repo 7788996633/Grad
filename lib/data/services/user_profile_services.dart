@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'package:graduation/data/models/user_profile_model.dart';
 import 'package:http/http.dart' as http;
 
 import '../../constant.dart';
+import '../models/user_profile_model.dart';
 
 class UserProfileServices {
   Future<UserProfileModel> showProfile() async {
@@ -11,7 +11,7 @@ class UserProfileServices {
       'Accept': 'application/json',
       'Authorization': 'Bearer $myToken'
     };
-    var request = http.Request('GET', Uri.parse('${myUrl}profile'));
+    var request = http.Request('GET', Uri.parse('${myUrl}myprofile'));
     request.headers.addAll(headers);
     var streamedResponse = await request.send();
     var response = await http.Response.fromStream(streamedResponse);
@@ -60,12 +60,8 @@ class UserProfileServices {
     }
   }
 
-  Future<dynamic> createProfile(
-    String phone,
-    String address,
-    String age,
-    String scientificLevel,
-  ) async {
+  Future<String> createProfile(String phone, String address, String age,
+      String scientificLevel, String imagePath) async {
     var headers = {
       'Accept': 'application/json',
       'Authorization': 'Bearer $myToken'
@@ -80,6 +76,8 @@ class UserProfileServices {
         'scientificLevel': scientificLevel
       },
     );
+    request.files.add(await http.MultipartFile.fromPath('image', imagePath));
+
     request.headers.addAll(headers);
     var streamedResponse = await request.send();
     var response = await http.Response.fromStream(streamedResponse);

@@ -6,23 +6,34 @@ sealed class UserProfileEvent {}
 class DeleteUserProfileEvent extends UserProfileEvent {
   DeleteUserProfileEvent();
 }
+
 class CreateUserProfileEvent extends UserProfileEvent {
-  final  String phone ;
-  final  String address;
-  final  String age ;
-  final  String scientificLevel;
-
-  CreateUserProfileEvent({required this.phone, required this.address, required this.age, required this.scientificLevel});
+  final String phone;
+  final String address;
+  final String age;
+  final String scientificLevel;
+  final String imagePath;
+  CreateUserProfileEvent(
+      {required this.phone,
+      required this.address,
+      required this.age,
+      required this.scientificLevel,
+      required this.imagePath});
 }
+
 class UpdateUserProfileEvent extends UserProfileEvent {
-  final  String phone ;
-  final  String address;
-  final  String age ;
-  final  String scientificLevel;
+  final String phone;
+  final String address;
+  final String age;
+  final String scientificLevel;
 
-  UpdateUserProfileEvent({required this.phone, required this.address, required this.age, required this.scientificLevel});
-
+  UpdateUserProfileEvent(
+      {required this.phone,
+      required this.address,
+      required this.age,
+      required this.scientificLevel});
 }
+
 class ShowUserProfileEvent extends UserProfileEvent {
   ShowUserProfileEvent();
 }

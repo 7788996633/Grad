@@ -47,7 +47,6 @@ class UserItem extends StatelessWidget {
                       ],
                     ),
                   );
-
                   if (confirmed == true) {
                     BlocProvider.of<UserBloc>(context).add(
                       ChangeUserRole(

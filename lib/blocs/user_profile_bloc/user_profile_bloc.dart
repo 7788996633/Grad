@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
+import 'package:graduation/data/models/user_profile_model.dart';
 import 'package:graduation/data/services/user_profile_services.dart';
 import 'package:meta/meta.dart';
 
-import '../../data/models/user_profile_model.dart';
 
 part 'user_profile_event.dart';
 part 'user_profile_state.dart';
@@ -16,7 +16,7 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
         );
         try {
           String value = await UserProfileServices().createProfile(
-              event.phone, event.address, event.age, event.scientificLevel);
+              event.phone, event.address, event.age, event.scientificLevel,event.imagePath);
 
           emit(UserProfileSuccess(successmsg: value));
         } catch (e) {

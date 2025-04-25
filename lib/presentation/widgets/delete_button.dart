@@ -1,15 +1,15 @@
-import 'package:flutter/material.dart';
+// import 'package:flutter/material.dart';
 
-class DeleteButton extends StatelessWidget {
-  final VoidCallback onPressed;
+// class DeleteButton extends StatelessWidget {
+//   final VoidCallback onPressed;
 
-  const DeleteButton({super.key, required this.onPressed});
+//   const DeleteButton({super.key, required this.onPressed});
 
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: onPressed,
-      child: const Text('حذف الموظف'),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return ElevatedButton(
+//       onPressed: onPressed,
+//       child: const Text('حذف الموظف'),
+//     );
+//   }
+// }
