@@ -19,7 +19,9 @@ class UserProfileServices {
     print(jsonResponse);
     if (response.statusCode == 200) {
       if (jsonResponse['status'] == 'success') {
-        return UserProfileModel.fromJson(jsonResponse['data']);
+        return UserProfileModel.fromJson(
+          jsonResponse['data'],
+        );
       } else {
         throw Exception('failed: ${jsonResponse['message']}');
         //زبط بحيث اذا فشل يرجع ايدي سالب وخزن السبب واعرضو لا تنسى
