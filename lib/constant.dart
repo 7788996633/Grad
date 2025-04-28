@@ -1,2 +1,3 @@
 String myToken = '';
-String myUrl = 'http://192.168.138.86:8000/api/';
+String myUrl = "http://${IP}:8000/api/";
+String IP ='192.168.1.105';
