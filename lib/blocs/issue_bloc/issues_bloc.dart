@@ -13,7 +13,7 @@ class IssuesBloc extends Bloc<IssuesEvent, IssuesState> {
     on<IssuesEvent>((event, emit) async {
       if (event is IssueAdd) {
         try {
-          String value = await IssusServices().issueAddService(
+          String value = await IssusServices().issueCreateService(
             event.id,
             event.title,
             event.issueNumber,

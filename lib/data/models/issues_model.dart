@@ -1,58 +1,59 @@
 class IssuesModel {
-  int? id;
-  String? title;
-  String? issueNumber;
-  String? category;
-  String? opponentName;
-  String? courtName;
-  int? numberOfPayments;
-  String? totalCost;
-  String? amountPaid;
-  String? description;
-  int? userId;
-  String? status;
-  String? priority;
-  String? startDate;
-  String? endDate;
-  String? createdAt;
-  String? updatedAt;
+  final int id;
+  final String title;
+  final String issueNumber;
+  final String category;
+  final String opponentName;
+  final String courtName;
+  final int numberOfPayments;
+  final String totalCost;
+  final String amountPaid;
+  final String description;
+  final int userId;
+  final String status;
+  final String priority;
+  final String startDate;
+  final String endDate;
+  final String createdAt;
+  final String updatedAt;
 
   IssuesModel(
-      {this.id,
-      this.title,
-      this.issueNumber,
-      this.category,
-      this.opponentName,
-      this.courtName,
-      this.numberOfPayments,
-      this.totalCost,
-      this.amountPaid,
-      this.description,
-      this.userId,
-      this.status,
-      this.priority,
-      this.startDate,
-      this.endDate,
-      this.createdAt,
-      this.updatedAt});
+      {required this.id,
+      required this.title,
+      required this.issueNumber,
+      required this.category,
+      required this.opponentName,
+      required this.courtName,
+      required this.numberOfPayments,
+      required this.totalCost,
+      required this.amountPaid,
+      required this.description,
+      required this.userId,
+      required this.status,
+      required this.priority,
+      required this.startDate,
+      required this.endDate,
+      required this.createdAt,
+      required this.updatedAt});
 
-  IssuesModel.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    title = json['title'];
-    issueNumber = json['issue_number'];
-    category = json['category'];
-    opponentName = json['opponent_name'];
-    courtName = json['court_name'];
-    numberOfPayments = json['number_of_payments'];
-    totalCost = json['total_cost'];
-    amountPaid = json['amount_paid'];
-    description = json['description'];
-    userId = json['user_id'];
-    status = json['status'];
-    priority = json['priority'];
-    startDate = json['start_date'];
-    endDate = json['end_date'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
+  factory IssuesModel.fromJson(Map<String, dynamic> json) {
+    return IssuesModel(
+        id: json['id'],
+        title: json['title'],
+        issueNumber: json['issue_number'],
+        category: json['category'],
+        opponentName: json['opponent_name'],
+        courtName: json['court_name'],
+        numberOfPayments: json['number_of_payments'],
+        totalCost: json['total_cost'],
+        amountPaid: json['amount_paid'],
+        description: json['description'],
+        userId: json['user_id'],
+        status: json['status'],
+        priority: json['priority'],
+        startDate: json['start_date'],
+        endDate: json['end_date'],
+        createdAt: json['created_at'],
+        updatedAt: json['updated_at']);
   }
 }
