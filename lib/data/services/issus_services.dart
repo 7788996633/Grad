@@ -5,7 +5,7 @@ import 'package:graduation/constant.dart';
 import 'package:graduation/data/models/issues_model.dart';
 
 class IssusServices {
-  Future<String> issueAddService(
+  Future<String> issueCreateService(
     int id,
     String title,
     String issueNumber,

@@ -12,6 +12,7 @@ class IssuesBloc extends Bloc<IssuesEvent, IssuesState> {
   IssuesBloc() : super(IssuesInitial()) {
     on<IssuesEvent>((event, emit) async {
       if (event is IssueAdd) {
+        emit(IssuesLoading());
         try {
           String value = await IssusServices().issueCreateService(
             event.id,
@@ -40,6 +41,7 @@ class IssuesBloc extends Bloc<IssuesEvent, IssuesState> {
           );
         }
       } else if (event is IssueUpdate) {
+        emit(IssuesLoading());
         try {
           String value = await IssusServices().issueUpdateService(
               event.id,
@@ -67,6 +69,7 @@ class IssuesBloc extends Bloc<IssuesEvent, IssuesState> {
           );
         }
       } else if (event is Issuedelete) {
+        emit(IssuesLoading());
         try {
           String value = await IssusServices().issueDeleteService(event.id);
           emit(
@@ -82,6 +85,7 @@ class IssuesBloc extends Bloc<IssuesEvent, IssuesState> {
           );
         }
       } else if (event is IssuesShow) {
+        emit(IssuesLoading());
         try {
           List<IssuesModel> value = await IssuesRepository().getAllIssues();
           emit(
@@ -97,6 +101,7 @@ class IssuesBloc extends Bloc<IssuesEvent, IssuesState> {
           );
         }
       } else if (event is IssueShowbyId) {
+        emit(IssuesLoading());
         try {
           IssuesModel value = await IssusServices().issueShowService(event.id);
           emit(
