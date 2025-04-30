@@ -99,8 +99,7 @@ class IssusServices {
       'Accept': 'application/json',
       'Authorization': 'Bearer $myToken'
     };
-    var request =
-        http.MultipartRequest('GET', Uri.parse('${myUrl}issues/${id}'));
+    var request = http.MultipartRequest('GET', Uri.parse('${myUrl}issues/$id'));
 
     request.headers.addAll(headers);
     var streamedResponse = await request.send();
