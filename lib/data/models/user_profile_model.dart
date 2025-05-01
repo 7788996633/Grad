@@ -10,7 +10,8 @@ class UserProfileModel {
   final String image;
 
   factory UserProfileModel.fromJson(Map<String, dynamic> json) {
-    return UserProfileModel(name:  json['name'],email: json['email'],
+    return UserProfileModel(
+      name: json['name'], email: json['email'],
       address: json['address'],
       phone: json['phone'],
       scientificLevel: json['scientificLevel'],
@@ -23,7 +24,6 @@ class UserProfileModel {
   UserProfileModel({
     required this.name,
     required this.email,
-
     required this.address,
     required this.phone,
     required this.scientificLevel,
