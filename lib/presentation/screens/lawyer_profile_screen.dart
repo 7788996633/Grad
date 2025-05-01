@@ -22,7 +22,7 @@ class _LawyerProfileScreenState extends State<LawyerProfileScreen> {
   void initState() {
     super.initState();
 
-    context.read<LawyerProfileBloc>().add(ShowLawyerProfileEvent());ل
+    context.read<LawyerProfileBloc>().add(ShowLawyerProfileEvent());
   }
 
   Widget buildInfoTile(IconData icon, String label, String value, {Widget? customWidget}) {
