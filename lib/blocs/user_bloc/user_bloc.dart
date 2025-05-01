@@ -62,6 +62,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
           try {
             String value =
                 await UsersServices().changeUserRole(event.userId, event.role);
+
             emit(
               UserSuccess(
                 successmsg: value,
@@ -89,37 +90,25 @@ class UserBloc extends Bloc<UserEvent, UserState> {
               ),
             );
           }
+        } else if (event is GetUserRole) {
+          emit(
+            UserLoading(),
+          );
+          try {
+            String role = await UsersServices().getMyRole();
+            emit(
+              UserSuccess(
+                successmsg: role.toLowerCase(),
+              ),
+            );
+          } catch (e) {
+            emit(
+              UserFail(
+                errmsg: e.toString(),
+              ),
+            );
+          }
         }
-        //  else if (event is GetUserRole) {
-        //   emit(
-        //     UserLoading(),
-        //   );
-        //   try {
-        //     String role =
-        //         await UserServices().getUserRoleInGroup(event.groupId);
-        //       if (role == 'owner') {
-        //         emit(
-        //           UserRoleIsAdmin(),
-        //         );
-        //       } else if (role == 'user') {
-        //         emit(
-        //           UserRoleIsMember(),
-        //         );
-        //       } else {
-        //         emit(
-        //           UserFail(
-        //             errmsg: role,
-        //           ),
-        //         );
-        //       }
-        //   } catch (e) {
-        //     emit(
-        //       UserFail(
-        //         errmsg: e.toString(),
-        //       ),
-        //     );
-        //   }
-        // }
       },
     );
   }
