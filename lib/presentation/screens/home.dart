@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 
-import 'lawyers_button.dart';
+import 'ls.dart';
 import 'modify_users_permissions_screen.dart';
 import 'notifications_screen.dart';
 import 'p.dart';

@@ -19,12 +19,17 @@ class ProfileScreenLauncher extends StatelessWidget {
         onPressed: () {
 
           Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => LawyerProfileScreen()),
-          );
+              context,
+              MaterialPageRoute(
+              builder: (_) => BlocProvider(
+            create: (_) => LawyerProfileBloc(), // بدون أي أحداث هنا
+            child: const LawyerProfileScreen(),
+          ),
+          ));
 
 
-    },
+
+        },
     child: const Text("اذهب إلى ملفي الشخصي"),
     ),
 

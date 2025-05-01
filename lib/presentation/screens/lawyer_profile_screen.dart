@@ -2,18 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart'; // استيراد المكتبة لعرض ملفات PDF
 import 'package:http/http.dart' as http; // استيراد مكتبة http لتحميل الملفات
-import 'package:path/path.dart';
 import '../../blocs/lawyer_profile_bloc/lawyer_profiel_bloc.dart';
 import '../../constant.dart';
 import '../../data/models/lawyer_model.dart';
 import '../../data/models/user_profile_model.dart';
 import '../pdf_viewer_page.dart';
-
-class LawyerProfileScreen extends StatelessWidget {
+class LawyerProfileScreen extends StatefulWidget {
   const LawyerProfileScreen({Key? key}) : super(key: key);
 
+  @override
+  State<LawyerProfileScreen> createState() => _LawyerProfileScreenState();
+}
+
+class _LawyerProfileScreenState extends State<LawyerProfileScreen> {
   final Color customColor = const Color(0xFF472A0C);
   final Color valueColor = const Color(0xFF0F6829);
+
+  @override
+  void initState() {
+    super.initState();
+
+    context.read<LawyerProfileBloc>().add(ShowLawyerProfileEvent());ل
+  }
 
   Widget buildInfoTile(IconData icon, String label, String value, {Widget? customWidget}) {
     return Container(
@@ -27,14 +37,8 @@ class LawyerProfileScreen extends StatelessWidget {
               text: TextSpan(
                 style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                 children: [
-                  TextSpan(
-                    text: "$label: ",
-                    style: TextStyle(color: customColor),
-                  ),
-                  TextSpan(
-                    text: value,
-                    style: TextStyle(color: valueColor),
-                  ),
+                  TextSpan(text: "$label: ", style: TextStyle(color: customColor)),
+                  TextSpan(text: value, style: TextStyle(color: valueColor)),
                 ],
               ),
             ),
@@ -43,7 +47,6 @@ class LawyerProfileScreen extends StatelessWidget {
       ),
     );
   }
-
 
   void openPDF(BuildContext context, String certificateUrl) async {
     final baseUrl = myUrl;
@@ -59,11 +62,9 @@ class LawyerProfileScreen extends StatelessWidget {
         ),
       );
     } else {
-      // في حال حدوث مشكلة في تحميل الملف
       print("Failed to load PDF: ${response.statusCode}");
     }
   }
-
 
   Widget buildProfileUI(LawyerModel lawyer, UserProfileModel user, BuildContext context) {
     return Center(
@@ -85,19 +86,9 @@ class LawyerProfileScreen extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              CircleAvatar(
-                radius: 45,
-                backgroundImage: NetworkImage(user.image),
-              ),
+              CircleAvatar(radius: 45, backgroundImage: NetworkImage(user.image)),
               const SizedBox(height: 10),
-              Text(
-                "Lawyer ${user.name}",
-                style: const TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
-              ),
+              Text("Lawyer ${user.name}", style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.black)),
               const SizedBox(height: 20),
               buildInfoTile(Icons.person, "Name", user.name),
               buildInfoTile(Icons.email, "Email", user.email),
@@ -112,7 +103,7 @@ class LawyerProfileScreen extends StatelessWidget {
                 "Certificate",
                 lawyer.certificate,
                 customWidget: ElevatedButton(
-                  onPressed: () => openPDF(context, lawyer.certificate),  // Pass context here
+                  onPressed: () => openPDF(context, lawyer.certificate),
                   child: Text("View Certificate", style: TextStyle(fontSize: 16)),
                 ),
               ),
@@ -133,60 +124,34 @@ class LawyerProfileScreen extends StatelessWidget {
             onPressed: () {
               // Navigate to Edit Lawyer Profile Screen
             },
-            icon: const Icon(
-              Icons.edit,
-              color: Colors.white,
-            ),
+            icon: const Icon(Icons.edit, color: Colors.white),
           ),
         ],
         backgroundColor: customColor,
-        title: const Text(
-          "Lawyer Profile",
-          style: TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 22, color: Colors.white),
-        ),
+        title: const Text("Lawyer Profile", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22, color: Colors.white)),
         centerTitle: true,
         elevation: 4,
       ),
-      body: BlocProvider(
-        create: (context) => LawyerProfileBloc()..add(ShowLawyerProfileEvent()),
-        child: BlocBuilder<LawyerProfileBloc, LawyerProfileState>(
-          builder: (context, state) {
-            if (state is LawyerProfileLoading) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (state is LawyerProfileLoadedSuccessfully) {
-              LawyerModel lawyer = state.lawyerModel;
-              UserProfileModel user = state.userProfileModel;
-              return buildProfileUI(lawyer, user, context);  // Pass BuildContext here
-            } else if (state is LawyerProfileFail) {
-              return Center(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const Text(
-                      "There is an error:",
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.red,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    Text(
-                      state.errmsg,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        color: Colors.black,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                ),
-              );
-            }
-            return const Center(child: Text('Something went wrong'));
-          },
-        ),
+      body: BlocBuilder<LawyerProfileBloc, LawyerProfileState>(
+        builder: (context, state) {
+          if (state is LawyerProfileLoading) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (state is LawyerProfileLoadedSuccessfully) {
+            return buildProfileUI(state.lawyerModel, state.userProfileModel, context);
+          } else if (state is LawyerProfileFail) {
+            return Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Text("There is an error:", style: TextStyle(fontSize: 20, color: Colors.red, fontWeight: FontWeight.bold)),
+                  const SizedBox(height: 10),
+                  Text(state.errmsg, style: const TextStyle(fontSize: 16, color: Colors.black), textAlign: TextAlign.center),
+                ],
+              ),
+            );
+          }
+          return const Center(child: Text('Something went wrong'));
+        },
       ),
     );
   }
