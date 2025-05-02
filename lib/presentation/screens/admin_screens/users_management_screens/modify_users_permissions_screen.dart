@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:graduation/blocs/user_bloc/user_bloc.dart';
-import 'package:graduation/presentation/widgets/users_list.dart';
+
+import '../../../../blocs/user_bloc/user_bloc.dart';
+import '../../../widgets/users_list.dart';
 
 class ModifyUsersPermissionsScreen extends StatefulWidget {
   const ModifyUsersPermissionsScreen({super.key});

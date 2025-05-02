@@ -1,4 +1,4 @@
-import 'package:graduation/data/services/users_services.dart';
+import '../../../data/services/users_services.dart';
 import '../../data/models/user_model.dart';
 
 class UsersRepositories {

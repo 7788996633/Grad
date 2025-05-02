@@ -1,8 +1,9 @@
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
-import 'package:graduation/data/services/employee_services.dart';
 import 'package:meta/meta.dart';
+
+import '../../data/services/employee_services.dart';
 part 'employee_event.dart';
 part 'employee_state.dart';
 

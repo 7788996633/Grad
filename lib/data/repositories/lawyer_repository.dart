@@ -1,4 +1,4 @@
-import 'package:graduation/data/services/lawyer_services.dart';
+import '../../../data/services/lawyer_services.dart';
 
 import '../models/lawyer_model.dart';
 
