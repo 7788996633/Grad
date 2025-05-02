@@ -1,8 +1,9 @@
 import 'package:bloc/bloc.dart';
-import 'package:graduation/data/models/notification_model.dart';
-import 'package:graduation/data/repositories/notifications_repositories.dart';
-import 'package:graduation/data/services/notifications_services.dart';
 import 'package:meta/meta.dart';
+
+import '../../data/models/notification_model.dart';
+import '../../data/repositories/notifications_repositories.dart';
+import '../../data/services/notifications_services.dart';
 
 part 'notification_event.dart';
 part 'notification_state.dart';

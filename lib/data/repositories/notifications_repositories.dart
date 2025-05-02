@@ -1,5 +1,5 @@
-import 'package:graduation/data/models/notification_model.dart';
-import 'package:graduation/data/services/notifications_services.dart';
+import '../../../data/models/notification_model.dart';
+import '../../../data/services/notifications_services.dart';
 
 class NotificationsRepositories {
   Future<List<NotificationModel>> getAllNotifications() async {

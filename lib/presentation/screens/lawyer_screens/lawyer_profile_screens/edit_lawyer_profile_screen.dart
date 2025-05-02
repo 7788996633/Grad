@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:path/path.dart';
-import 'package:graduation/data/models/lawyer_model.dart';
+
+import '../../../../data/models/lawyer_model.dart';
 
 class EditLawyerProfileScreen extends StatefulWidget {
   final LawyerModel lawyer;

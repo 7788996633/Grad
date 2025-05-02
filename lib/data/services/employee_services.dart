@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:graduation/constant.dart';
+import '../../../constant.dart';
 import 'package:http/http.dart' as http;
 
 class EmployeeServices {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:graduation/constant.dart';
 
+import '../../../constant.dart';
 import '../factories/role_screen_facroty.dart';
 import '../factories/screen_type.dart';
 
