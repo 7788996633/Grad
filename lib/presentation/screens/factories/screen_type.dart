@@ -1,3 +1,5 @@
 enum ScreenType {
-  home,
+  main,
+  settings,
+  profile,
 }

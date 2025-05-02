@@ -18,6 +18,13 @@ class CreateLawyerProfileEvent extends LawyerProfileEvent {
 
 class ShowLawyerProfileEvent extends LawyerProfileEvent {}
 
+class ShowLawyerProfileByIdEvent extends LawyerProfileEvent {
+  final int lawyerId;
+  final int userId;
+
+  ShowLawyerProfileByIdEvent({required this.lawyerId, required this.userId});
+}
+
 class UpdateLawyerProfileEvent extends LawyerProfileEvent {
   final String licenseNumber;
   final String experienceYears;
@@ -30,3 +37,5 @@ class UpdateLawyerProfileEvent extends LawyerProfileEvent {
       required this.specialization,
       required this.certificatePath});
 }
+
+class DeleteLawyerProfileEvent extends LawyerProfileEvent {}

@@ -58,26 +58,25 @@ class LawyerServices {
     }
   }
 
-  // Future<LawyerModel> getLawyerProfileById(int lawyerId) async {
+  // Future<LawyerModel> getLawyerById(int lawyerId) async {
   //   var headers = {
   //     'Accept': 'application/json',
-  //     'Authorization': 'Bearer $myToken'
+  //     'Authorization': 'Bearer $myToken',
   //   };
-  //   var request = http.Request('GET', Uri.parse('${myUrl}lawyers/$lawyerId'));
+
+  //   var request =
+  //       http.MultipartRequest('GET', Uri.parse('${myUrl}lawyers/$lawyerId'));
   //   request.headers.addAll(headers);
+
   //   var streamedResponse = await request.send();
   //   var response = await http.Response.fromStream(streamedResponse);
   //   var jsonResponse = json.decode(response.body);
   //   print(jsonResponse);
-  //   if (response.statusCode == 200) {
-  //     if (jsonResponse['status'] == 'success') {
-  //       return LawyerModel.fromJson(jsonResponse['data']);
-  //     } else {
-  //       throw Exception('failed: ${jsonResponse['message']}');
-  //     }
+
+  //   if (response.statusCode == 200 && jsonResponse['status'] == 'success') {
+  //     return jsonResponse['data'];
   //   } else {
-  //     throw Exception(
-  //         'failed: ${response.statusCode} - ${response.reasonPhrase}');
+  //     throw Exception('Failed to load lawyer');
   //   }
   // }
 }

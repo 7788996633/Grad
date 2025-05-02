@@ -1,30 +1,33 @@
-import '../home_screens/admin_home_screen.dart';
-import '../home_screens/dafault_home_screen.dart';
-import '../home_screens/lawyer_home_screen.dart';
-import 'role_screen.dart';
-import 'screen_type.dart';
+import 'package:flutter/material.dart';
+import 'package:graduation/presentation/screens/factories/screen_type.dart';
+import 'package:graduation/presentation/screens/home/hr_home_page.dart';
+import 'package:graduation/presentation/screens/home/lawyer_home_page.dart';
+
+import '../home/accountant_home_page.dart';
+import '../home/user_home_page.dart';
+import '../home/admin_home_screen.dart';
+import '../home/dafault_home_screen.dart';
 
 class RoleScreenFactory {
-  static final Map<String, Map<ScreenType, RoleScreen>> roleScreensMap = {
+  static final Map<String, Map<ScreenType, Widget>> roleScreensMap = {
     'admin': {
-      ScreenType.home: AdminHomeScreen(),
+      ScreenType.main: const AdminHomeScreen(),
     },
     'lawyer': {
-      ScreenType.home: LawyerHomeScreen(),
+      ScreenType.main: const LawyerHomePage(),
     },
     'user': {
-      ScreenType.home: LawyerHomeScreen(),
+      ScreenType.main: const UserHomePage(),
+    },
+    'hr': {
+      ScreenType.main: const HrHomePage(),
+    },
+    'accountant': {
+      ScreenType.main: const AccountantHomePage(),
     },
   };
 
-  static RoleScreen getScreen(String role, ScreenType screenType) {
-    final roleScreens = roleScreensMap[role];
-    if (roleScreens != null) {
-      final screen = roleScreens[screenType];
-      if (screen != null) {
-        return screen;
-      }
-    }
-    return DefaultScreen();
+  static Widget getScreen(String role, ScreenType screenType) {
+    return roleScreensMap[role]?[screenType] ?? const DefaultScreen();
   }
 }

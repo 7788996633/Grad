@@ -1,17 +1,23 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+import 'package:flutter_pdfview/flutter_pdfview.dart';
 
-class PdfViewerPage extends StatelessWidget {
-  final String filePath;
+class PDFViewerPage extends StatelessWidget {
+  final String pdfContent;
 
-  const PdfViewerPage({super.key, required this.filePath});
+  const PDFViewerPage({super.key, required this.pdfContent});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Certificate Viewer")),
-      body: SfPdfViewer.file(File(filePath)),
+      appBar: AppBar(
+        title: const Text("PDF Viewer"),
+      ),
+      body: PDFView(
+        filePath: pdfContent,
+        onPageError: (page, error) {
+          print("Error: $error");
+        },
+      ),
     );
   }
 }

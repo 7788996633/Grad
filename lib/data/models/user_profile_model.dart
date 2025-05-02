@@ -6,17 +6,18 @@ class UserProfileModel {
   final String phone;
   final String scientificLevel;
   final int age;
-  // final int userId;
+  final int userId;
   final String image;
 
   factory UserProfileModel.fromJson(Map<String, dynamic> json) {
     return UserProfileModel(
-      name: json['name'], email: json['email'],
+      name: json['name'],
+      email: json['email'],
       address: json['address'],
       phone: json['phone'],
       scientificLevel: json['scientificLevel'],
       age: json['age'],
-      // userId: json['user_id'],
+      userId: json['user_id'],
       image: json['image'],
     );
   }
@@ -28,7 +29,7 @@ class UserProfileModel {
     required this.phone,
     required this.scientificLevel,
     required this.age,
-    // required this.userId,
+    required this.userId,
     required this.image,
   });
 }
