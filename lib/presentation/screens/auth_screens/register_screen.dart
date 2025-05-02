@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../blocs/auth_bloc/auth_bloc.dart';
-import '../../constant.dart';
-import '../widgets/custom_text_field.dart';
+import '../../../blocs/auth_bloc/auth_bloc.dart';
+import '../../../constant.dart';
+import '../../widgets/custom_text_field.dart';
 import 'login_screen.dart';
-import 'home/admin_home_page.dart';
+import '../home/admin_home_page.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});

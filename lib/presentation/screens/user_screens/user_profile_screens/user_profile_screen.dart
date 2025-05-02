@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:file_picker/file_picker.dart';
 
-import '../../blocs/user_profile_bloc/user_profile_bloc.dart';
-import '../../data/models/user_profile_model.dart';
-import '../widgets/delete_profile_button.dart';
-import '../widgets/edit_profile_button.dart';
+import '../../../../blocs/user_profile_bloc/user_profile_bloc.dart';
+import '../../../../data/models/user_profile_model.dart';
+import '../../../widgets/delete_profile_button.dart';
+import '../../../widgets/edit_profile_button.dart';
 
 class UserProfileScreen extends StatefulWidget {
   const UserProfileScreen({super.key});

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../blocs/lawyer_profile_bloc/lawyer_profiel_bloc.dart';
-import 'lawyer_profile_screen.dart';
+import 'lawyer_screens/lawyer_profile_screens/lawyer_profile_screen.dart';
 
 class ProfileScreenLauncher extends StatelessWidget {
   const ProfileScreenLauncher({super.key});

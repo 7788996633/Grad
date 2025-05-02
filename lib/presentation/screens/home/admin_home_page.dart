@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../ls.dart';
-import '../modify_users_permissions_screen.dart';
+import '../admin_screens/users_management_screens/modify_users_permissions_screen.dart';
 import '../notifications_screen.dart';
 import '../p.dart';
 

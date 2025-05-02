@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation/blocs/lawyer_profile_bloc/lawyer_profiel_bloc.dart';
-import 'package:graduation/presentation/screens/lawyer_details_screen.dart';
+import 'package:graduation/presentation/screens/lawyer_screens/lawyer_profile_screens/lawyer_details_screen.dart';
 import '../../blocs/lawyer_bloc/lawyer_bloc.dart';
 import '../../blocs/lawyer_bloc/lawyer_event.dart';
 import '../../blocs/lawyer_bloc/lawyer_state.dart';
 import '../../data/models/lawyer_model.dart';
 
-class LawyersScreen extends StatefulWidget {
-  const LawyersScreen({super.key});
+class LawyersListScreen extends StatefulWidget {
+  const LawyersListScreen({super.key});
 
   @override
-  State<LawyersScreen> createState() => _LawyersScreenState();
+  State<LawyersListScreen> createState() => _LawyersScreenState();
 }
 
-class _LawyersScreenState extends State<LawyersScreen> {
+class _LawyersScreenState extends State<LawyersListScreen> {
   final TextEditingController _searchController = TextEditingController();
   late LawyerBloc bloc;
   List<LawyerModel> _allLawyers = [];

@@ -2,9 +2,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:graduation/presentation/screens/user_profile_screen.dart';
-import '../../blocs/user_profile_bloc/user_profile_bloc.dart';
-import '../widgets/custom_text_field.dart';
+import 'package:graduation/presentation/screens/user_screens/user_profile_screens/user_profile_screen.dart';
+import '../../../../blocs/user_profile_bloc/user_profile_bloc.dart';
+import '../../../widgets/custom_text_field.dart';
 
 class CreateUserProfileScreen extends StatefulWidget {
   const CreateUserProfileScreen({super.key});
