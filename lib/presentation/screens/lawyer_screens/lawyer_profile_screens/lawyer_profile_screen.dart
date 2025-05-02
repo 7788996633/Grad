@@ -1,22 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http; // استيراد مكتبة http لتحميل الملفات
-import '../../blocs/lawyer_profile_bloc/lawyer_profiel_bloc.dart';
-import '../../constant.dart';
-import '../../data/models/lawyer_model.dart';
-import '../../data/models/user_profile_model.dart';
-import '../pdf_viewer_page.dart';
+import '../../../../blocs/lawyer_profile_bloc/lawyer_profiel_bloc.dart';
+import '../../../../constant.dart';
+import '../../../../data/models/lawyer_model.dart';
+import '../../../../data/models/user_profile_model.dart';
+import '../../../pdf_viewer_page.dart';
 
-class LawyerDetailsScreen extends StatefulWidget {
-  const LawyerDetailsScreen(
-      {super.key, required this.lawyerId, required this.userId});
-  final int lawyerId;
-  final int userId;
+class LawyerProfileScreen extends StatefulWidget {
+  const LawyerProfileScreen({super.key});
+
   @override
-  State<LawyerDetailsScreen> createState() => _LawyerDetailsScreenState();
+  State<LawyerProfileScreen> createState() => _LawyerProfileScreenState();
 }
 
-class _LawyerDetailsScreenState extends State<LawyerDetailsScreen> {
+class _LawyerProfileScreenState extends State<LawyerProfileScreen> {
   final Color customColor = const Color(0xFF472A0C);
   final Color valueColor = const Color(0xFF0F6829);
 
@@ -24,10 +22,7 @@ class _LawyerDetailsScreenState extends State<LawyerDetailsScreen> {
   void initState() {
     super.initState();
 
-    BlocProvider.of<LawyerProfileBloc>(context).add(
-      ShowLawyerProfileByIdEvent(
-          lawyerId: widget.lawyerId, userId: widget.userId),
-    );
+    context.read<LawyerProfileBloc>().add(ShowLawyerProfileEvent());
   }
 
   Widget buildInfoTile(IconData icon, String label, String value,
@@ -63,11 +58,7 @@ class _LawyerDetailsScreenState extends State<LawyerDetailsScreen> {
     final baseUrl = myUrl;
     final fullUrl = Uri.encodeFull(baseUrl + certificateUrl);
 
-    final response = await http.get(
-      Uri.parse(
-        fullUrl,
-      ),
-    );
+    final response = await http.get(Uri.parse(fullUrl));
 
     if (response.statusCode == 200) {
       Navigator.of(context).push(
@@ -143,15 +134,20 @@ class _LawyerDetailsScreenState extends State<LawyerDetailsScreen> {
     return Scaffold(
       backgroundColor: const Color(0xFFF5F6FA),
       appBar: AppBar(
-        backgroundColor: customColor,
-        title: const Text(
-          "Lawyer Profile",
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 22,
-            color: Colors.white,
+        actions: [
+          IconButton(
+            onPressed: () {
+              // Navigate to Edit Lawyer Profile Screen
+            },
+            icon: const Icon(Icons.edit, color: Colors.white),
           ),
-        ),
+        ],
+        backgroundColor: customColor,
+        title: const Text("Lawyer Profile",
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 22,
+                color: Colors.white)),
         centerTitle: true,
         elevation: 4,
       ),

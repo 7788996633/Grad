@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation/presentation/screens/home/home_page.dart';
-import '../../blocs/auth_bloc/auth_bloc.dart';
-import '../../blocs/user_bloc/user_bloc.dart'; 
-import '../../constant.dart';
-import '../widgets/custom_text_field.dart';
+import '../../../blocs/auth_bloc/auth_bloc.dart';
+import '../../../blocs/user_bloc/user_bloc.dart'; 
+import '../../../constant.dart';
+import '../../widgets/custom_text_field.dart';
 import 'register_screen.dart';
 
 class LoginScreen extends StatefulWidget {
