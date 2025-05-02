@@ -3,9 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation/blocs/auth_bloc/auth_bloc.dart';
 import 'package:graduation/presentation/screens/login_screen.dart';
 
+import 'blocs/my_bloc_observere.dart';
 import 'blocs/user_bloc/user_bloc.dart';
 
 void main() {
+  Bloc.observer = MyBlocObserver();
   runApp(const MyApp());
 }
 

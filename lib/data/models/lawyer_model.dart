@@ -1,4 +1,3 @@
-
 class LawyerModel {
   final int id;
   final String licenseNumber;
@@ -9,6 +8,11 @@ class LawyerModel {
   final String specialization;
   final int userId;
   final String createdAt;
+  String name = 'Bashar';
+  String email = 'b@gmail.com';
+  String age = '33';
+  String address = 'Damascus';
+  String phone = '0937841338';
 
   LawyerModel({
     required this.id,

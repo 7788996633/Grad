@@ -26,12 +26,13 @@ class UpdateUserProfileEvent extends UserProfileEvent {
   final String address;
   final String age;
   final String scientificLevel;
+  final String imagePath;
 
   UpdateUserProfileEvent(
       {required this.phone,
       required this.address,
       required this.age,
-      required this.scientificLevel});
+      required this.scientificLevel,required this.imagePath});
 }
 
 class ShowUserProfileEvent extends UserProfileEvent {

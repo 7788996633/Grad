@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 
-import '../factories/role_screen.dart';
+class DefaultScreen extends StatelessWidget {
+  const DefaultScreen({super.key});
 
-class AdminHomeScreen implements RoleScreen {
   @override
-  Widget build() {
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Admin Home',
+          'Default Home',
         ),
       ),
       body: const Center(
         child: Text(
-          'Welcome Admin to Home',
+          'Welcome to Default Home',
         ),
       ),
     );

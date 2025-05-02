@@ -5,7 +5,7 @@ import '../../blocs/auth_bloc/auth_bloc.dart';
 import '../../constant.dart';
 import '../widgets/custom_text_field.dart';
 import 'login_screen.dart';
-import 'home.dart';
+import 'home/admin_home_page.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -141,7 +141,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         const Text(
                           "Register",
                           style: TextStyle(
-                            fontSize: 20,
+                            fontSize: 24,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -172,8 +172,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               backgroundColor: const Color(0xFF2196F3),
-                              padding:
-                              const EdgeInsets.symmetric(vertical: 14),
+                              padding: const EdgeInsets.symmetric(vertical: 14),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8),
                               ),
@@ -187,18 +186,37 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                         const SizedBox(height: 10),
                         const Divider(),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                builder: (context) => const LoginScreen(),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text(
+                              "Already have an account? ",
+                              style: TextStyle(
+                                color: Colors.black54,
+                                fontSize: 14,
                               ),
-                            );
-                          },
-                          child: const Text(
-                            "Already have an account? Login",
-                            style: TextStyle(color: Colors.black54),
-                          ),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                    builder: (context) => BlocProvider(
+                                      create: (context) => AuthBloc(),
+                                      child: const LoginScreen(),
+                                    ),
+                                  ),
+                                );
+                              },
+                              child: const Text(
+                                "Login",
+                                style: TextStyle(
+                                  color: Color(0xFF2196F3),
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
