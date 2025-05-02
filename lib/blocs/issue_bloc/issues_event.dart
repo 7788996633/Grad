@@ -4,8 +4,6 @@ part of 'issues_bloc.dart';
 sealed class IssuesEvent {}
 
 class IssueAdd extends IssuesEvent {
-  final int id;
-
   final String title;
 
   final String issueNumber;
@@ -24,8 +22,7 @@ class IssueAdd extends IssuesEvent {
   final String opponentName;
 
   IssueAdd(
-      {required this.id,
-      required this.title,
+      {required this.title,
       required this.issueNumber,
       required this.category,
       required this.courtName,

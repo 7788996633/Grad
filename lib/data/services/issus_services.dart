@@ -6,7 +6,6 @@ import 'package:graduation/data/models/issues_model.dart';
 
 class IssusServices {
   Future<String> issueCreateService(
-    int id,
     String title,
     String issueNumber,
     String category,
@@ -23,8 +22,7 @@ class IssusServices {
       'Accept': 'application/json',
       'Authorization': 'Bearer $myToken'
     };
-    var request =
-        http.MultipartRequest('POST', Uri.parse('${myUrl}issues/$id'));
+    var request = http.MultipartRequest('POST', Uri.parse('${myUrl}issues/'));
     request.fields.addAll({
       'title': title,
       'issue_number': issueNumber,

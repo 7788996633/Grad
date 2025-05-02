@@ -15,7 +15,6 @@ class IssuesBloc extends Bloc<IssuesEvent, IssuesState> {
         emit(IssuesLoading());
         try {
           String value = await IssusServices().issueCreateService(
-            event.id,
             event.title,
             event.issueNumber,
             event.category,
@@ -89,7 +88,7 @@ class IssuesBloc extends Bloc<IssuesEvent, IssuesState> {
         try {
           List<IssuesModel> value = await IssuesRepository().getAllIssues();
           emit(
-            IssuesListSuccessFully(
+            IssuesListLoadedSuccessFully(
               issues: value,
             ),
           );
@@ -105,7 +104,7 @@ class IssuesBloc extends Bloc<IssuesEvent, IssuesState> {
         try {
           IssuesModel value = await IssusServices().issueShowService(event.id);
           emit(
-            IssuesSuccessFully(issue: value),
+            IssuesLoadedSuccessFully(issue: value),
           );
         } catch (e) {
           emit(

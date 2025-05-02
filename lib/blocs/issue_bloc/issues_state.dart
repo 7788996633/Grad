@@ -11,16 +11,16 @@ final class IssuesSuccess extends IssuesState {
   IssuesSuccess({required this.successmsg});
 }
 
-final class IssuesSuccessFully extends IssuesState {
+final class IssuesLoadedSuccessFully extends IssuesState {
   final IssuesModel issue;
 
-  IssuesSuccessFully({required this.issue});
+  IssuesLoadedSuccessFully({required this.issue});
 }
 
-final class IssuesListSuccessFully extends IssuesState {
+final class IssuesListLoadedSuccessFully extends IssuesState {
   final List<IssuesModel> issues;
 
-  IssuesListSuccessFully({required this.issues});
+  IssuesListLoadedSuccessFully({required this.issues});
 }
 
 final class IssuesLoading extends IssuesState {}
