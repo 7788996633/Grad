@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../blocs/issue_bloc/issues_bloc.dart';
-import '../../data/models/issues_model.dart';
+import '../../../../blocs/issue_bloc/issues_bloc.dart';
+import '../../../../data/models/issues_model.dart';
 import 'edit_issue_screen.dart';
 
 class Issuescreen extends StatefulWidget {

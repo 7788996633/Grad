@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../data/models/issues_model.dart';
+import '../../../../data/models/issues_model.dart';
 
 class EditIssueScreen extends StatefulWidget {
   final IssuesModel issue;

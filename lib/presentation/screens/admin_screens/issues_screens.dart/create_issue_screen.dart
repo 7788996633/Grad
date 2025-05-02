@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../blocs/issue_bloc/issues_bloc.dart';
-import '../widgets/custom_text_field.dart';
+import '../../../../blocs/issue_bloc/issues_bloc.dart';
+import '../../../widgets/custom_text_field.dart';
 import 'issuescreen.dart';
 
 class CreateIssueScreen extends StatefulWidget {
