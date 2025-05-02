@@ -22,7 +22,7 @@ class IssusServices {
       'Accept': 'application/json',
       'Authorization': 'Bearer $myToken'
     };
-    var request = http.MultipartRequest('POST', Uri.parse('${myUrl}issues/'));
+    var request = http.MultipartRequest('POST', Uri.parse('${myUrl}issues/5'));
     request.fields.addAll({
       'title': title,
       'issue_number': issueNumber,
