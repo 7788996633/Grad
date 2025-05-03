@@ -6,7 +6,6 @@ import '../../../blocs/hiring-requests/hiring-requests_block.dart';
 import '../../../blocs/hiring-requests/hiring-requests_event.dart';
 import '../../../blocs/hiring-requests/hiring-requests_state.dart';
 import '../../../data/models/hiring_request_model.dart';
-import 'hiring_request_details_screen.dart';
 
 class ListHiringRequestsScreen extends StatefulWidget {
   const ListHiringRequestsScreen({super.key});
@@ -17,16 +16,17 @@ class ListHiringRequestsScreen extends StatefulWidget {
 
 class _ListHiringRequestsScreenState extends State<ListHiringRequestsScreen> {
   final TextEditingController _searchController = TextEditingController();
-  late HiringRequestsBloc bloc;  // يجب تعديلها إلى HiringRequestsBloc
+  late HiringRequestsBloc bloc;
   List<HiringRequestModel> _allRequests = [];
 
   @override
   void initState() {
     super.initState();
-    bloc = BlocProvider.of<HiringRequestsBloc>(context); // استخدام HiringRequestsBloc هنا
+    bloc = BlocProvider.of<HiringRequestsBloc>(context);
     bloc.add(GetAllHiringRequests());
   }
 
+  //search
   void _onSearch(String requestId) {
     if (requestId.trim().isNotEmpty) {
       final id = int.tryParse(requestId.trim());
@@ -42,19 +42,19 @@ class _ListHiringRequestsScreenState extends State<ListHiringRequestsScreen> {
     }
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF1F1F6),
       appBar: AppBar(
-        title: const Text('Hiring Requests'),
-        centerTitle: true,
-        elevation: 8,
-        backgroundColor: Colors.deepPurple,
+        title: const Text('Hiring Requests'), centerTitle: true, elevation: 8, backgroundColor:  Color(0xFFB8820E),
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(25)),
         ),
       ),
+
+
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -87,9 +87,12 @@ class _ListHiringRequestsScreenState extends State<ListHiringRequestsScreen> {
           ],
         ),
       ),
+
+
+
       floatingActionButton: FloatingActionButton(
         onPressed: () => bloc.add(GetAllHiringRequests()),
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: Color(0xFFB8820E),
         child: const Icon(Icons.refresh),
       ),
     );
@@ -104,7 +107,7 @@ class _ListHiringRequestsScreenState extends State<ListHiringRequestsScreen> {
         onChanged: _onSearch,
         decoration: InputDecoration(
           hintText: 'Search by Request ID...',
-          prefixIcon: const Icon(Icons.search, color: Colors.deepPurple),
+          prefixIcon: const Icon(Icons.search, color: Color(0xFFB8820E)),
           filled: true,
           fillColor: Colors.white,
           contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
@@ -118,9 +121,7 @@ class _ListHiringRequestsScreenState extends State<ListHiringRequestsScreen> {
   }
 
   Widget _buildRequestList(List<HiringRequestModel> requests) {
-    if (requests.isEmpty) {
-      return const Center(child: Text("No hiring requests found."));
-    }
+    if (requests.isEmpty) {return const Center(child: Text("No hiring requests found."));}
     return ListView.separated(
       itemCount: requests.length,
       separatorBuilder: (_, __) => const SizedBox(height: 12),
@@ -131,41 +132,24 @@ class _ListHiringRequestsScreenState extends State<ListHiringRequestsScreen> {
   }
 
   Widget _buildRequestCard(HiringRequestModel request) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => HiringRequestDetailsScreen(requestId: request.id),
-          ),
-        );
-
-
-
-      },
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
-        elevation: 6,
-        shadowColor: Colors.deepPurple.withOpacity(0.3),
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Job Title: ${request.jopTitle}',
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                  color: Colors.deepPurple,
-                ),
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
+      elevation: 6,
+      shadowColor: Colors.deepPurple.withOpacity(0.3),
+      child: Padding(padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Job Title: ${request.jopTitle}', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color:  Color(0xFFB8820E),
               ),
-              const SizedBox(height: 8),
-              _buildInfoRow('Type:', request.type),
-              _buildInfoRow('Description:', request.description),
-            ],
-          ),
+            ),
+            const SizedBox(height: 8),
+            _buildInfoRow('Type:', request.type),
+            _buildInfoRow('Description:', request.description),
+            _buildInfoRow('Status:', request.status),
+          ],
         ),
       ),
     );
@@ -176,14 +160,10 @@ class _ListHiringRequestsScreenState extends State<ListHiringRequestsScreen> {
       padding: const EdgeInsets.symmetric(vertical: 2),
       child: Row(
         children: [
-          Text(
-            '$title ',
-            style: const TextStyle(fontWeight: FontWeight.w600),
+          Text('$title ', style: const TextStyle(fontWeight: FontWeight.w600),
           ),
           Expanded(
-            child: Text(
-              value,
-              style: const TextStyle(color: Colors.black87),
+            child: Text(value, style: const TextStyle(color: Colors.black87),
             ),
           ),
         ],

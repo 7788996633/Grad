@@ -25,7 +25,7 @@ class IssueRequestsBloc extends Bloc<IssueRequestsEvent, IssueRequestsState> {
         emit(IssueRequestsLoading());
         try {
           List<IssueRequestModel> issueRequestsList = await IssueRequestRepository().getIssueRequests();
-          emit(HiringRequestsListLoaded(issueRequestsList: issueRequestsList));
+          emit(IssueRequestsListLoaded(issueRequestsList: issueRequestsList));
         } catch (e) {
           emit(IssueRequestsFail(errmsg: e.toString()));
         }

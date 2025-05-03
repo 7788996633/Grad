@@ -31,10 +31,10 @@ final class IssueRequestsFail extends IssueRequestsState {
 }
 
 
-final class HiringRequestsListLoaded extends IssueRequestsState {
+final class IssueRequestsListLoaded extends IssueRequestsState {
   late final List<IssueRequestModel> issueRequestsList;
 
-  HiringRequestsListLoaded({required this.issueRequestsList});
+  IssueRequestsListLoaded({required this.issueRequestsList});
 }
 
 final class IssueRequestsByIdLoaded extends IssueRequestsState {
