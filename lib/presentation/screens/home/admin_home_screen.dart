@@ -4,6 +4,12 @@ import '../ls.dart';
 import '../admin_screens/users_management_screens/modify_users_permissions_screen.dart';
 import '../notifications_screen.dart';
 import '../p.dart';
+import 'package:flutter/material.dart';
+
+import '../ls.dart';
+import '../admin_screens/users_management_screens/modify_users_permissions_screen.dart';
+import '../notifications_screen.dart';
+import '../p.dart';
 
 class AdminHomeScreen extends StatelessWidget {
   const AdminHomeScreen({super.key});
@@ -28,7 +34,7 @@ class AdminHomeScreen extends StatelessWidget {
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) =>
-                            const ModifyUsersPermissionsScreen(),
+                        const ModifyUsersPermissionsScreen(),
                       ),
                     );
                   },
@@ -56,9 +62,9 @@ class AdminHomeScreen extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             const Expanded(
-              child: ProfileScreenLauncher(),
+              child: P(),
             ),
-            const Expanded(child: LawyerButtonScreen()),
+            const Expanded(child: Ls()),
           ],
         ),
       ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:untitled21/presentation/screens/auth_screens/login_screen.dart';
+import 'package:untitled21/presentation/screens/home/admin_page.dart';
 
 import 'blocs/auth_bloc/auth_bloc.dart';
 import 'blocs/my_bloc_observere.dart';
@@ -23,7 +24,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: MultiBlocProvider(
+      home://AdminPage(),);
+      MultiBlocProvider(
         providers: [
           BlocProvider(
             create: (context) => AuthBloc(),

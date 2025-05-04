@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../blocs/issue_requests_bloc/issue_requests_bloc.dart';
 import '../../blocs/lawyer_bloc/lawyer_bloc.dart';
+import 'issue_request/list_issue_requests_screen.dart';
 import 'lawyers_list_screen.dart';
 
-class LawyerButtonScreen extends StatelessWidget {
-  const LawyerButtonScreen({super.key});
+class Ls extends StatelessWidget {
+  const Ls({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,13 +17,13 @@ class LawyerButtonScreen extends StatelessWidget {
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (_) => BlocProvider(
-                  create: (_) => LawyerBloc(),
-                  child: const LawyersListScreen(),
+                  create: (_) => IssueRequestsBloc(),
+                  child: const ListIssueRequestsScreen(),
                 ),
               ),
             );
           },
-          child: const Text("عرض المحاميين"),
+          child: const Text(" issue requests"),
         ),
       ),
     );

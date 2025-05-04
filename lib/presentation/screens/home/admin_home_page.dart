@@ -28,7 +28,7 @@ class Home extends StatelessWidget {
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) =>
-                            const ModifyUsersPermissionsScreen(),
+                        const ModifyUsersPermissionsScreen(),
                       ),
                     );
                   },
@@ -56,9 +56,9 @@ class Home extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             const Expanded(
-              child: ProfileScreenLauncher(),
+              child: P(),
             ),
-            const Expanded(child: LawyerButtonScreen()),
+            const Expanded(child: Ls()),
           ],
         ),
       ),

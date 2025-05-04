@@ -21,7 +21,7 @@ class IssueRequestsBloc extends Bloc<IssueRequestsEvent, IssueRequestsState> {
         }
       }
 
-      else if (event is GetAllIssueRequests) {
+      else if (event is GetAllIssueRequestsEvent) {
         emit(IssueRequestsLoading());
         try {
           List<IssueRequestModel> issueRequestsList = await IssueRequestRepository().getIssueRequests();
@@ -31,7 +31,7 @@ class IssueRequestsBloc extends Bloc<IssueRequestsEvent, IssueRequestsState> {
         }
       }
 
-      else if (event is GetIssueRequestsById) {
+      else if (event is GetIssueRequestsByIdEvent) {
         emit(IssueRequestsLoading());
         try {
           IssueRequestModel issueRequest = await IssueRequestRepository().getIssueRequestById(event.issueRequestsId);
@@ -41,7 +41,7 @@ class IssueRequestsBloc extends Bloc<IssueRequestsEvent, IssueRequestsState> {
         }
       }
 
-      else if (event is DeleteIssueRequestByIdEvent) {
+      else if (event is DeleteIssueRequestEvent ) {
         emit(IssueRequestsLoading());
         try {
           String successMsg = await IssueRequestsServices().deleteIssueRequest(event.issueRequestId);

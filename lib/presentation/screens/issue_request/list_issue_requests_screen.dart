@@ -5,14 +5,14 @@ import '../../../blocs/issue_requests_bloc/issue_requests_bloc.dart';
 import '../../../blocs/issue_requests_bloc/issue_requests_event.dart';
 import '../../../blocs/issue_requests_bloc/issue_requests_state.dart';
 import '../../../data/models/issue_request_model.dart';
+import 'issue_request_detials_screen.dart';
+
+
 
 class ListIssueRequestsScreen extends StatefulWidget {
   const ListIssueRequestsScreen({super.key});
 
-  @overridegit init
-  git add .
-  git commit -m "initial commit"
-  git remote add origin https://github.com/7788996633/Grad.git
+  @override
   State<ListIssueRequestsScreen> createState() => _ListIssueRequestsScreenState();
 }
 
@@ -25,21 +25,21 @@ class _ListIssueRequestsScreenState extends State<ListIssueRequestsScreen> {
   void initState() {
     super.initState();
     bloc = BlocProvider.of<IssueRequestsBloc>(context);
-    bloc.add(GetAllIssueRequests());
+    bloc.add(GetAllIssueRequestsEvent());
   }
 
   void _onSearch(String requestId) {
     if (requestId.trim().isNotEmpty) {
       final id = int.tryParse(requestId.trim());
       if (id != null) {
-        bloc.add(GetIssueRequestsById(issueRequestsId: id));
+        bloc.add(GetIssueRequestsByIdEvent(issueRequestsId: id));
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Please enter a valid numeric ID')),
         );
       }
     } else {
-      bloc.add(GetAllIssueRequests());
+      bloc.add(GetAllIssueRequestsEvent());
     }
   }
 
@@ -89,7 +89,7 @@ class _ListIssueRequestsScreenState extends State<ListIssueRequestsScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => bloc.add(GetAllIssueRequests()),
+        onPressed: () => bloc.add(GetAllIssueRequestsEvent()),
         backgroundColor: const Color(0xFFB8820E),
         child: const Icon(Icons.refresh),
       ),
@@ -133,48 +133,57 @@ class _ListIssueRequestsScreenState extends State<ListIssueRequestsScreen> {
 
   Widget _buildRequestCard(IssueRequestModel request) {
     return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      elevation: 6,
-      shadowColor: Colors.deepPurple.withOpacity(0.3),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Title: ${request.title}',
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-                color: Color(0xFFB8820E),
-              ),
-            ),
-            const SizedBox(height: 8),
-            _buildInfoRow('Description:', request.description),
-            _buildInfoRow('Status:', request.status),
-            _buildInfoRow('Admin Note:', request.adminNote ?? "No note"),
-          ],
-        ),
+      elevation: 5,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
       ),
-    );
-  }
-
-  Widget _buildInfoRow(String title, String value) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 2),
-      child: Row(
-        children: [
-          Text(
-            '$title ',
-            style: const TextStyle(fontWeight: FontWeight.w600),
-          ),
-          Expanded(
-            child: Text(
-              value,
-              style: const TextStyle(color: Colors.black87),
+      child: ListTile(
+        title: Text(request.title),
+        subtitle: Text(request.description),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => BlocProvider(
+              create: (context) => IssueRequestsBloc(),
+              child: IssueRequestDetailsScreen(issueRequestId: request.id),
             ),
-          ),
-        ],
+          ));
+        },
+        trailing: IconButton(
+          icon: const Icon(Icons.delete, color: Colors.red),
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: const Text("Delete Issue Request"),
+                content: const Text("Are you sure you want to delete this issue request?"),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: const Text("Cancel"),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context); // Close dialog
+                      bloc.add(DeleteIssueRequestEvent(issueRequestId: request.id));
+                      bloc.add(GetAllIssueRequestsEvent());
+                      print("✅ Request with ID ${request.id} deleted successfully");
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text("Request deleted successfully"),
+                          backgroundColor: Colors.green,
+                          duration: Duration(seconds: 2),
+                        ),
+                      );
+                    },
+                    child: const Text("Delete", style: TextStyle(color: Colors.red)),
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
       ),
     );
   }
