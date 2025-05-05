@@ -13,7 +13,7 @@ class LawyerModel {
   final String age;
   final String address;
   final String phone;
-
+  final String image;
   factory LawyerModel.fromJson(Map<String, dynamic> json) {
     return LawyerModel(
       id: json['id'],
@@ -30,6 +30,8 @@ class LawyerModel {
       email: json['email'],
       age: json['age'],
       phone: json['phone'],
+      image: json['image'],
+
     );
   }
 
@@ -47,5 +49,6 @@ class LawyerModel {
       required this.email,
       required this.age,
       required this.address,
-      required this.phone});
+      required this.phone,
+      required this.image});
 }

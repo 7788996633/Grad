@@ -143,7 +143,6 @@ class _LawyersScreenState extends State<LawyersListScreen> {
               create: (context) => LawyerProfileBloc(),
               child: LawyerDetailsScreen(
                 lawyerId: lawyer.id,
-                userId: lawyer.userId,
               ),
             ),
           ),
