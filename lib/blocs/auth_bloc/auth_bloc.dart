@@ -43,7 +43,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           );
           try {
             String value = await AuthServices()
-                .register(event.name, event.password, event.email);
+                .register(event.name, event.password, event.email,event.confirmPassword);
             if (!value.contains('failed')) {
               emit(
                 AuthSuccess(

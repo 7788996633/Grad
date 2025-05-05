@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../blocs/issue_bloc/issues_bloc.dart';
 import '../../../widgets/custom_text_field.dart';
-import 'issuescreen.dart';
 
 class CreateIssueScreen extends StatefulWidget {
   const CreateIssueScreen({super.key});
@@ -56,7 +55,7 @@ class _CreateIssueScreenState extends State<CreateIssueScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text("➕ Create Profile"),
+          title: const Text("➕ Create Issue"),
           backgroundColor: mainColor,
           centerTitle: true,
         ),
@@ -161,14 +160,14 @@ class _CreateIssueScreenState extends State<CreateIssueScreen> {
                             backgroundColor: Colors.green,
                           ),
                         );
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => BlocProvider(
-                              create: (context) => IssuesBloc(),
-                              child: const Issuescreen(),
-                            ),
-                          ),
-                        );
+                        // Navigator.of(context).push(
+                        //   MaterialPageRoute(
+                        //     builder: (context) => BlocProvider(
+                        //       create: (context) => IssuesBloc(),
+                        //       child: const IssueScreen(),
+                        //     ),
+                        //   ),
+                        // );
                       } else if (state is IssuesFail) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(

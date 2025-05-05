@@ -4,7 +4,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../constant.dart';
 
 class AuthServices {
-
   // Login method
   Future<String> login(String email, String password) async {
     var headers = {'Accept': 'application/json'};
@@ -21,7 +20,6 @@ class AuthServices {
       if (jsonResponse['status'] == 'success') {
         final token = jsonResponse['data']['token'];
 
-
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString('token', token);
 
@@ -35,13 +33,15 @@ class AuthServices {
   }
 
   // Register method
-  Future<String> register(String name, String password, String email) async {
+  Future<String> register(String name, String password, String email,
+      String confirmPassword) async {
     var headers = {'Accept': 'application/json'};
     var request = http.MultipartRequest('POST', Uri.parse('${myUrl}register'));
     request.fields.addAll({
       'name': name,
       'email': email,
       'password': password,
+      'password_confirmation': confirmPassword,
     });
     request.headers.addAll(headers);
 

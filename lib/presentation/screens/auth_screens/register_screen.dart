@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation/blocs/user_profile_bloc/user_profile_bloc.dart';
+import 'package:graduation/presentation/screens/user_screens/user_profile_screens/create_user_profile_screen.dart';
 
 import '../../../blocs/auth_bloc/auth_bloc.dart';
+import '../../../blocs/user_bloc/user_bloc.dart';
 import '../../../constant.dart';
 import '../../widgets/custom_text_field.dart';
 import 'login_screen.dart';
-import '../home/admin_home_page.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -18,6 +20,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
+
   final GlobalKey<FormState> myKey = GlobalKey<FormState>();
 
   String? nameValidator(String? value) {
@@ -47,10 +52,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return null;
   }
 
+  String? confirmPasswordValidator(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return 'Please confirm your password';
+    }
+    if (value != passwordController.text) {
+      return 'Passwords do not match';
+    }
+    return null;
+  }
+
   void handleRegister() {
     if (myKey.currentState?.validate() ?? false) {
       BlocProvider.of<AuthBloc>(context).add(
         RegisterEvent(
+          confirmPassword: confirmPasswordController.text.trim(),
           name: nameController.text.trim(),
           email: emailController.text.trim(),
           password: passwordController.text,
@@ -66,10 +82,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
         if (state is AuthSuccess) {
           setState(() {
             myToken = state.token;
+            myRole = 'user';
           });
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => const Home(),
+              builder: (context) => BlocProvider(
+                create: (context) => UserProfileBloc(),
+                child: const CreateUserProfileScreen(),
+              ),
             ),
           );
         } else if (state is AuthFail) {
@@ -166,6 +186,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           controller: passwordController,
                           text: "Password",
                         ),
+                        const SizedBox(height: 12),
+                        CustomTextFeild(
+                          color: Colors.grey[200]!,
+                          validator: confirmPasswordValidator,
+                          controller: confirmPasswordController,
+                          text: "Confirm Password",
+                        ),
                         const SizedBox(height: 16),
                         SizedBox(
                           width: double.infinity,
@@ -200,8 +227,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               onPressed: () {
                                 Navigator.of(context).pushReplacement(
                                   MaterialPageRoute(
-                                    builder: (context) => BlocProvider(
-                                      create: (context) => AuthBloc(),
+                                    builder: (context) => MultiBlocProvider(
+                                      providers: [
+                                        BlocProvider(
+                                          create: (context) => AuthBloc(),
+                                        ),
+                                        BlocProvider(
+                                          create: (context) => UserBloc(),
+                                        ),
+                                      ],
                                       child: const LoginScreen(),
                                     ),
                                   ),

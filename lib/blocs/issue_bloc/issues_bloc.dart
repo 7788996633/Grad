@@ -83,14 +83,14 @@ class IssuesBloc extends Bloc<IssuesEvent, IssuesState> {
             ),
           );
         }
-      } else if (event is IssuesShow) {
-        emit(IssuesLoading());
+      }  else if (event is IssueShowbyId) {
+        emit(
+          IssuesLoading(),
+        );
         try {
-          List<IssuesModel> value = await IssuesRepository().getAllIssues();
+          IssuesModel value = await IssusServices().issueShowService(event.id);
           emit(
-            IssuesListLoadedSuccessFully(
-              issues: value,
-            ),
+            IssuesLoadedSuccessFully(issue: value),
           );
         } catch (e) {
           emit(
@@ -99,12 +99,14 @@ class IssuesBloc extends Bloc<IssuesEvent, IssuesState> {
             ),
           );
         }
-      } else if (event is IssueShowbyId) {
-        emit(IssuesLoading());
+      } else if (event is GetAllIssuesEvent) {
+        emit(
+          IssuesLoading(),
+        );
         try {
-          IssuesModel value = await IssusServices().issueShowService(event.id);
+          List<IssuesModel> value = await IssuesRepository().getAllIssues();
           emit(
-            IssuesLoadedSuccessFully(issue: value),
+            IssuesListLoadedSuccessFully(issues: value),
           );
         } catch (e) {
           emit(
