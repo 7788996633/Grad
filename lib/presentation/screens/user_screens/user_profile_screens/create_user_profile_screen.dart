@@ -1,10 +1,10 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation/presentation/screens/home/user_home_page.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../../blocs/user_profile_bloc/user_profile_bloc.dart';
 import '../../../widgets/custom_text_field.dart';
-import 'user_profile_screen.dart';
 
 class CreateUserProfileScreen extends StatefulWidget {
   const CreateUserProfileScreen({super.key});
@@ -144,12 +144,9 @@ class _AddUserProfileScreenState extends State<CreateUserProfileScreen> {
                         backgroundColor: Colors.green,
                       ),
                     );
-                    Navigator.of(context).push(
+                    Navigator.of(context).pushReplacement(
                       MaterialPageRoute(
-                        builder: (context) => BlocProvider(
-                          create: (context) => UserProfileBloc(),
-                          child: const UserProfileScreen(),
-                        ),
+                        builder: (context) => const UserHomePage(),
                       ),
                     );
                   } else if (state is UserProfileFail) {

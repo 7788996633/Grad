@@ -1,66 +1,73 @@
 import 'package:flutter/material.dart';
+import 'package:graduation/presentation/screens/home/admin_home_screen.dart';
 
-import '../ls.dart';
-import '../admin_screens/users_management_screens/modify_users_permissions_screen.dart';
-import '../notifications_screen.dart';
-import '../p.dart';
+import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
-class Home extends StatelessWidget {
-  const Home({super.key});
+import '../factories/role_screen.dart';
+
+class AdminHomePage extends StatefulWidget implements RoleScreen {
+  const AdminHomePage({super.key});
+
+  @override
+  State<AdminHomePage> createState() => _AdminPageState();
+
+  @override
+  Widget build() {
+    throw UnimplementedError();
+  }
+}
+
+class _AdminPageState extends State<AdminHomePage> {
+  int _selectedIndex = 0;
+
+  final List<Widget> _pages = [
+    // الصفحة الرئيسية
+    AdminHomeScreen(),
+    // المفضلات
+    const Center(child: Text('مفضلتي')),
+    // المواعيد
+    const Center(child: Text('مواعيدي')),
+    // الأخبار القانونية
+    const Center(child: Text('الأخبار القانونية')),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('لوحة التحكم'),
-        centerTitle: true,
-        backgroundColor: Colors.deepPurple,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ElevatedButton.icon(
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            const ModifyUsersPermissionsScreen(),
-                      ),
-                    );
-                  },
-                  icon: const Icon(Icons.person),
-                  label: const Text('تعديل صلاحيات المستخدمين'),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.deepPurple,
-                  ),
-                ),
-                ElevatedButton.icon(
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const NotificationsScreen(),
-                      ),
-                    );
-                  },
-                  icon: const Icon(Icons.notifications),
-                  label: const Text('الإشعارات'),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.deepPurple,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            const Expanded(
-              child: ProfileScreenLauncher(),
-            ),
-            const Expanded(child: LawyerButtonScreen()),
-          ],
-        ),
+      body: _pages[_selectedIndex], // عرض الصفحة بناءً على الـ index المحدد
+      bottomNavigationBar: SalomonBottomBar(
+        currentIndex: _selectedIndex,
+        onTap: (index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+        },
+        items: [
+          // الواجهة الرئيسية
+          SalomonBottomBarItem(
+            icon: const Icon(Icons.home),
+            title: const Text("الرئيسية"),
+            selectedColor: const Color(0XFF472A0C),
+          ),
+          // المفضلات
+          SalomonBottomBarItem(
+            icon: const Icon(Icons.favorite),
+            title: const Text("المفضلة"),
+            selectedColor: const Color(0XFF472A0C),
+          ),
+          // المواعيد
+          SalomonBottomBarItem(
+            icon: const Icon(Icons.schedule),
+            title: const Text("مواعيدي"),
+            selectedColor: const Color(0XFF472A0C),
+          ),
+
+          SalomonBottomBarItem(
+            icon: const Icon(Icons.new_releases),
+            title: const Text("الأخبار القانونية"),
+            selectedColor: const Color(0XFF472A0C),
+          ),
+        ],
       ),
     );
   }

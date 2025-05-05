@@ -5,14 +5,14 @@ import '../../../../blocs/issue_bloc/issues_bloc.dart';
 import '../../../../data/models/issues_model.dart';
 import 'edit_issue_screen.dart';
 
-class Issuescreen extends StatefulWidget {
-  const Issuescreen({super.key});
-
+class IssueScreen extends StatefulWidget {
+  const IssueScreen({super.key, required this.issueId});
+  final int issueId;
   @override
-  State<Issuescreen> createState() => _IssuescreenState();
+  State<IssueScreen> createState() => _IssueScreenState();
 }
 
-class _IssuescreenState extends State<Issuescreen> {
+class _IssueScreenState extends State<IssueScreen> {
   final Color customColor = const Color(0xFF472A0C);
   final Color valueColor = const Color(0xFF0F6829);
 
@@ -20,7 +20,7 @@ class _IssuescreenState extends State<Issuescreen> {
   void initState() {
     super.initState();
     BlocProvider.of<IssuesBloc>(context).add(
-      IssuesShow(),
+      IssueShowbyId(id:  widget.issueId),
     );
   }
 
@@ -97,13 +97,13 @@ class _IssuescreenState extends State<Issuescreen> {
                 issue.numberOfPayments.toString()),
             buildInfoTile(
                 Icons.numbers, "total Cost", issue.totalCost.toString()),
-            buildInfoTile(Icons.numbers, "Amount Paid", issue.amountPaid),
-            buildInfoTile(Icons.title, "Description", issue.description),
+            // buildInfoTile(Icons.numbers, "Amount Paid", issue.amountPaid),
+            // buildInfoTile(Icons.title, "Description", issue.description),
             buildInfoTile(Icons.title, "Court Name", issue.courtName),
             buildInfoTile(Icons.title, "Status", issue.status),
             buildInfoTile(Icons.numbers, "Priority", issue.priority),
             buildInfoTile(Icons.date_range, "Start Date", issue.startDate),
-            buildInfoTile(Icons.date_range, "End Date", issue.endDate),
+            // buildInfoTile(Icons.date_range, "End Date", issue.endDate),
             buildInfoTile(Icons.date_range, "Start Date", issue.createdAt),
             buildInfoTile(Icons.date_range, "End Date", issue.updatedAt),
           ],
@@ -136,7 +136,7 @@ class _IssuescreenState extends State<Issuescreen> {
         ],
         backgroundColor: customColor,
         title: const Text(
-          "Lawyer Profile",
+          "Issue Screen",
           style: TextStyle(
               fontWeight: FontWeight.bold, fontSize: 22, color: Colors.white),
         ),
@@ -174,7 +174,9 @@ class _IssuescreenState extends State<Issuescreen> {
               ),
             );
           } else {
-            return const Center(child: CircularProgressIndicator());
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
           }
         },
       ),

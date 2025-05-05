@@ -76,12 +76,11 @@ class Issuedelete extends IssuesEvent {
   Issuedelete({required this.id});
 }
 
-class IssuesShow extends IssuesEvent {
-  IssuesShow();
-}
 
 class IssueShowbyId extends IssuesEvent {
   final int id;
 
   IssueShowbyId({required this.id});
 }
+
+class GetAllIssuesEvent extends IssuesEvent {}
