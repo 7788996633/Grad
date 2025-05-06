@@ -48,25 +48,25 @@ class _AdminPageState extends State<AdminPage> {
           SalomonBottomBarItem(
             icon: const Icon(Icons.home),
             title: const Text("الرئيسية"),
-            selectedColor: const Color(0xFF1E9AD8),
+            selectedColor: const Color(0XFF472A0C),
           ),
           // المفضلات
           SalomonBottomBarItem(
             icon: const Icon(Icons.favorite),
             title: const Text("المفضلة"),
-            selectedColor: const Color(0xFF1E9AD8),
+            selectedColor: const Color(0XFF472A0C),
           ),
           // المواعيد
           SalomonBottomBarItem(
             icon: const Icon(Icons.schedule),
             title: const Text("مواعيدي"),
-            selectedColor: const Color(0xFF1E9AD8),
+            selectedColor: const Color(0XFF472A0C),
           ),
 
           SalomonBottomBarItem(
             icon: const Icon(Icons.new_releases),
             title: const Text("الأخبار القانونية"),
-            selectedColor: const Color(0xFF1E9AD8),
+            selectedColor: const Color(0XFF472A0C),
           ),
         ],
       ),

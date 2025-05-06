@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart'; // تأكد من إضافة هذه المكتبة
+import 'package:untitled21/presentation/screens/home/setting_screen.dart';
 
+import '../admin_screens/users_management_screens/modify_users_permissions_screen.dart';
+import '../notifications_screen.dart';
 
 class AdminHome extends StatelessWidget {
   AdminHome({super.key});
 
   final List<Map<String, dynamic>> sections = [
-    {'title': 'Lawyers & Trainees', 'icon': Icons.group},
+    {'title': 'Modify user permissions', 'icon': Icons.admin_panel_settings},
     {'title': 'Cases Management', 'icon': Icons.gavel},
     {'title': 'Tasks & Delegations', 'icon': Icons.assignment},
     {'title': 'Documents & Requests', 'icon': Icons.description},
@@ -18,36 +20,29 @@ class AdminHome extends StatelessWidget {
     {'title': 'Legal News', 'icon': Icons.newspaper},
     {'title': 'FAQs', 'icon': Icons.help_center},
     {'title': 'Company Info', 'icon': Icons.info},
-    {'title': 'Notifications', 'icon': Icons.notifications},
+    {'title': 'Lawyers & Trainees', 'icon': Icons.group},
     {'title': 'Backup & Restore', 'icon': Icons.backup},
   ];
 
   // Function to handle the onPressed event for each card
-  /*void onCardPressed(BuildContext context, String title) {
+  void onCardPressed(BuildContext context, String title) {
     switch (title) {
-      case 'Lawyers & Trainees':
-        Navigator.push(
-          //context,
-          /*MaterialPageRoute(
-            //builder: (_) => BlocProvider(
-              create: (_) => LawyerBloc(), // توفير الـ Bloc هنا
-              child: const LawyersScreen(), // شاشة الـ Bloc المناسبة
-            ),
-          ),*/
+      case 'Modify user permissions':
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => ModifyUsersPermissionsScreen(),
+          ),
         );
         break;
+
       case 'Cases Management':
-        Navigator.push(
-         // context,
-      /*    MaterialPageRoute(
-            builder: (_) => BlocProvider(
-              create: (_) => CasesBloc(), // تغيير إلى Bloc المناسب
-              child: const CasesManagementScreen(), // شاشة الـ Bloc المناسبة
-            ),
-          ),*/
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => SectionPage(title: title),
+          ),
         );
         break;
-    // يمكن إضافة المزيد من الـ cases كما في السابق
+
       default:
         Navigator.push(
           context,
@@ -57,28 +52,38 @@ class AdminHome extends StatelessWidget {
         );
     }
   }
-*/
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Admin Dashboard'),
+        title: Text('Admin Dashboard',style: TextStyle(color: Colors.white),),
         backgroundColor: Color(0XFF472A0C),
         actions: [
           IconButton(
-            icon: Icon(Icons.settings),
-            onPressed: () {},
+            icon: Icon(Icons.settings,color: Colors.white ,),
             tooltip: 'Settings',
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SettingsScreen()),
+              );
+            },
           ),
           IconButton(
-            icon: Icon(Icons.notifications),
-            onPressed: () {},
+            icon: Icon(Icons.notifications,color: Colors.white),
             tooltip: 'Notifications',
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => NotificationsScreen()),
+              );
+            },
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: CircleAvatar(
-              backgroundImage: AssetImage('assets/admin.jpg'), // admin image
+              backgroundImage: AssetImage('assets/admin.jpg'),
             ),
           ),
         ],
@@ -90,7 +95,7 @@ class AdminHome extends StatelessWidget {
           runSpacing: 12,
           children: sections.map((section) {
             return SizedBox(
-              width: MediaQuery.of(context).size.width / 2 - 18, // 2 cards per row
+              width: MediaQuery.of(context).size.width / 2 - 18,
               child: Card(
                 elevation: 6,
                 shape: RoundedRectangleBorder(
@@ -99,7 +104,7 @@ class AdminHome extends StatelessWidget {
                 color: Colors.blueGrey[50],
                 child: InkWell(
                   onTap: () {
-                    //onCardPressed(context, section['title']); // Use the function here
+                    onCardPressed(context, section['title']);
                   },
                   borderRadius: BorderRadius.circular(16),
                   child: Padding(

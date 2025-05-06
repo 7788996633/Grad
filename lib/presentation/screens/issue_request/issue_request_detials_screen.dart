@@ -117,34 +117,45 @@ class _IssueRequestDetailsScreenState extends State<IssueRequestDetailsScreen> {
         centerTitle: true,
         elevation: 4,
       ),
-      body: BlocBuilder<IssueRequestsBloc, IssueRequestsState>(
-        builder: (context, state) {
-          if (state is IssueRequestsLoading) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (state is IssueRequestsLoadedSuccessfully) {
-            return buildProfileUI(
-                state.issueRequestModel,  context);
-          } else if (state is IssueRequestsFail) {
-            return Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Text("There is an error:",
-                      style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.red,
-                          fontWeight: FontWeight.bold)),
-                  const SizedBox(height: 10),
-                  Text(state.errmsg,
-                      style: const TextStyle(fontSize: 16, color: Colors.black),
-                      textAlign: TextAlign.center),
-                ],
-              ),
-            );
-          }
-          return const Center(child: Text('Something went wrong'));
-        },
-      ),
+      body: BlocConsumer<IssueRequestsBloc, IssueRequestsState>(
+    listener: (context, state) {
+      if (state is IssueRequestsFail) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(state.errmsg),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    },
+    builder: (context, state) {
+      if (state is IssueRequestsLoading) {
+        return const Center(child: CircularProgressIndicator());
+      } else if (state is IssueRequestsLoadedSuccessfully) {
+        return buildProfileUI(state.issueRequestModel, context);
+      } else if (state is IssueRequestsFail) {
+        // عرض رسالة الخطأ فقط داخل الواجهة بدون SnackBar إضافي
+        return Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text("There is an error:",
+                  style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.red,
+                      fontWeight: FontWeight.bold)),
+              const SizedBox(height: 10),
+              Text(state.errmsg,
+                  style: const TextStyle(fontSize: 16, color: Colors.black),
+                  textAlign: TextAlign.center),
+            ],
+          ),
+        );
+      }
+      return const Center(child: Text('Something went wrong'));
+    },
+    ),
+
     );
   }
 }

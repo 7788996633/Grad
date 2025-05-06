@@ -1,4 +1,3 @@
-import 'package:untitled21/data/models/user_model.dart';
 
 class IssueRequestModel {
   final int id;

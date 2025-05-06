@@ -9,8 +9,4 @@ class IssueRequestRepository {
         .toList();
   }
 
-  Future<IssueRequestModel> getIssueRequestById(int issueRequestId) async {
-    var issueRequestData = await IssueRequestsServices().getIssueRequestById(issueRequestId);
-    return IssueRequestModel.fromJson(issueRequestData);
-  }
 }
