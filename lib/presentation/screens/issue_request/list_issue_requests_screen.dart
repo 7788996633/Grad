@@ -7,13 +7,12 @@ import '../../../blocs/issue_requests_bloc/issue_requests_state.dart';
 import '../../../data/models/issue_request_model.dart';
 import 'issue_request_detials_screen.dart';
 
-
-
 class ListIssueRequestsScreen extends StatefulWidget {
   const ListIssueRequestsScreen({super.key});
 
   @override
-  State<ListIssueRequestsScreen> createState() => _ListIssueRequestsScreenState();
+  State<ListIssueRequestsScreen> createState() =>
+      _ListIssueRequestsScreenState();
 }
 
 class _ListIssueRequestsScreenState extends State<ListIssueRequestsScreen> {
@@ -108,7 +107,8 @@ class _ListIssueRequestsScreenState extends State<ListIssueRequestsScreen> {
           prefixIcon: const Icon(Icons.search, color: Color(0xFFB8820E)),
           filled: true,
           fillColor: Colors.white,
-          contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(30),
             borderSide: BorderSide.none,
@@ -145,10 +145,11 @@ class _ListIssueRequestsScreenState extends State<ListIssueRequestsScreen> {
             context,
             MaterialPageRoute(
               builder: (context) => BlocProvider(
-              create: (context) => IssueRequestsBloc(),
-              child: IssueRequestDetailsScreen(issueRequestId: request.id),
+                create: (context) => IssueRequestsBloc(),
+                child: IssueRequestDetailsScreen(issueRequestId: request.id),
+              ),
             ),
-          ));
+          );
         },
         trailing: IconButton(
           icon: const Icon(Icons.delete, color: Colors.red),
@@ -157,7 +158,8 @@ class _ListIssueRequestsScreenState extends State<ListIssueRequestsScreen> {
               context: context,
               builder: (context) => AlertDialog(
                 title: const Text("Delete Issue Request"),
-                content: const Text("Are you sure you want to delete this issue request?"),
+                content: const Text(
+                    "Are you sure you want to delete this issue request?"),
                 actions: [
                   TextButton(
                     onPressed: () => Navigator.pop(context),
@@ -166,9 +168,13 @@ class _ListIssueRequestsScreenState extends State<ListIssueRequestsScreen> {
                   TextButton(
                     onPressed: () {
                       Navigator.pop(context); // Close dialog
-                      bloc.add(DeleteIssueRequestEvent(issueRequestId: request.id));
-                      bloc.add(GetAllIssueRequestsEvent());
-                      print("✅ Request with ID ${request.id} deleted successfully");
+                      bloc.add(
+                          DeleteIssueRequestEvent(issueRequestId: request.id));
+                      bloc.add(
+                        GetAllIssueRequestsEvent(),
+                      );
+                      print(
+                          "✅ Request with ID ${request.id} deleted successfully");
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
                           content: Text("Request deleted successfully"),
@@ -177,7 +183,10 @@ class _ListIssueRequestsScreenState extends State<ListIssueRequestsScreen> {
                         ),
                       );
                     },
-                    child: const Text("Delete", style: TextStyle(color: Colors.red)),
+                    child: const Text(
+                      "Delete",
+                      style: TextStyle(color: Colors.red),
+                    ),
                   ),
                 ],
               ),
