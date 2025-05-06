@@ -18,6 +18,7 @@ class _AddIssueRequestScreenState extends State<AddIssueRequestScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Theme.of(context);
 
     return Scaffold(
       backgroundColor: const Color(0xFFF5F7FA),
@@ -41,11 +42,11 @@ class _AddIssueRequestScreenState extends State<AddIssueRequestScreen> {
           listener: (context, state) {
             if (state is IssueRequestsSuccess) {
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text("Success: ${state.successmsg}")),
+                SnackBar(content: Text("Success: ${state.successmsg}"), backgroundColor: Colors.green,),
               );
             } else if (state is IssueRequestsFail) {
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text("Failed: ${state.errmsg}")),
+                SnackBar(content: Text("Failed: ${state.errmsg}",)),
               );
             }
           },

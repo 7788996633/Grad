@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../blocs/issue_bloc/issues_bloc.dart';
-import '../admin_screens/issues_screens.dart/all_issues_screen.dart';
-import '../admin_screens/issues_screens.dart/create_issue_screen.dart';
 import '../admin_screens/users_management_screens/modify_users_permissions_screen.dart';
 import '../notifications_screen.dart';
 import '../settings/setting_screen.dart';
@@ -76,9 +72,7 @@ class AdminHomeScreen extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => const SettingsScreen(),
-                ),
+                MaterialPageRoute(builder: (context) => const SettingsScreen()),
               );
             },
           ),
@@ -89,8 +83,7 @@ class AdminHomeScreen extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const NotificationsScreen(),
-                ),
+                    builder: (context) => const NotificationsScreen()),
               );
             },
           ),
@@ -104,86 +97,50 @@ class AdminHomeScreen extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(12.0),
-        child: Column(
-          children: [
-            const SizedBox(height: 20),
-            ElevatedButton.icon(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const AllIssuesScreen(),
-                  ),
-                );
-              },
-              icon: const Icon(Icons.notifications),
-              label: const Text('القضايا'),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.deepPurple,
-              ),
-            ),
-            ElevatedButton.icon(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => BlocProvider(
-                      create: (context) => IssuesBloc(),
-                      child: const CreateIssueScreen(),
-                    ),
-                  ),
-                );
-              },
-              icon: const Icon(Icons.notifications),
-              label: const Text('انشاء قضية'),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.deepPurple,
-              ),
-            ),
-            Wrap(
-              spacing: 12,
-              runSpacing: 12,
-              children: sections.map((section) {
-                return SizedBox(
-                  width: MediaQuery.of(context).size.width / 2 - 18,
-                  child: Card(
-                    elevation: 6,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    color: Colors.blueGrey[50],
-                    child: InkWell(
-                      onTap: () {
-                        onCardPressed(context, section['title']);
-                      },
-                      borderRadius: BorderRadius.circular(16),
-                      child: Padding(
-                        padding: const EdgeInsets.all(16),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Icon(
-                              section['icon'],
-                              size: 40,
-                              color: const Color(0XFF472A0C),
-                            ),
-                            const SizedBox(height: 10),
-                            Text(
-                              section['title'],
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                                color: Color(0XFF472A0C),
-                              ),
-                            ),
-                          ],
+        child: Wrap(
+          spacing: 12,
+          runSpacing: 12,
+          children: sections.map((section) {
+            return SizedBox(
+              width: MediaQuery.of(context).size.width / 2 - 18,
+              child: Card(
+                elevation: 6,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                color: Colors.blueGrey[50],
+                child: InkWell(
+                  onTap: () {
+                    onCardPressed(context, section['title']);
+                  },
+                  borderRadius: BorderRadius.circular(16),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          section['icon'],
+                          size: 40,
+                          color: const Color(0XFF472A0C),
                         ),
-                      ),
+                        const SizedBox(height: 10),
+                        Text(
+                          section['title'],
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: Color(0XFF472A0C),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                );
-              }).toList(),
-            ),
-          ],
+                ),
+              ),
+            );
+          }).toList(),
         ),
       ),
     );
