@@ -24,8 +24,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
-        backgroundColor:
-            isDark ? Colors.black : const Color(0xFF4B4C4C), //3B3D3D
+        backgroundColor: isDark ? Colors.black : const Color(0xFF4B4C4C), //3B3D3D
 
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
