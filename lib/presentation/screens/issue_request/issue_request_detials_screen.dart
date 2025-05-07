@@ -118,7 +118,6 @@ class _IssueRequestDetailsScreenState extends State<IssueRequestDetailsScreen> {
           if (state is IssueRequestsLoadedSuccessfully) {
             return buildProfileUI(state.issueRequestModel, context);
           } else if (state is IssueRequestsFail) {
-            // عرض رسالة الخطأ فقط داخل الواجهة بدون SnackBar إضافي
             return Center(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
