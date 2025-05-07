@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:graduation/presentation/screens/home/admin_home_screen.dart';
 
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 import '../factories/role_screen.dart';
+import 'admin_home_screen.dart';
 
 class AdminHomePage extends StatefulWidget implements RoleScreen {
   const AdminHomePage({super.key});
 
   @override
-  State<AdminHomePage> createState() => _AdminPageState();
+  State<AdminHomePage> createState() => _AdminHomePageState();
 
   @override
   Widget build() {
@@ -17,7 +17,7 @@ class AdminHomePage extends StatefulWidget implements RoleScreen {
   }
 }
 
-class _AdminPageState extends State<AdminHomePage> {
+class _AdminHomePageState extends State<AdminHomePage> {
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [

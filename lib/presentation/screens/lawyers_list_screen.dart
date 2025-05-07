@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:graduation/presentation/screens/lawyer_screens/lawyer_profile_screens/lawyer_details_screen.dart';
-import '../../blocs/lawyer_bloc/lawyer_bloc.dart';
-import '../../blocs/lawyer_bloc/lawyer_event.dart';
-import '../../blocs/lawyer_bloc/lawyer_state.dart';
-import '../../blocs/lawyer_profile_bloc/lawyer_profiel_bloc.dart';
-import '../../data/models/lawyer_model.dart';
+
+import '../../../blocs/lawyer_bloc/lawyer_bloc.dart';
+import '../../../blocs/lawyer_bloc/lawyer_event.dart';
+import '../../../blocs/lawyer_bloc/lawyer_state.dart';
+import '../../../blocs/lawyer_profile_bloc/lawyer_profiel_bloc.dart';
+import '../../../data/models/lawyer_model.dart';
+import 'lawyer_screens/lawyer_profile_screens/lawyer_details_screen.dart';
 
 class LawyersListScreen extends StatefulWidget {
   const LawyersListScreen({super.key});
@@ -46,15 +47,13 @@ class _LawyersScreenState extends State<LawyersListScreen> {
     return Scaffold(
       backgroundColor: const Color(0xFFF1F1F6),
       appBar: AppBar(
-        title: const Text('Lawyers Directory'),
+        title: const Text(
+          'Lawyers Directory',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
         centerTitle: true,
         elevation: 8,
-        backgroundColor: Colors.deepPurple,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(
-            bottom: Radius.circular(25),
-          ),
-        ),
+        backgroundColor: const Color(0XFF472A0C),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -92,8 +91,11 @@ class _LawyersScreenState extends State<LawyersListScreen> {
         onPressed: () {
           bloc.add(GetAllLawyersEvent());
         },
-        backgroundColor: Colors.deepPurple,
-        child: const Icon(Icons.refresh),
+        backgroundColor: const Color(0XFF472A0C),
+        child: const Icon(
+          Icons.refresh,
+          color: Colors.white,
+        ),
       ),
     );
   }
@@ -107,7 +109,10 @@ class _LawyersScreenState extends State<LawyersListScreen> {
         onChanged: _onSearch,
         decoration: InputDecoration(
           hintText: 'Search by Lawyer ID...',
-          prefixIcon: const Icon(Icons.search, color: Colors.deepPurple),
+          prefixIcon: const Icon(
+            Icons.search,
+            color: Color(0XFF472A0C),
+          ),
           filled: true,
           fillColor: Colors.white,
           contentPadding:
@@ -166,7 +171,7 @@ class _LawyersScreenState extends State<LawyersListScreen> {
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
-                  color: Colors.deepPurple,
+                  color: Color(0XFF472A0C),
                 ),
               ),
               const SizedBox(height: 8),

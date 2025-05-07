@@ -5,7 +5,7 @@ import '../../../blocs/issue_requests_bloc/issue_requests_bloc.dart';
 import '../../../blocs/issue_requests_bloc/issue_requests_event.dart';
 import '../../../blocs/issue_requests_bloc/issue_requests_state.dart';
 import '../../../data/models/issue_request_model.dart';
-import '../../widgets/issue_request_item.dart';
+import 'issue_request_detials_screen.dart';
 
 class ListIssueRequestsScreen extends StatefulWidget {
   const ListIssueRequestsScreen({super.key});
@@ -18,6 +18,7 @@ class ListIssueRequestsScreen extends StatefulWidget {
 class _ListIssueRequestsScreenState extends State<ListIssueRequestsScreen> {
   final TextEditingController _searchController = TextEditingController();
   late IssueRequestsBloc bloc;
+  List<IssueRequestModel> _allRequests = [];
 
   @override
   void initState() {
@@ -46,13 +47,13 @@ class _ListIssueRequestsScreenState extends State<ListIssueRequestsScreen> {
     return Scaffold(
       backgroundColor: const Color(0xFFF1F1F6),
       appBar: AppBar(
-        title: const Text('List Issue Requests'),
+        title: const Text(
+          'List Issue Requests',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
         centerTitle: true,
         elevation: 8,
-        backgroundColor: const Color(0xFFB8820E),
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(bottom: Radius.circular(25)),
-        ),
+        backgroundColor: const Color(0XFF472A0C),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -61,40 +62,24 @@ class _ListIssueRequestsScreenState extends State<ListIssueRequestsScreen> {
             _buildSearchBar(),
             const SizedBox(height: 20),
             Expanded(
-              child: BlocConsumer<IssueRequestsBloc, IssueRequestsState>(
-                listener: (context, state) {
-                  if (state is IssueRequestsSuccess) {
-                    print('Success: ${state.successmsg}');
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(state.successmsg),
-                        backgroundColor: Colors.green,
-                      ),
-                    );
-                  } else if (state is IssueRequestsFail) {
-                    print('Error: ${state.errmsg}');
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('Error: ${state.errmsg}'),
-                        backgroundColor: Colors.red,
-                      ),
-                    );
-                  } else if (state is IssueRequestsByIdLoaded) {
-                    // Example: When searching by ID, print it to console
-                    print(
-                        'Issue request found by ID: ${state.issueRequestModel.id}');
-                  }
-                },
+              child: BlocBuilder<IssueRequestsBloc, IssueRequestsState>(
                 builder: (context, state) {
                   if (state is IssueRequestsLoading) {
                     return const Center(child: CircularProgressIndicator());
                   } else if (state is IssueRequestsListLoaded) {
-                    return _buildRequestList(state.issueRequestsList);
+                    _allRequests = state.issueRequestsList;
+                    return _buildRequestList(_allRequests);
                   } else if (state is IssueRequestsByIdLoaded) {
                     return _buildRequestList([state.issueRequestModel]);
+                  } else if (state is IssueRequestsFail) {
+                    return Center(
+                      child: Text(
+                        'Error: ${state.errmsg}',
+                        style: const TextStyle(color: Colors.red),
+                      ),
+                    );
                   } else {
-                    bloc.add(GetAllIssueRequestsEvent());
-                    return const Center(child: CircularProgressIndicator());
+                    return const Center(child: Text('No data yet.'));
                   }
                 },
               ),
@@ -104,8 +89,11 @@ class _ListIssueRequestsScreenState extends State<ListIssueRequestsScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => bloc.add(GetAllIssueRequestsEvent()),
-        backgroundColor: const Color(0xFFB8820E),
-        child: const Icon(Icons.refresh),
+        backgroundColor: const Color(0XFF472A0C),
+        child: const Icon(
+          Icons.refresh,
+          color: Colors.white,
+        ),
       ),
     );
   }
@@ -119,7 +107,7 @@ class _ListIssueRequestsScreenState extends State<ListIssueRequestsScreen> {
         onChanged: _onSearch,
         decoration: InputDecoration(
           hintText: 'Search by Request ID...',
-          prefixIcon: const Icon(Icons.search, color: Color(0xFFB8820E)),
+          prefixIcon: const Icon(Icons.search, color: Color(0XFF472A0C)),
           filled: true,
           fillColor: Colors.white,
           contentPadding:
@@ -141,12 +129,69 @@ class _ListIssueRequestsScreenState extends State<ListIssueRequestsScreen> {
       itemCount: requests.length,
       separatorBuilder: (_, __) => const SizedBox(height: 12),
       itemBuilder: (context, index) {
-        return IssueRequestItem.create(
-          context: context,
-          request: requests[index],
-          bloc: bloc,
-        );
+        return _buildRequestCard(requests[index]);
       },
+    );
+  }
+
+  Widget _buildRequestCard(IssueRequestModel request) {
+    return Card(
+      elevation: 5,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: ListTile(
+        title: Text(request.title),
+        subtitle: Text(request.description),
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => BlocProvider(
+                  create: (context) => IssueRequestsBloc(),
+                  child: IssueRequestDetailsScreen(issueRequestId: request.id),
+                ),
+              ));
+        },
+        trailing: IconButton(
+          icon: const Icon(Icons.delete, color: Colors.red),
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: const Text("Delete Issue Request"),
+                content: const Text(
+                    "Are you sure you want to delete this issue request?"),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: const Text("Cancel"),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context); // Close dialog
+                      bloc.add(
+                          DeleteIssueRequestEvent(issueRequestId: request.id));
+                      bloc.add(GetAllIssueRequestsEvent());
+                      print(
+                          "✅ Request with ID ${request.id} deleted successfully");
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text("Request deleted successfully"),
+                          backgroundColor: Colors.green,
+                          duration: Duration(seconds: 2),
+                        ),
+                      );
+                    },
+                    child: const Text("Delete",
+                        style: TextStyle(color: Colors.red)),
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
+      ),
     );
   }
 }
