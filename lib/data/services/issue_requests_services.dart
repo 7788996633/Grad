@@ -10,8 +10,7 @@ class IssueRequestsServices {
       'Authorization': 'Bearer $myToken',
     };
 
-    var request =
-        http.MultipartRequest('GET', Uri.parse('${myUrl}issue-requests'));
+    var request = http.MultipartRequest('GET', Uri.parse('${myUrl}issue-requests'));
     request.headers.addAll(headers);
     var streamedResponse = await request.send();
     var response = await http.Response.fromStream(streamedResponse);
@@ -31,8 +30,7 @@ class IssueRequestsServices {
       'Authorization': 'Bearer $myToken',
     };
 
-    var request = http.Request(
-        'GET', Uri.parse('${myUrl}issue-requests/$issueRequestId'));
+    var request = http.Request('GET', Uri.parse('${myUrl}issue-requests/$issueRequestId'));
     request.headers.addAll(headers);
     var streamedResponse = await request.send();
     var response = await http.Response.fromStream(streamedResponse);
@@ -52,8 +50,7 @@ class IssueRequestsServices {
       'Authorization': 'Bearer $myToken',
     };
 
-    var request =
-        http.MultipartRequest('POST', Uri.parse('${myUrl}issue-requests'));
+    var request = http.MultipartRequest('POST', Uri.parse('${myUrl}issue-requests'));
     request.fields.addAll({
       'title': title,
       'description': description,
@@ -72,16 +69,14 @@ class IssueRequestsServices {
     }
   }
 
-  Future<String> updateIssueRequest(
-      String title, String description, int issueRequestId) async {
+  Future<String> updateIssueRequest(String title, String description, int issueRequestId) async {
     var headers = {
       'Accept': 'application/json',
       'Content-Type': 'application/x-www-form-urlencoded',
       'Authorization': 'Bearer $myToken',
     };
 
-    var request = http.Request(
-        'POST', Uri.parse('${myUrl}issue-requests/$issueRequestId'));
+    var request = http.Request('POST', Uri.parse('${myUrl}issue-requests/$issueRequestId'));
     request.bodyFields = {
       'title': title,
       'description': description,
@@ -106,8 +101,7 @@ class IssueRequestsServices {
       'Authorization': 'Bearer $myToken',
     };
 
-    var request = http.MultipartRequest(
-        'DELETE', Uri.parse('${myUrl}issue-requests/$issueRequestId'));
+    var request = http.MultipartRequest('DELETE', Uri.parse('${myUrl}issue-requests/$issueRequestId'));
     request.headers.addAll(headers);
     var streamedResponse = await request.send();
     var response = await http.Response.fromStream(streamedResponse);

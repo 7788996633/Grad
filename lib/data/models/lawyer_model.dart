@@ -8,12 +8,24 @@ class LawyerModel {
   final String specialization;
   final int userId;
   final String createdAt;
-  final String name;
-  final String email;
-  final String age;
-  final String address;
-  final String phone;
-  final String image;
+  String name = 'Bashar';
+  String email = 'b@gmail.com';
+  String age = '33';
+  String address = 'Damascus';
+  String phone = '0937841338';
+
+  LawyerModel({
+    required this.id,
+    required this.licenseNumber,
+    required this.experienceYears,
+    required this.salary,
+    required this.certificate,
+    required this.type,
+    required this.specialization,
+    required this.userId,
+    required this.createdAt,
+  });
+
   factory LawyerModel.fromJson(Map<String, dynamic> json) {
     return LawyerModel(
       id: json['id'],
@@ -25,30 +37,6 @@ class LawyerModel {
       specialization: json['specialization'],
       userId: json['user_id'],
       createdAt: json['created_at'],
-      address: json['address'],
-      name: json['name'],
-      email: json['email'],
-      age: json['age'],
-      phone: json['phone'],
-      image: json['image'],
-
     );
   }
-
-  LawyerModel(
-      {required this.id,
-      required this.licenseNumber,
-      required this.experienceYears,
-      required this.salary,
-      required this.certificate,
-      required this.type,
-      required this.specialization,
-      required this.userId,
-      required this.createdAt,
-      required this.name,
-      required this.email,
-      required this.age,
-      required this.address,
-      required this.phone,
-      required this.image});
 }

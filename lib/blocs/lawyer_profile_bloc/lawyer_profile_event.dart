@@ -20,8 +20,9 @@ class ShowLawyerProfileEvent extends LawyerProfileEvent {}
 
 class ShowLawyerProfileByIdEvent extends LawyerProfileEvent {
   final int lawyerId;
+  final int userId;
 
-  ShowLawyerProfileByIdEvent({required this.lawyerId});
+  ShowLawyerProfileByIdEvent({required this.lawyerId, required this.userId});
 }
 
 class UpdateLawyerProfileEvent extends LawyerProfileEvent {

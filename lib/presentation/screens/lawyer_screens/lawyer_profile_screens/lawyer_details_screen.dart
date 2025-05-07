@@ -4,11 +4,14 @@ import 'package:http/http.dart' as http; // استيراد مكتبة http لت�
 import '../../../../blocs/lawyer_profile_bloc/lawyer_profiel_bloc.dart';
 import '../../../../constant.dart';
 import '../../../../data/models/lawyer_model.dart';
+import '../../../../data/models/user_profile_model.dart';
 import '../../../pdf_viewer_page.dart';
 
 class LawyerDetailsScreen extends StatefulWidget {
-  const LawyerDetailsScreen({super.key, required this.lawyerId});
+  const LawyerDetailsScreen(
+      {super.key, required this.lawyerId, required this.userId});
   final int lawyerId;
+  final int userId;
   @override
   State<LawyerDetailsScreen> createState() => _LawyerDetailsScreenState();
 }
@@ -22,7 +25,8 @@ class _LawyerDetailsScreenState extends State<LawyerDetailsScreen> {
     super.initState();
 
     BlocProvider.of<LawyerProfileBloc>(context).add(
-      ShowLawyerProfileByIdEvent(lawyerId: widget.lawyerId),
+      ShowLawyerProfileByIdEvent(
+          lawyerId: widget.lawyerId, userId: widget.userId),
     );
   }
 
@@ -76,7 +80,8 @@ class _LawyerDetailsScreenState extends State<LawyerDetailsScreen> {
     }
   }
 
-  Widget buildProfileUI(LawyerModel lawyer, BuildContext context) {
+  Widget buildProfileUI(
+      LawyerModel lawyer, UserProfileModel user, BuildContext context) {
     return Center(
       child: SingleChildScrollView(
         child: Container(
@@ -97,19 +102,19 @@ class _LawyerDetailsScreenState extends State<LawyerDetailsScreen> {
             mainAxisSize: MainAxisSize.min,
             children: [
               CircleAvatar(
-                  radius: 45, backgroundImage: NetworkImage(lawyer.image)),
+                  radius: 45, backgroundImage: NetworkImage(user.image)),
               const SizedBox(height: 10),
-              Text("Lawyer ${lawyer.name}",
+              Text("Lawyer ${user.name}",
                   style: const TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
                       color: Colors.black)),
               const SizedBox(height: 20),
-              buildInfoTile(Icons.person, "Name", lawyer.name),
-              buildInfoTile(Icons.email, "Email", lawyer.email),
-              buildInfoTile(Icons.location_on, "Address", lawyer.address),
-              buildInfoTile(Icons.phone, "Phone", lawyer.phone),
-              buildInfoTile(Icons.cake, "Age", lawyer.age.toString()),
+              buildInfoTile(Icons.person, "Name", user.name),
+              buildInfoTile(Icons.email, "Email", user.email),
+              buildInfoTile(Icons.location_on, "Address", user.address),
+              buildInfoTile(Icons.phone, "Phone", user.phone),
+              buildInfoTile(Icons.cake, "Age", user.age.toString()),
               buildInfoTile(
                   Icons.gavel, "Specialization", lawyer.specialization),
               buildInfoTile(
@@ -155,7 +160,8 @@ class _LawyerDetailsScreenState extends State<LawyerDetailsScreen> {
           if (state is LawyerProfileLoading) {
             return const Center(child: CircularProgressIndicator());
           } else if (state is LawyerProfileLoadedSuccessfully) {
-            return buildProfileUI(state.lawyerModel, context);
+            return buildProfileUI(
+                state.lawyerModel, state.userProfileModel, context);
           } else if (state is LawyerProfileFail) {
             return Center(
               child: Column(

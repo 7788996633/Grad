@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:graduation/presentation/screens/factories/role_screen.dart';
-import 'package:graduation/presentation/screens/home/lawyer_home_screen.dart';
+
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
+
+import '../factories/role_screen.dart';
+import 'lawyer_home_screen.dart';
 
 class LawyerHomePage extends StatefulWidget implements RoleScreen {
   const LawyerHomePage({super.key});
@@ -19,20 +21,20 @@ class _LawyerHomePageState extends State<LawyerHomePage> {
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [
-    // الصفحة الرئيسية
+
     const LawyerHomeScreen(),
-    // المفضلات
+
     const Center(child: Text('مفضلتي')),
-    // المواعيد
+
     const Center(child: Text('مواعيدي')),
-    // الأخبار القانونية
+
     const Center(child: Text('الأخبار القانونية')),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _pages[_selectedIndex], // عرض الصفحة بناءً على الـ index المحدد
+      body: _pages[_selectedIndex],
       bottomNavigationBar: SalomonBottomBar(
         currentIndex: _selectedIndex,
         onTap: (index) {

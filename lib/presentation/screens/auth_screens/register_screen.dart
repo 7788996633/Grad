@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:graduation/blocs/user_profile_bloc/user_profile_bloc.dart';
-import 'package:graduation/presentation/screens/user_screens/user_profile_screens/create_user_profile_screen.dart';
 
 import '../../../blocs/auth_bloc/auth_bloc.dart';
 import '../../../blocs/user_bloc/user_bloc.dart';
+import '../../../blocs/user_profile_bloc/user_profile_bloc.dart';
 import '../../../constant.dart';
 import '../../widgets/custom_text_field.dart';
+import '../user_screens/user_profile_screens/create_user_profile_screen.dart';
 import 'login_screen.dart';
 
 class RegisterScreen extends StatefulWidget {

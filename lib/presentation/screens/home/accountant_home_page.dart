@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:graduation/presentation/screens/home/accountan_home_screen.dart';
 
+import 'accountan_home_screen.dart';
 import 'hr_home_page.dart';
 
 class AccountantHomePage extends StatefulWidget {

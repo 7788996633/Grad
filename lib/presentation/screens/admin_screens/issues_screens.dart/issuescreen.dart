@@ -8,6 +8,7 @@ import 'edit_issue_screen.dart';
 class IssueScreen extends StatefulWidget {
   const IssueScreen({super.key, required this.issueId});
   final int issueId;
+
   @override
   State<IssueScreen> createState() => _IssueScreenState();
 }
@@ -16,98 +17,105 @@ class _IssueScreenState extends State<IssueScreen> {
   final Color customColor = const Color(0xFF472A0C);
   final Color valueColor = const Color(0xFF0F6829);
 
+  late IssuesModel issue;
+
   @override
   void initState() {
     super.initState();
     BlocProvider.of<IssuesBloc>(context).add(
-      IssueShowbyId(id:  widget.issueId),
+      IssueShowbyId(id: widget.issueId),
     );
   }
 
-  late IssuesModel issue;
   Widget buildInfoTile(IconData icon, String label, String value) {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 8),
-      child: Row(
-        children: [
-          Icon(icon, color: customColor),
-          const SizedBox(width: 10),
-          Expanded(
-            child: RichText(
-              text: TextSpan(
-                style:
-                    const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Icon(icon, color: customColor, size: 22),
+            const SizedBox(width: 10),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  TextSpan(
-                    text: "$label: ",
-                    style: TextStyle(color: customColor),
+                  Text(
+                    label,
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.grey[700],
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                  TextSpan(
-                    text: value,
-                    style: TextStyle(color: valueColor),
+                  const SizedBox(height: 3),
+                  Text(
+                    value,
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: valueColor,
+                    ),
                   ),
                 ],
               ),
             ),
-          ),
-        ],
-      ),
+          ],
+        ),
+        const SizedBox(height: 10),
+        const Divider(),
+      ],
     );
   }
 
   Widget buildProfileUI() {
-    return Center(
-      child: Container(
-        margin: const EdgeInsets.all(20),
-        padding: const EdgeInsets.all(25),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(25),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.3),
-              blurRadius: 15,
-              offset: const Offset(0, 8),
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(20),
+      child: Column(
+        children: [
+          CircleAvatar(
+            radius: 50,
+            backgroundColor: customColor,
+            child: const Icon(Icons.gavel, size: 50, color: Colors.white),
+          ),
+          const SizedBox(height: 15),
+          const Text(
+            "Issue Details",
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
             ),
-          ],
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            CircleAvatar(
-              radius: 45,
-              backgroundColor: customColor,
-              child: const Icon(Icons.person, size: 50, color: Colors.white),
+          ),
+          const SizedBox(height: 25),
+          Container(
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20),
+              boxShadow:const [
+                 BoxShadow(
+                  color: Colors.black12,
+                  blurRadius: 10,
+                  offset: Offset(0, 4),
+                ),
+              ],
             ),
-            const SizedBox(height: 20),
-            const Text(
-              "Lawyer Certificate",
-              style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),
+            child: Column(
+              children: [
+                buildInfoTile(Icons.title, "Title", issue.title),
+                buildInfoTile(Icons.numbers, "Issue Number", issue.issueNumber),
+                buildInfoTile(Icons.category, "Category", issue.category),
+                buildInfoTile(Icons.account_balance, "Court Name", issue.courtName),
+                buildInfoTile(Icons.payments, "Number Of Payments", issue.numberOfPayments.toString()),
+                buildInfoTile(Icons.attach_money, "Total Cost", issue.totalCost.toString()),
+                buildInfoTile(Icons.info_outline, "Status", issue.status),
+                buildInfoTile(Icons.priority_high, "Priority", issue.priority),
+                buildInfoTile(Icons.date_range, "Start Date", issue.startDate),
+                buildInfoTile(Icons.calendar_today, "Created At", issue.createdAt),
+                buildInfoTile(Icons.update, "Updated At", issue.updatedAt),
+              ],
             ),
-            const SizedBox(height: 20),
-            buildInfoTile(Icons.title, "Title", issue.title),
-            buildInfoTile(Icons.numbers, "Issue Number", issue.issueNumber),
-            buildInfoTile(Icons.category, "Category", issue.category),
-            buildInfoTile(Icons.title, "Court Name", issue.courtName),
-            buildInfoTile(Icons.numbers, "Number Of Payments",
-                issue.numberOfPayments.toString()),
-            buildInfoTile(
-                Icons.numbers, "total Cost", issue.totalCost.toString()),
-            // buildInfoTile(Icons.numbers, "Amount Paid", issue.amountPaid),
-            // buildInfoTile(Icons.title, "Description", issue.description),
-            buildInfoTile(Icons.title, "Court Name", issue.courtName),
-            buildInfoTile(Icons.title, "Status", issue.status),
-            buildInfoTile(Icons.numbers, "Priority", issue.priority),
-            buildInfoTile(Icons.date_range, "Start Date", issue.startDate),
-            // buildInfoTile(Icons.date_range, "End Date", issue.endDate),
-            buildInfoTile(Icons.date_range, "Start Date", issue.createdAt),
-            buildInfoTile(Icons.date_range, "End Date", issue.updatedAt),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -117,23 +125,6 @@ class _IssueScreenState extends State<IssueScreen> {
     return Scaffold(
       backgroundColor: const Color(0xFFF5F6FA),
       appBar: AppBar(
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => EditIssueScreen(
-                    issue: issue,
-                  ),
-                ),
-              );
-            },
-            icon: const Icon(
-              Icons.edit,
-              color: Colors.white,
-            ),
-          ),
-        ],
         backgroundColor: customColor,
         title: const Text(
           "Issue Screen",
@@ -142,6 +133,18 @@ class _IssueScreenState extends State<IssueScreen> {
         ),
         centerTitle: true,
         elevation: 4,
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => EditIssueScreen(issue: issue),
+                ),
+              );
+            },
+            icon: const Icon(Icons.edit, color: Colors.white),
+          ),
+        ],
       ),
       body: BlocBuilder<IssuesBloc, IssuesState>(
         builder: (context, state) {

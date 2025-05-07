@@ -1,106 +1,125 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../blocs/issue_bloc/issues_bloc.dart';
+import '../../../blocs/issue_requests_bloc/issue_requests_bloc.dart';
+import '../admin_screens/issues_screens.dart/create_issue_screen.dart';
+import '../issue_request/add_issue_request.dart';
+import '../settings/setting_screen.dart';
+
+// ------------------ User Home Screen ------------------
 class UserHomeScreen extends StatelessWidget {
   final List<Map<String, dynamic>> gridItems = [
     {
       'icon': Icons.add_circle,
       'title': 'Submit New Case',
-      'page': const NewCaseScreen()
     },
+    {
+      'icon': Icons.add_circle,
+      'title': 'Submit New issues',
+    },
+
     {
       'icon': Icons.contact_support,
       'title': 'Request Legal Consultation',
-      'page': const LegalConsultationScreen()
     },
     {
       'icon': Icons.library_books,
       'title': 'Legal Library',
-      'page': const LegalLibraryScreen()
     },
     {
       'icon': Icons.report_problem,
       'title': 'Submit Complaint',
-      'page': const SubmitComplaintScreen()
     },
     {
       'icon': Icons.question_answer,
       'title': 'FAQs & Legal Terms',
-      'page': const FAQsScreen()
     },
     {
       'icon': Icons.school,
       'title': 'Submit Training Request',
-      'page': const TrainingRequestScreen()
     },
   ];
 
   UserHomeScreen({super.key});
 
-  void _showSettings(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (context) {
-        return Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const CircleAvatar(
-                radius: 40,
-                backgroundImage: AssetImage('assets/images/user.png'),
+
+  void _navigateToPage(BuildContext context, String title) {
+    switch (title) {
+
+      case 'Submit New Issue Requests':
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) =>     BlocProvider(
+                create: (context) => IssueRequestsBloc(),
+                child: const AddIssueRequestScreen(),
               ),
-              const SizedBox(height: 10),
-              const Text('Client Name', style: TextStyle(fontSize: 20)),
-              const SizedBox(height: 5),
-              const Text('email@example.com',
-                  style: TextStyle(color: Colors.grey)),
-              const SizedBox(height: 20),
-              ListTile(
-                leading: const Icon(Icons.brightness_6),
-                title: const Text('Toggle Dark/Light Mode'),
-                onTap: () {
-                  Navigator.pop(context);
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.logout),
-                title: const Text('Log Out'),
-                onTap: () {
-                  Navigator.pop(context);
-                },
-              ),
-            ],
+            ));
+        break;
+
+      case 'add Issues':
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => BlocProvider(
+              create: (context) => IssuesBloc(),
+              child: const CreateIssueScreen(),
+            ),
           ),
         );
-      },
-    );
+        break;
+      case 'Request Legal Consultation':
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const LegalConsultationScreen()),
+        );
+        break;
+      case 'Legal Library':
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const LegalLibraryScreen()),
+        );
+        break;
+      case 'Submit Complaint':
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const SubmitComplaintScreen()),
+        );
+        break;
+      case 'FAQs & Legal Terms':
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const FAQsScreen()),
+        );
+        break;
+      case 'Submit Training Request':
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const TrainingRequestScreen()),
+        );
+        break;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home Page'),
+        title: const Text('Welcome to Yaghmour Company'),
         actions: [
           IconButton(
             icon: const Icon(Icons.notifications),
             onPressed: () {},
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8.0),
-            child: CircleAvatar(
-              backgroundImage: AssetImage('assets/images/user.png'),
-            ),
-          ),
+
           IconButton(
             icon: const Icon(Icons.settings),
-            onPressed: () => _showSettings(context),
+            onPressed: () => const SettingsScreen(),
           ),
         ],
       ),
+      drawer:const Drawer(),
       body: Padding(
         padding: const EdgeInsets.all(10),
         child: GridView.builder(
@@ -119,11 +138,7 @@ class UserHomeScreen extends StatelessWidget {
               ),
               child: InkWell(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => gridItems[index]['page']),
-                  );
+                  _navigateToPage(context, gridItems[index]['title']);
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),

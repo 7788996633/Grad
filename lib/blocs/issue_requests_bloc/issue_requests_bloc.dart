@@ -36,7 +36,6 @@ class IssueRequestsBloc extends Bloc<IssueRequestsEvent, IssueRequestsState> {
         try {
           IssueRequestModel issueRequest = await IssueRequestsServices().getIssueRequestById(event.issueRequestsId);
           emit(IssueRequestsByIdLoaded(issueRequestModel: issueRequest));
-
         } catch (e) {
           emit(IssueRequestsFail(errmsg: e.toString()));
         }
@@ -47,7 +46,6 @@ class IssueRequestsBloc extends Bloc<IssueRequestsEvent, IssueRequestsState> {
         try {
           String successMsg = await IssueRequestsServices().deleteIssueRequest(event.issueRequestId);
           emit(IssueRequestsSuccess(successmsg: successMsg));
-
         } catch (e) {
           emit(IssueRequestsFail(errmsg: e.toString()));
         }

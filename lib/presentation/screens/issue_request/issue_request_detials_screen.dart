@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+// استيراد مكتبة http لتحميل الملفات
 import '../../../blocs/issue_requests_bloc/issue_requests_bloc.dart';
 import '../../../blocs/issue_requests_bloc/issue_requests_event.dart';
 import '../../../blocs/issue_requests_bloc/issue_requests_state.dart';
@@ -103,24 +104,13 @@ class _IssueRequestDetailsScreenState extends State<IssueRequestDetailsScreen> {
         centerTitle: true,
         elevation: 4,
       ),
-      body: BlocConsumer<IssueRequestsBloc, IssueRequestsState>(
-        listener: (context, state) {
-          if (state is IssueRequestsFail) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(state.errmsg),
-                backgroundColor: Colors.red,
-              ),
-            );
-          }
-        },
+      body: BlocBuilder<IssueRequestsBloc, IssueRequestsState>(
         builder: (context, state) {
           if (state is IssueRequestsLoading) {
             return const Center(child: CircularProgressIndicator());
           } else if (state is IssueRequestsLoadedSuccessfully) {
             return buildProfileUI(state.issueRequestModel, context);
           } else if (state is IssueRequestsFail) {
-            // عرض رسالة الخطأ فقط داخل الواجهة بدون SnackBar إضافي
             return Center(
               child: Column(
                 mainAxisSize: MainAxisSize.min,

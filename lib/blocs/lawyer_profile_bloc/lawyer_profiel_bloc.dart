@@ -1,7 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import '../../data/models/lawyer_model.dart';
+import '../../data/models/user_profile_model.dart';
 import '../../data/services/lawyer_profile_services.dart';
+import '../../data/services/user_profile_services.dart';
 
 part 'lawyer_profile_event.dart';
 part 'lawyer_profile_state.dart';
@@ -42,11 +44,15 @@ class LawyerProfileBloc extends Bloc<LawyerProfileEvent, LawyerProfileState> {
                 await LawyerProfileServices().getMyLawyerProfile();
 
             // جلب بيانات المستخدم
+            UserProfileModel userProfile =
+                await UserProfileServices().showProfile();
 
             // دمج البيانات في الحالة
             emit(
               LawyerProfileLoadedSuccessfully(
                 lawyerModel: lawyer,
+                userProfileModel: userProfile, // هنا تم تصحيح الاسم
+                // هنا تم تصحيح الاسم
               ),
             );
           } catch (e) {
@@ -84,11 +90,15 @@ class LawyerProfileBloc extends Bloc<LawyerProfileEvent, LawyerProfileState> {
                 .getLawyerProfileById(event.lawyerId);
 
             // جلب بيانات المستخدم
+            UserProfileModel userProfile =
+                await UserProfileServices().showProfileById(event.userId);
 
             // دمج البيانات في الحالة
             emit(
               LawyerProfileLoadedSuccessfully(
                 lawyerModel: lawyer,
+                userProfileModel: userProfile, // هنا تم تصحيح الاسم
+                // هنا تم تصحيح الاسم
               ),
             );
           } catch (e) {
