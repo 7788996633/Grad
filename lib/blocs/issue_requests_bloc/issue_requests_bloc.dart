@@ -19,41 +19,46 @@ class IssueRequestsBloc extends Bloc<IssueRequestsEvent, IssueRequestsState> {
         } catch (e) {
           emit(IssueRequestsFail(errmsg: e.toString()));
         }
-      }
-
-      else if (event is GetAllIssueRequestsEvent) {
+      } else if (event is GetAllIssueRequestsEvent) {
         emit(IssueRequestsLoading());
         try {
-          List<IssueRequestModel> issueRequestsList = await IssueRequestRepository().getIssueRequests();
+          List<IssueRequestModel> issueRequestsList =
+              await IssueRequestRepository().getIssueRequests();
           emit(IssueRequestsListLoaded(issueRequestsList: issueRequestsList));
         } catch (e) {
           emit(IssueRequestsFail(errmsg: e.toString()));
         }
-      }
-
-      else if (event is GetIssueRequestsByIdEvent) {
-        emit(IssueRequestsLoading());
+      } else if (event is GetIssueRequestsByIdEvent) {
+        emit(
+          IssueRequestsLoading(),
+        );
         try {
-          IssueRequestModel issueRequest = await IssueRequestsServices().getIssueRequestById(event.issueRequestsId);
-          emit(IssueRequestsByIdLoaded(issueRequestModel: issueRequest));
-
+          IssueRequestModel issueRequest = await IssueRequestsServices()
+              .getIssueRequestById(event.issueRequestsId);
+          emit(
+            IssueRequestsLoadedSuccessfully(
+              issueRequestModel: issueRequest,
+            ),
+          );
         } catch (e) {
           emit(IssueRequestsFail(errmsg: e.toString()));
         }
-      }
-
-      else if (event is DeleteIssueRequestEvent ) {
+      } else if (event is DeleteIssueRequestEvent) {
         emit(IssueRequestsLoading());
         try {
-          String successMsg = await IssueRequestsServices().deleteIssueRequest(event.issueRequestId);
-          emit(IssueRequestsSuccess(successmsg: successMsg));
-
+          String successMsg = await IssueRequestsServices()
+              .deleteIssueRequest(event.issueRequestId);
+          emit(
+            IssueRequestsSuccess(
+              successmsg: successMsg,
+            ),
+          );
         } catch (e) {
-          emit(IssueRequestsFail(errmsg: e.toString()));
+          emit(IssueRequestsFail(
+            errmsg: e.toString(),
+          ));
         }
-      }
-
-      else if (event is UpdateIssueRequestEvent) {
+      } else if (event is UpdateIssueRequestEvent) {
         emit(IssueRequestsLoading());
         try {
           String value = await IssueRequestsServices().updateIssueRequest(

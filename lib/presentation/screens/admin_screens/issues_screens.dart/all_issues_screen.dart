@@ -1,28 +1,82 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:graduation/blocs/issue_bloc/issues_bloc.dart';
-import 'package:graduation/presentation/widgets/all_issues_list.dart';
+import '../../../../blocs/issue_bloc/issues_bloc.dart';
+import '../../../../data/models/issues_model.dart';
+import '../../../widgets/issue_item.dart';
 
-class AllIssuesScreen extends StatelessWidget {
+class AllIssuesScreen extends StatefulWidget {
   const AllIssuesScreen({super.key});
+  @override
+  State<AllIssuesScreen> createState() => _AllIssuesScreenState();
+}
+
+class _AllIssuesScreenState extends State<AllIssuesScreen> {
+  @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<IssuesBloc>(context).add(
+      GetAllIssuesEvent(),
+    );
+  }
+
+  List<IssuesModel> allIssuesList = [];
+  Widget buildIssuesList() {
+    return ListView.builder(
+      itemCount: allIssuesList.length,
+      itemBuilder: (context, index) => IssueItem(
+        issuesModel: allIssuesList[index],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFFF5F6FA),
       appBar: AppBar(
-        title: const Text("Issues"),
+        backgroundColor: const Color(0xFFB8820E),
+        title: const Text(
+          "All Issues",
+          style: TextStyle(color: Colors.white),
+        ),
+        centerTitle: true,
       ),
-      body: SizedBox(
-        height: MediaQuery.sizeOf(context).height,
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              BlocProvider(
-                create: (context) => IssuesBloc(),
-                child: const AllIssuesList(),
-              ),
-            ],
-          ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: BlocBuilder<IssuesBloc, IssuesState>(
+          builder: (context, state) {
+            if (state is IssuesListLoadedSuccessFully) {
+              allIssuesList = state.issues;
+              return allIssuesList.isEmpty
+                  ? const Center(child: Text('There is no issues'))
+                  : buildIssuesList();
+            } else if (state is IssuesFail) {
+              debugPrint("🛑 Error: ${state.errmsg}");
+              return Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Text(
+                      "There is an error:",
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.red,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Text(
+                      state.errmsg,
+                      style: const TextStyle(fontSize: 16),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+              );
+            } else {
+              return const Center(child: CircularProgressIndicator());
+            }
+          },
         ),
       ),
     );

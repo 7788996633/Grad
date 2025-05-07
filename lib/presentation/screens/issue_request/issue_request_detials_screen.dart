@@ -115,9 +115,7 @@ class _IssueRequestDetailsScreenState extends State<IssueRequestDetailsScreen> {
           }
         },
         builder: (context, state) {
-          if (state is IssueRequestsLoading) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (state is IssueRequestsLoadedSuccessfully) {
+          if (state is IssueRequestsLoadedSuccessfully) {
             return buildProfileUI(state.issueRequestModel, context);
           } else if (state is IssueRequestsFail) {
             // عرض رسالة الخطأ فقط داخل الواجهة بدون SnackBar إضافي
@@ -137,8 +135,11 @@ class _IssueRequestDetailsScreenState extends State<IssueRequestDetailsScreen> {
                 ],
               ),
             );
+          } else {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
           }
-          return const Center(child: Text('Something went wrong'));
         },
       ),
     );

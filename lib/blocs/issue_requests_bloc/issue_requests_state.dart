@@ -35,8 +35,3 @@ final class IssueRequestsListLoaded extends IssueRequestsState {
   IssueRequestsListLoaded({required this.issueRequestsList});
 }
 
-final class IssueRequestsByIdLoaded extends IssueRequestsState {
-  final IssueRequestModel issueRequestModel;
-
-  IssueRequestsByIdLoaded({required this.issueRequestModel, });
-}

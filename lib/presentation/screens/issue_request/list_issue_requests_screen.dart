@@ -69,8 +69,10 @@ class _ListIssueRequestsScreenState extends State<ListIssueRequestsScreen> {
                   } else if (state is IssueRequestsListLoaded) {
                     _allRequests = state.issueRequestsList;
                     return _buildRequestList(_allRequests);
-                  } else if (state is IssueRequestsByIdLoaded) {
-                    return _buildRequestList([state.issueRequestModel]);
+                  } else if (state is IssueRequestsLoadedSuccessfully) {
+                    return _buildRequestList(
+                      [state.issueRequestModel],
+                    );
                   } else if (state is IssueRequestsFail) {
                     return Center(
                       child: Text(

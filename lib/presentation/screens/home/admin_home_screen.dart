@@ -1,16 +1,12 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation/presentation/screens/admin_screens/issues_screens.dart/all_issues_screen.dart';
 import 'package:graduation/presentation/screens/lawyers_list_screen.dart';
-
 import '../../../blocs/issue_bloc/issues_bloc.dart';
 import '../../../blocs/issue_requests_bloc/issue_requests_bloc.dart';
 import '../../../blocs/lawyer_bloc/lawyer_bloc.dart';
 import '../../../blocs/user_profile_bloc/user_profile_bloc.dart';
-import '../../widgets/all_issues_list.dart';
 import '../../widgets/custom_app_bar.dart';
-import '../admin_screens/issues_screens.dart/all_issues_screen.dart';
 import '../admin_screens/issues_screens.dart/create_issue_screen.dart';
 import '../admin_screens/users_management_screens/modify_users_permissions_screen.dart';
 import '../issue_request/list_issue_requests_screen.dart';
@@ -55,7 +51,7 @@ class AdminHomeScreen extends StatelessWidget {
           MaterialPageRoute(
             builder: (_) => BlocProvider(
               create: (context) => IssuesBloc(),
-              child: const AllIssuesList(),
+              child: const AllIssuesScreen(),
             ),
           ),
         );
@@ -94,7 +90,6 @@ class AdminHomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -137,21 +132,6 @@ class AdminHomeScreen extends StatelessWidget {
         padding: const EdgeInsets.all(12.0),
         child: Column(
           children: [
-            const SizedBox(height: 20),
-            ElevatedButton.icon(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const AllIssuesScreen(),
-                  ),
-                );
-              },
-              icon: const Icon(Icons.notifications),
-              label: const Text('القضايا'),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.deepPurple,
-              ),
-            ),
             ElevatedButton.icon(
               onPressed: () {
                 Navigator.of(context).push(
