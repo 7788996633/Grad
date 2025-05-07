@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../blocs/user_profile_bloc/user_profile_bloc.dart';
+import '../../widgets/custom_app_bar.dart';
+import '../notifications_screen.dart';
+import '../settings/setting_screen.dart';
 
 class UserHomeScreen extends StatelessWidget {
   final List<Map<String, dynamic>> gridItems = [
@@ -36,70 +42,45 @@ class UserHomeScreen extends StatelessWidget {
 
   UserHomeScreen({super.key});
 
-  void _showSettings(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (context) {
-        return Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const CircleAvatar(
-                radius: 40,
-                backgroundImage: AssetImage('assets/images/user.png'),
-              ),
-              const SizedBox(height: 10),
-              const Text('Client Name', style: TextStyle(fontSize: 20)),
-              const SizedBox(height: 5),
-              const Text('email@example.com',
-                  style: TextStyle(color: Colors.grey)),
-              const SizedBox(height: 20),
-              ListTile(
-                leading: const Icon(Icons.brightness_6),
-                title: const Text('Toggle Dark/Light Mode'),
-                onTap: () {
-                  Navigator.pop(context);
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.logout),
-                title: const Text('Log Out'),
-                onTap: () {
-                  Navigator.pop(context);
-                },
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home Page'),
+        title: const Text(
+          'Welcome to Yaghmour Company ',
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: const Color(0XFF5599E7),
         actions: [
           IconButton(
-            icon: const Icon(Icons.notifications),
-            onPressed: () {},
-          ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8.0),
-            child: CircleAvatar(
-              backgroundImage: AssetImage('assets/images/user.png'),
-            ),
+            icon: const Icon(Icons.settings, color: Colors.white),
+            tooltip: 'Settings',
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const SettingsScreen(),
+                ),
+              );
+            },
           ),
           IconButton(
-            icon: const Icon(Icons.settings),
-            onPressed: () => _showSettings(context),
+            icon: const Icon(Icons.notifications, color: Colors.white),
+            tooltip: 'Notifications',
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const NotificationsScreen(),
+                ),
+              );
+            },
           ),
         ],
+      ),
+      drawer: BlocProvider(
+        create: (context) => UserProfileBloc()..add(ShowUserProfileEvent()),
+        child: const CustomAppDrawer(),
       ),
       body: Padding(
         padding: const EdgeInsets.all(10),
@@ -133,7 +114,7 @@ class UserHomeScreen extends StatelessWidget {
                       Icon(
                         gridItems[index]['icon'],
                         size: 50,
-                        color: Theme.of(context).primaryColor,
+                        color: const Color(0XFF5599E7),
                       ),
                       const SizedBox(height: 20),
                       Text(

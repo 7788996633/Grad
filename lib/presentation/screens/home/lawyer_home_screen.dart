@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../blocs/lawyer_profile_bloc/lawyer_profiel_bloc.dart';
+import '../../widgets/custom_lawyer_drawer.dart';
 
 class LawyerHomeScreen extends StatefulWidget {
   const LawyerHomeScreen({super.key});
@@ -44,8 +48,8 @@ class _LawyerHomeScreenState extends State<LawyerHomeScreen>
     return Scaffold(
       backgroundColor: const Color(0xFFF2F2F2),
       appBar: AppBar(
-        backgroundColor: const Color(0xFF1E9AD8),
-        title: const Text('HR Home'),
+        backgroundColor: const Color(0XFF472A0C),
+        title: const Text('lawyer Home'),
         actions: [
           IconButton(
             icon: const Icon(Icons.notifications),
@@ -55,34 +59,9 @@ class _LawyerHomeScreenState extends State<LawyerHomeScreen>
           ),
         ],
       ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            const UserAccountsDrawerHeader(
-              accountName: Text('HR Name'),
-              accountEmail: Text('hr@example.com'),
-              currentAccountPicture: CircleAvatar(
-                backgroundImage: AssetImage('assets/profile.jpg'),
-              ),
-              decoration: BoxDecoration(
-                color: Color(0xFFB8820E),
-              ),
-            ),
-            ListTile(
-              leading: const Icon(Icons.settings),
-              title: const Text('Settings'),
-              onTap: () {},
-            ),
-            ListTile(
-              leading: const Icon(Icons.logout),
-              title: const Text('Logout'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-          ],
-        ),
+      drawer: BlocProvider(
+        create: (context) => LawyerProfileBloc()..add(ShowLawyerProfileEvent()),
+        child: const CustomDrawerLawyer(),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
@@ -96,7 +75,7 @@ class _LawyerHomeScreenState extends State<LawyerHomeScreen>
                 style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    color: Color(0xFF1E9AD8)),
+                    color: Color(0XFF472A0C)),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -108,7 +87,7 @@ class _LawyerHomeScreenState extends State<LawyerHomeScreen>
                   child: ElevatedButton(
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF1E9AD8),
+                      backgroundColor: const Color(0XFF472A0C),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
@@ -126,7 +105,7 @@ class _LawyerHomeScreenState extends State<LawyerHomeScreen>
                   child: ElevatedButton(
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF1E9AD8),
+                      backgroundColor: const Color(0XFF472A0C),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
@@ -185,7 +164,7 @@ class _LawyerHomeScreenState extends State<LawyerHomeScreen>
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Icon(item['icon'],
-                                  size: 40, color: const Color(0xFF1E9AD8)),
+                                  size: 40, color: const Color(0XFF472A0C)),
                               const SizedBox(height: 12),
                               Text(
                                 item['title'],

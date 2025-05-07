@@ -29,7 +29,7 @@ class _MainClientPageState extends State<UserHomePage> {
     return Scaffold(
       body: _screens[_currentIndex],
       bottomNavigationBar: CurvedNavigationBar(
-        backgroundColor: const Color(0XFF472A0C),
+        backgroundColor: Colors.white,
         color: Colors.blue,
         buttonBackgroundColor: Colors.white,
         height: 60,

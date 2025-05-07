@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:graduation/presentation/screens/admin_screens/issues_screens.dart/all_issues_screen.dart';
-import 'package:graduation/presentation/screens/lawyers_list_screen.dart';
+
 import '../../../blocs/issue_bloc/issues_bloc.dart';
 import '../../../blocs/issue_requests_bloc/issue_requests_bloc.dart';
 import '../../../blocs/lawyer_bloc/lawyer_bloc.dart';
 import '../../../blocs/user_profile_bloc/user_profile_bloc.dart';
 import '../../widgets/custom_app_bar.dart';
+import '../admin_screens/issues_screens.dart/all_issues_screen.dart';
 import '../admin_screens/issues_screens.dart/create_issue_screen.dart';
 import '../admin_screens/users_management_screens/modify_users_permissions_screen.dart';
 import '../issue_request/list_issue_requests_screen.dart';
+import '../lawyers_list_screen.dart';
 import '../notifications_screen.dart';
 import '../settings/setting_screen.dart';
 
@@ -20,6 +21,7 @@ class AdminHomeScreen extends StatelessWidget {
     {'title': 'Modify user permissions', 'icon': Icons.admin_panel_settings},
     {'title': 'Issues', 'icon': Icons.gavel},
     {'title': 'Issue Requests', 'icon': Icons.assignment},
+    {'title': 'create issue', 'icon': Icons.add},
     {'title': 'All Lawyers', 'icon': Icons.group},
     {'title': 'Invoices & Payments', 'icon': Icons.payment},
     {'title': 'Reports', 'icon': Icons.bar_chart},
@@ -63,6 +65,17 @@ class AdminHomeScreen extends StatelessWidget {
             builder: (_) => BlocProvider(
               create: (context) => IssueRequestsBloc(),
               child: const ListIssueRequestsScreen(),
+            ),
+          ),
+        );
+        break;
+      case 'create issue':
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => BlocProvider(
+              create: (context) => IssuesBloc(),
+              child: const CreateIssueScreen(),
             ),
           ),
         );
@@ -132,23 +145,6 @@ class AdminHomeScreen extends StatelessWidget {
         padding: const EdgeInsets.all(12.0),
         child: Column(
           children: [
-            ElevatedButton.icon(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => BlocProvider(
-                      create: (context) => IssuesBloc(),
-                      child: const CreateIssueScreen(),
-                    ),
-                  ),
-                );
-              },
-              icon: const Icon(Icons.notifications),
-              label: const Text('انشاء قضية'),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.deepPurple,
-              ),
-            ),
             Wrap(
               spacing: 12,
               runSpacing: 12,

@@ -120,6 +120,7 @@ class _IssueRequestDetailsScreenState extends State<IssueRequestDetailsScreen> {
           } else if (state is IssueRequestsFail) {
             return Center(
               child: Column(
+                
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   const Text("There is an error:",

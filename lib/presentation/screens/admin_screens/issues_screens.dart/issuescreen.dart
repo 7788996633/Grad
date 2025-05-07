@@ -20,7 +20,7 @@ class _IssueScreenState extends State<IssueScreen> {
   void initState() {
     super.initState();
     BlocProvider.of<IssuesBloc>(context).add(
-      IssueShowbyId(id:  widget.issueId),
+      IssueShowbyId(id: widget.issueId),
     );
   }
 
@@ -71,42 +71,44 @@ class _IssueScreenState extends State<IssueScreen> {
             ),
           ],
         ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            CircleAvatar(
-              radius: 45,
-              backgroundColor: customColor,
-              child: const Icon(Icons.person, size: 50, color: Colors.white),
-            ),
-            const SizedBox(height: 20),
-            const Text(
-              "Lawyer Certificate",
-              style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              CircleAvatar(
+                radius: 45,
+                backgroundColor: customColor,
+                child: const Icon(Icons.person, size: 50, color: Colors.white),
               ),
-            ),
-            const SizedBox(height: 20),
-            buildInfoTile(Icons.title, "Title", issue.title),
-            buildInfoTile(Icons.numbers, "Issue Number", issue.issueNumber),
-            buildInfoTile(Icons.category, "Category", issue.category),
-            buildInfoTile(Icons.title, "Court Name", issue.courtName),
-            buildInfoTile(Icons.numbers, "Number Of Payments",
-                issue.numberOfPayments.toString()),
-            buildInfoTile(
-                Icons.numbers, "total Cost", issue.totalCost.toString()),
-            // buildInfoTile(Icons.numbers, "Amount Paid", issue.amountPaid),
-            // buildInfoTile(Icons.title, "Description", issue.description),
-            buildInfoTile(Icons.title, "Court Name", issue.courtName),
-            buildInfoTile(Icons.title, "Status", issue.status),
-            buildInfoTile(Icons.numbers, "Priority", issue.priority),
-            buildInfoTile(Icons.date_range, "Start Date", issue.startDate),
-            // buildInfoTile(Icons.date_range, "End Date", issue.endDate),
-            buildInfoTile(Icons.date_range, "Start Date", issue.createdAt),
-            buildInfoTile(Icons.date_range, "End Date", issue.updatedAt),
-          ],
+              const SizedBox(height: 20),
+              const Text(
+                "Lawyer Certificate",
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+              ),
+              const SizedBox(height: 20),
+              buildInfoTile(Icons.title, "Title", issue.title),
+              buildInfoTile(Icons.numbers, "Issue Number", issue.issueNumber),
+              buildInfoTile(Icons.category, "Category", issue.category),
+              buildInfoTile(Icons.title, "Court Name", issue.courtName),
+              buildInfoTile(Icons.numbers, "Number Of Payments",
+                  issue.numberOfPayments.toString()),
+              buildInfoTile(
+                  Icons.numbers, "total Cost", issue.totalCost.toString()),
+              // buildInfoTile(Icons.numbers, "Amount Paid", issue.amountPaid),
+              // buildInfoTile(Icons.title, "Description", issue.description),
+              buildInfoTile(Icons.title, "Court Name", issue.courtName),
+              buildInfoTile(Icons.title, "Status", issue.status),
+              buildInfoTile(Icons.numbers, "Priority", issue.priority),
+              buildInfoTile(Icons.date_range, "Start Date", issue.startDate),
+              // buildInfoTile(Icons.date_range, "End Date", issue.endDate),
+              buildInfoTile(Icons.date_range, "Start Date", issue.createdAt),
+              buildInfoTile(Icons.date_range, "End Date", issue.updatedAt),
+            ],
+          ),
         ),
       ),
     );
