@@ -128,7 +128,9 @@ class _LawyersScreenState extends State<LawyersListScreen> {
 
   Widget _buildLawyerList(List<LawyerModel> lawyers) {
     if (lawyers.isEmpty) {
-      return const Center(child: Text("No lawyers found."));
+      return const Center(
+        child: Text("No lawyers found."),
+      );
     }
     return ListView.separated(
       itemCount: lawyers.length,
@@ -167,7 +169,7 @@ class _LawyersScreenState extends State<LawyersListScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'License #: ${lawyer.licenseNumber}',
+                lawyer.name,
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
@@ -176,9 +178,7 @@ class _LawyersScreenState extends State<LawyersListScreen> {
               ),
               const SizedBox(height: 8),
               _buildInfoRow('Experience:', '${lawyer.experienceYears} years'),
-              _buildInfoRow('Salary:', '\$${lawyer.salary}'),
               _buildInfoRow('Specialization:', lawyer.specialization),
-              _buildInfoRow('Created:', lawyer.createdAt),
               const SizedBox(height: 10),
               Align(
                 alignment: Alignment.bottomRight,

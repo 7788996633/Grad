@@ -39,7 +39,7 @@ class _EditLawyerProfileScreenState extends State<EditLawyerProfileScreen> {
     licenseController =
         TextEditingController(text: widget.lawyer.licenseNumber);
     addressController = TextEditingController(text: widget.lawyer.address);
-    ageController = TextEditingController(text: widget.lawyer.age);
+    ageController = TextEditingController(text: widget.lawyer.age.toString());
     expereinceYearsController =
         TextEditingController(text: widget.lawyer.experienceYears.toString());
     phoneController = TextEditingController(text: widget.lawyer.phone);
@@ -83,7 +83,7 @@ class _EditLawyerProfileScreenState extends State<EditLawyerProfileScreen> {
     }
   }
 
-  void _saveProfile() {
+  void _saveProfile(context) {
     if (_formKey.currentState!.validate()) {
       if (certificateFilePath == null) {
         ScaffoldMessenger.of(context as BuildContext).showSnackBar(
@@ -92,7 +92,7 @@ class _EditLawyerProfileScreenState extends State<EditLawyerProfileScreen> {
         return;
       }
 
-      BlocProvider.of<LawyerProfileBloc>(context as BuildContext).add(
+      BlocProvider.of<LawyerProfileBloc>(context).add(
         UpdateLawyerProfileEvent(
           licenseNumber: licenseController.text,
           specialization: specializationController.text,
@@ -193,7 +193,9 @@ class _EditLawyerProfileScreenState extends State<EditLawyerProfileScreen> {
                 ),
               const SizedBox(height: 30),
               ElevatedButton(
-                onPressed: _saveProfile,
+                onPressed: () {
+                  _saveProfile(context);
+                },
                 style: ElevatedButton.styleFrom(backgroundColor: customColor),
                 child: const Text("Save Changes"),
               ),
