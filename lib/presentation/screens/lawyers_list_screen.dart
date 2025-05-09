@@ -26,18 +26,17 @@ class _LawyersScreenState extends State<LawyersListScreen> {
     bloc.add(GetAllLawyersEvent());
   }
 
-  void _onSearch(String lawyerId) {
-    if (lawyerId.trim().isNotEmpty) {
-      final id = int.tryParse(lawyerId.trim());
-      if (id != null) {
-        bloc.add(GetLawyerByIdEvent(lawyerId: id));
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Please enter a valid numeric ID')),
-        );
-      }
+  void _onSearch(String lawyerName) {
+    if (lawyerName.trim().isNotEmpty) {
+      bloc.add(
+        SearchLawyersByNameEvent(
+          name: lawyerName,
+        ),
+      );
     } else {
-      bloc.add(GetAllLawyersEvent());
+      bloc.add(
+        GetAllLawyersEvent(),
+      );
     }
   }
 

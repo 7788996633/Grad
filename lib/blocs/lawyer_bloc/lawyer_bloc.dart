@@ -59,11 +59,17 @@ class LawyerBloc extends Bloc<LawyerEvent, LawyerState> {
 
             final query = event.name.trim().toLowerCase();
 
-            List<LawyerModel> filteredLawyers = allLawyers.where((lawyer) {
-              return lawyer.name.toLowerCase().contains(query);
-            }).toList();
+            List<LawyerModel> filteredLawyers = allLawyers.where(
+              (lawyer) {
+                return lawyer.name.toLowerCase().contains(query);
+              },
+            ).toList();
 
-            emit(LawyersListLoaded(lawyersList: filteredLawyers));
+            emit(
+              LawyersListLoaded(
+                lawyersList: filteredLawyers,
+              ),
+            );
           } catch (e) {
             emit(
               LawyerFail(
