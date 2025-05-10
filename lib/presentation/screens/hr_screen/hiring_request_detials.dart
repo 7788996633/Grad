@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:untitled23/constant.dart';
 
-import '../../../blocs/hiring-requests/hiring-requests_block.dart';
-import '../../../blocs/hiring-requests/hiring-requests_event.dart';
-import '../../../blocs/hiring-requests/hiring-requests_state.dart';
+import '../../../blocs/hiring_requests/hiring_requests_block.dart';
+import '../../../blocs/hiring_requests/hiring_requests_event.dart';
+import '../../../blocs/hiring_requests/hiring_requests_state.dart';
 
+import '../../../constant.dart';
 import '../../../data/models/hiring_request_model.dart';
 
 
@@ -67,7 +67,7 @@ class _HiringRequestDetailsScreenState extends State<HiringRequestDetailsScreen>
             borderRadius: BorderRadius.circular(25),
             boxShadow: [
               BoxShadow(
-                color: Colors.grey.withValues(alpha:0.3),
+                color: Colors.grey.withOpacity(0.3),
                 blurRadius: 15,
                 offset: const Offset(0, 8),
               ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+
 import 'package:untitled23/presentation/screens/home/user_home_screen.dart';
 import '../../../constant.dart';
 
@@ -15,7 +16,7 @@ class _MainClientPageState extends State<UserHomePage> {
   int _currentIndex = 0;
 
   final List<Widget> _screens = [
-    UserHomeScreen(),
+    const UserHomeScreen(),
     const FavoritesScreen(),
     const LegalNewsScreen(),
   ];

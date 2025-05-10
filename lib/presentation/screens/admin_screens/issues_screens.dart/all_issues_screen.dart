@@ -51,7 +51,7 @@ class _AllIssuesScreenState extends State<AllIssuesScreen> {
                   ? const Center(child: Text('There is no issues'))
                   : buildIssuesList();
             } else if (state is IssuesFail) {
-              debugPrint(" Error: ${state.errmsg}");
+              debugPrint("🛑 Error: ${state.errmsg}");
               return Center(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,

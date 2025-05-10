@@ -1,15 +1,10 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../blocs/user_profile_bloc/user_profile_bloc.dart';
 import '../../blocs/lawyer_profile_bloc/lawyer_profiel_bloc.dart';
 
-import '../../constant.dart';
-import '../../data/models/lawyer_model.dart';
 import '../screens/lawyer_screens/lawyer_profile_screens/lawyer_profile_screen.dart';
 import '../screens/settings/setting_screen.dart';
-import '../screens/user_screens/user_profile_screens/user_profile_screen.dart';
 
 class CustomDrawerLawyer extends StatelessWidget {
   const CustomDrawerLawyer({super.key});
@@ -59,20 +54,20 @@ class CustomDrawerLawyer extends StatelessWidget {
                         backgroundImage: lawyerModel.image.isNotEmpty
                             ? NetworkImage(lawyerModel.image)
                             : const AssetImage('assets/default_image.png')
-                        as ImageProvider,
+                                as ImageProvider,
                       ),
                     ),
                   );
                 } else if (state is LawyerProfileFail) {
                   return const DrawerHeader(
-                    decoration: BoxDecoration(color: AppColors.darkBlue),
+                    decoration: BoxDecoration(color: Color(0XFF472A0C)),
                     child: Center(
                       child: Icon(Icons.error, color: Colors.white),
                     ),
                   );
                 } else {
                   return const DrawerHeader(
-                    decoration: BoxDecoration(color: AppColors.darkBlue),
+                    decoration: BoxDecoration(color: Color(0XFF472A0C)),
                     child: Center(
                       child: CircularProgressIndicator(color: Colors.white),
                     ),

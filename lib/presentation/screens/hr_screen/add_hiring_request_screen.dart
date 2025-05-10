@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:untitled23/constant.dart';
+
+import '../../../constant.dart';
 
 class AddHiringRequestScreen extends StatefulWidget {
   const AddHiringRequestScreen({super.key});

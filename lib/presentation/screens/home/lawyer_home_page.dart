@@ -5,7 +5,6 @@ import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import '../../../constant.dart';
 import '../factories/role_screen.dart';
 import 'lawyer_home_screen.dart';
-import 'lawyer_home_screen.dart';
 
 class LawyerHomePage extends StatefulWidget implements RoleScreen {
   const LawyerHomePage({super.key});

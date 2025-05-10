@@ -20,7 +20,7 @@ class _IssueScreenState extends State<IssueScreen> {
   void initState() {
     super.initState();
     BlocProvider.of<IssuesBloc>(context).add(
-      IssueShowbyId(id:  widget.issueId),
+      IssueShowbyId(id: widget.issueId),
     );
   }
 

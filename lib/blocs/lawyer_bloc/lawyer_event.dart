@@ -16,3 +16,9 @@ class GetLawyerByIdEvent extends LawyerEvent {
 
   GetLawyerByIdEvent({required this.lawyerId});
 }
+
+class SearchLawyersByNameEvent extends LawyerEvent {
+  final String name;
+
+  SearchLawyersByNameEvent({required this.name});
+}

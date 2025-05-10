@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:untitled23/presentation/screens/admin_screens/issues_screens.dart/create_issue_screen.dart';
-import 'package:untitled23/presentation/screens/auth_screens/login_screen.dart';
-import '../blocs/auth_bloc/auth_bloc.dart';
 
+import 'package:untitled23/presentation/screens/auth_screens/auth_screen.dart';
+import '../blocs/auth_bloc/auth_bloc.dart';
 
 import 'blocs/my_bloc_observere.dart';
 import 'blocs/user_bloc/user_bloc.dart';
@@ -24,8 +23,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home://CreateIssueScreen(),
-      MultiBlocProvider(
+      home: MultiBlocProvider(
         providers: [
           BlocProvider(
             create: (context) => AuthBloc(),
@@ -34,7 +32,7 @@ class MyApp extends StatelessWidget {
             create: (context) => UserBloc(),
           ),
         ],
-        child: const LoginScreen(),
+        child: const AuthScreen(),
       ),
     );
   }

@@ -22,7 +22,7 @@ class _AdminHomePageState extends State<AdminHomePage> {
 
   final List<Widget> _pages = [
     // الصفحة الرئيسية
-    AdminHomeScreen(),
+    const AdminHomeScreen(),
     // المفضلات
     const Center(child: Text('مفضلتي')),
     // المواعيد

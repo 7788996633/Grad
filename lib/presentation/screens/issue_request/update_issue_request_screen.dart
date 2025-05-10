@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:untitled23/blocs/issue_requests_bloc/issue_requests_bloc.dart';
-import 'package:untitled23/blocs/issue_requests_bloc/issue_requests_event.dart';
-import 'package:untitled23/data/models/issue_request_model.dart';
+
+import '../../../blocs/issue_requests_bloc/issue_requests_bloc.dart';
+import '../../../blocs/issue_requests_bloc/issue_requests_event.dart';
+import '../../../data/models/issue_request_model.dart';
 
 class UpdateIssueRequestScreen extends StatefulWidget {
   final IssueRequestModel issueRequest;
@@ -22,8 +23,7 @@ class _UpdateIssueRequestScreenState extends State<UpdateIssueRequestScreen> {
   @override
   void initState() {
     super.initState();
-    _titleController =
-        TextEditingController(text: widget.issueRequest.title);
+    _titleController = TextEditingController(text: widget.issueRequest.title);
     _descriptionController =
         TextEditingController(text: widget.issueRequest.description);
   }
@@ -65,21 +65,21 @@ class _UpdateIssueRequestScreenState extends State<UpdateIssueRequestScreen> {
                 controller: _titleController,
                 decoration: const InputDecoration(labelText: 'Title'),
                 validator: (value) =>
-                value!.isEmpty ? 'Please enter a title' : null,
+                    value!.isEmpty ? 'Please enter a title' : null,
               ),
               const SizedBox(height: 16),
               TextFormField(
                 controller: _descriptionController,
                 decoration: const InputDecoration(labelText: 'Description'),
                 validator: (value) =>
-                value!.isEmpty ? 'Please enter a description' : null,
+                    value!.isEmpty ? 'Please enter a description' : null,
               ),
               const SizedBox(height: 24),
               ElevatedButton(
                 onPressed: _submitUpdate,
-                child: const Text('Update'),
                 style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF0F6829)),
+                child: const Text('Update'),
               ),
             ],
           ),

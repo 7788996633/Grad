@@ -59,32 +59,18 @@ class IssueRequestsBloc extends Bloc<IssueRequestsEvent, IssueRequestsState> {
           ));
         }
       } else if (event is UpdateIssueRequestEvent) {
-    emit(IssueRequestsLoading());
-    try {
-    String value = await IssueRequestsServices().updateIssueRequest(
-    event.title,
-    event.description,
-    event.issueRequestId,
-    );
-    emit(IssueRequestsSuccess(successmsg: value));
-    } catch (e) {
-    emit(IssueRequestsFail(errmsg: e.toString()));
-    }
-    }
-
-    else if (event is UpdateIssueRequestAdminEvent) {
-    emit(IssueRequestsLoading());
-    try {
-    String value = await IssueRequestsServices().updateIssueRequest(
-    event.adminNote,
-    event.status,
-    event.issueRequestId,
-    );
-    emit(IssueRequestsSuccess(successmsg: value));
-    } catch (e) {
-    emit(IssueRequestsFail(errmsg: e.toString()));
-    }
-    }
-  });
+        emit(IssueRequestsLoading());
+        try {
+          String value = await IssueRequestsServices().updateIssueRequest(
+            event.title,
+            event.description,
+            event.issueRequestId,
+          );
+          emit(IssueRequestsSuccess(successmsg: value));
+        } catch (e) {
+          emit(IssueRequestsFail(errmsg: e.toString()));
+        }
+      }
+    });
   }
 }

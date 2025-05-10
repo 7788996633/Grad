@@ -12,9 +12,9 @@ final class IssueRequestsLoading extends IssueRequestsState {}
 
 final class IssueRequestsSuccess extends IssueRequestsState {
   final String successmsg;
+
   IssueRequestsSuccess({required this.successmsg});
 }
-
 
 final class IssueRequestsLoadedSuccessfully extends IssueRequestsState {
   final IssueRequestModel issueRequestModel;
@@ -24,6 +24,7 @@ final class IssueRequestsLoadedSuccessfully extends IssueRequestsState {
 
 final class IssueRequestsFail extends IssueRequestsState {
   final String errmsg;
+
   IssueRequestsFail({required this.errmsg});
 }
 

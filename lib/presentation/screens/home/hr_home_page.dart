@@ -1,9 +1,8 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 
-
 import '../../../constant.dart';
-import 'hr_home_screen.dart';
+
 import 'hr_home_screen.dart';
 
 class HrHomePage extends StatefulWidget {

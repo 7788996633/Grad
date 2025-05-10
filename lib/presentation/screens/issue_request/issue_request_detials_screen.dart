@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:untitled23/presentation/screens/issue_request/update_issue_request_screen.dart';
 import '../../../blocs/issue_requests_bloc/issue_requests_bloc.dart';
 import '../../../blocs/issue_requests_bloc/issue_requests_event.dart';
 import '../../../blocs/issue_requests_bloc/issue_requests_state.dart';
 import '../../../constant.dart';
 import '../../../data/models/issue_request_model.dart';
+import 'update_issue_request_screen.dart';
 
 class IssueRequestDetailsScreen extends StatefulWidget {
   final int issueRequestId;
@@ -100,7 +100,7 @@ class _IssueRequestDetailsScreenState extends State<IssueRequestDetailsScreen> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: customColor,
                 ),
-                child:  Text('Edit',style: TextStyle(color:Colors.white,fontWeight: FontWeight.bold),),
+                child:  const Text('Edit',style: TextStyle(color:Colors.white,fontWeight: FontWeight.bold),),
               ),
             ],
           ),

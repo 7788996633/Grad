@@ -35,21 +35,9 @@ class UpdateIssueRequestEvent extends IssueRequestsEvent {
   final String title;
   final String description;
 
-  UpdateIssueRequestEvent({required this.issueRequestId,
-    required this.title,
-    required this.description,
-  });
-
-}
-
-  class UpdateIssueRequestAdminEvent extends IssueRequestsEvent {
-  final int issueRequestId;
-  final String adminNote;
-  final String status;
-
-  UpdateIssueRequestAdminEvent(
-  {required this.issueRequestId,
-  required this.  adminNote,
-  required this.status,
-  });
+  UpdateIssueRequestEvent(
+      {required this.issueRequestId,
+        required this.title,
+        required this.description,
+        });
 }

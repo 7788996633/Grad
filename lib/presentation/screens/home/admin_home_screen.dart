@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../blocs/issue_bloc/issues_bloc.dart';
 import '../../../blocs/issue_requests_bloc/issue_requests_bloc.dart';
 import '../../../blocs/lawyer_bloc/lawyer_bloc.dart';
 import '../../../blocs/user_profile_bloc/user_profile_bloc.dart';
-import '../../../constant.dart';
-import '../../widgets/custom_app_bar.dart';
+import '../../widgets/custom_app_drawer.dart';
 import '../../widgets/section_card.dart';
 import '../admin_screens/issues_screens.dart/all_issues_screen.dart';
-
+import '../../../constant.dart';
 import '../admin_screens/users_management_screens/modify_users_permissions_screen.dart';
+import '../all_lawyers_screen.dart';
 import '../issue_request/list_issue_requests_screen.dart';
-import '../lawyers_list_screen.dart';
 import '../notifications_screen.dart';
 import '../settings/setting_screen.dart';
 
@@ -71,7 +71,7 @@ class AdminHomeScreen extends StatelessWidget {
             MaterialPageRoute(
               builder: (_) => BlocProvider(
                 create: (_) => LawyerBloc(),
-                child: const LawyersListScreen(),
+                child: const AllLawyersScreen(),
               ),
             ),
           );
