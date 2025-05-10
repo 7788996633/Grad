@@ -59,7 +59,9 @@ class _AuthFormState extends State<AuthForm> {
   Widget build(BuildContext context) {
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
-        setState(() => isSubmitting = state is AuthLoading);
+        setState(
+          () => isSubmitting = state is AuthLoading,
+        );
       },
       child: Form(
         key: myKey,

@@ -6,6 +6,7 @@ import '../../../blocs/auth_bloc/auth_bloc.dart';
 import '../../../blocs/user_bloc/user_bloc.dart';
 import '../../../constant.dart';
 import '../../widgets/auth_widgets/auth_top_blue_curved_containor.dart';
+import '../../widgets/custom_error_dialog.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
@@ -32,16 +33,8 @@ class _AuthScreenState extends State<AuthScreen> {
               Navigator.of(context).pop();
               showDialog(
                 context: context,
-                builder: (context) => AlertDialog(
-                  backgroundColor: const Color.fromARGB(255, 146, 100, 239),
-                  content: Text(
-                    state.errmsg,
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
+                builder: (context) => CustomErrorDialog(
+                  errorMsg: state.errmsg,
                 ),
               );
             } else if (state is AuthLoading) {
