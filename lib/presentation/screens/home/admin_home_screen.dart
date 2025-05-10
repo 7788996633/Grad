@@ -5,7 +5,7 @@ import '../../../blocs/issue_bloc/issues_bloc.dart';
 import '../../../blocs/issue_requests_bloc/issue_requests_bloc.dart';
 import '../../../blocs/lawyer_bloc/lawyer_bloc.dart';
 import '../../../blocs/user_profile_bloc/user_profile_bloc.dart';
-import '../../widgets/custom_app_bar.dart';
+import '../../widgets/custom_app_drawer.dart';
 import '../../widgets/section_card.dart';
 import '../admin_screens/issues_screens.dart/all_issues_screen.dart';
 import '../../../constant.dart';
