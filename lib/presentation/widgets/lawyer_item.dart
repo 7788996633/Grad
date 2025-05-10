@@ -9,9 +9,8 @@ import '../../blocs/lawyer_profile_bloc/lawyer_profiel_bloc.dart';
 import '../screens/lawyer_screens/lawyer_profile_screens/lawyer_details_screen.dart';
 
 class LawyerItem extends StatelessWidget {
-  const LawyerItem({super.key, required this.lawyer, required this.bloc});
+  const LawyerItem({super.key, required this.lawyer});
   final LawyerModel lawyer;
-  final    LawyerBloc bloc;
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +58,7 @@ class LawyerItem extends StatelessWidget {
                 alignment: Alignment.bottomRight,
                 child: IconButton(
                   onPressed: () {
-                    bloc.add(
+                    BlocProvider.of<LawyerBloc>(context).add(
                       DeleteLawyerByIdEvent(lawyerId: lawyer.id),
                     );
                   },
