@@ -4,7 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../blocs/issue_requests_bloc/issue_requests_bloc.dart';
 import '../../../blocs/issue_requests_bloc/issue_requests_event.dart';
 import '../../../blocs/issue_requests_bloc/issue_requests_state.dart';
+import '../../../constant.dart';
 import '../../../data/models/issue_request_model.dart';
+import 'add_issue_request.dart';
 import 'issue_request_detials_screen.dart';
 
 class ListIssueRequestsScreen extends StatefulWidget {
@@ -42,10 +44,11 @@ class _ListIssueRequestsScreenState extends State<ListIssueRequestsScreen> {
     }
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF1F1F6),
+      backgroundColor: AppColors.scaffold,
       appBar: AppBar(
         title: const Text(
           'List Issue Requests',
@@ -53,8 +56,26 @@ class _ListIssueRequestsScreenState extends State<ListIssueRequestsScreen> {
         ),
         centerTitle: true,
         elevation: 8,
-        backgroundColor: const Color(0XFF472A0C),
+        backgroundColor: AppColors.darkBlue,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.add_circle_rounded, color: Colors.white),
+            tooltip: 'Add New Issue Request ',
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (_) => BlocProvider(
+                        create: (_) => IssueRequestsBloc(),
+                        child: const AddIssueRequestScreen(),
+                      )));
+            },
+          ),
+        ],
       ),
+
+
+
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -77,7 +98,7 @@ class _ListIssueRequestsScreenState extends State<ListIssueRequestsScreen> {
                     return Center(
                       child: Text(
                         'Error: ${state.errmsg}',
-                        style: const TextStyle(color: Colors.red),
+                        style: const TextStyle(color: AppColors.danger),
                       ),
                     );
                   } else {
@@ -91,7 +112,7 @@ class _ListIssueRequestsScreenState extends State<ListIssueRequestsScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => bloc.add(GetAllIssueRequestsEvent()),
-        backgroundColor: const Color(0XFF472A0C),
+        backgroundColor: AppColors.darkBlue,
         child: const Icon(
           Icons.refresh,
           color: Colors.white,
@@ -171,12 +192,12 @@ class _ListIssueRequestsScreenState extends State<ListIssueRequestsScreen> {
                   ),
                   TextButton(
                     onPressed: () {
-                      Navigator.pop(context); // Close dialog
+                      Navigator.pop(context);
                       bloc.add(
                           DeleteIssueRequestEvent(issueRequestId: request.id));
                       bloc.add(GetAllIssueRequestsEvent());
                       print(
-                          "✅ Request with ID ${request.id} deleted successfully");
+                          " Request with ID ${request.id} deleted successfully");
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
                           content: Text("Request deleted successfully"),

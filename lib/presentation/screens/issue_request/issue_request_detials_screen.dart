@@ -3,7 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../blocs/issue_requests_bloc/issue_requests_bloc.dart';
 import '../../../blocs/issue_requests_bloc/issue_requests_event.dart';
 import '../../../blocs/issue_requests_bloc/issue_requests_state.dart';
+import '../../../constant.dart';
 import '../../../data/models/issue_request_model.dart';
+import 'update_issue_request_screen.dart';
 
 class IssueRequestDetailsScreen extends StatefulWidget {
   final int issueRequestId;
@@ -15,7 +17,7 @@ class IssueRequestDetailsScreen extends StatefulWidget {
 }
 
 class _IssueRequestDetailsScreenState extends State<IssueRequestDetailsScreen> {
-  final Color customColor = const Color(0xFFB8820E);
+  final Color customColor =AppColors.darkBlue;
   final Color valueColor = const Color(0xFF0F6829);
 
   @override
@@ -75,12 +77,33 @@ class _IssueRequestDetailsScreenState extends State<IssueRequestDetailsScreen> {
               ),
             ],
           ),
-          child: Column(mainAxisSize: MainAxisSize.min, children: [
-            const SizedBox(height: 20),
-            buildInfoTile(Icons.person, "title", request.title),
-            buildInfoTile(Icons.email, "description", request.description),
-            buildInfoTile(Icons.location_on, "status", request.status),
-          ]),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const SizedBox(height: 20),
+              buildInfoTile(Icons.subject, "title", request.title),
+              buildInfoTile(Icons.description, "description", request.description),
+              buildInfoTile(Icons.verified, "status", request.status),
+
+              const SizedBox(height: 30),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => UpdateIssueRequestScreen(
+                        issueRequest: request,
+                      ),
+                    ),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: customColor,
+                ),
+                child:  const Text('Edit',style: TextStyle(color:Colors.white,fontWeight: FontWeight.bold),),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -89,7 +112,7 @@ class _IssueRequestDetailsScreenState extends State<IssueRequestDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F6FA),
+      backgroundColor: AppColors.scaffold,
       appBar: AppBar(
         backgroundColor: customColor,
         title: const Text(
@@ -120,7 +143,6 @@ class _IssueRequestDetailsScreenState extends State<IssueRequestDetailsScreen> {
           } else if (state is IssueRequestsFail) {
             return Center(
               child: Column(
-                
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   const Text("There is an error:",

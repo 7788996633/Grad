@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../blocs/issue_requests_bloc/issue_requests_bloc.dart';
 import '../../../blocs/issue_requests_bloc/issue_requests_event.dart';
 import '../../../blocs/issue_requests_bloc/issue_requests_state.dart';
+import '../../../constant.dart';
 
 class AddIssueRequestScreen extends StatefulWidget {
   const AddIssueRequestScreen({super.key});
@@ -118,7 +119,7 @@ class _AddIssueRequestScreenState extends State<AddIssueRequestScreen> {
                           );
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFFB8820E),
+                          backgroundColor: AppColors.darkBlue,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
                           ),
@@ -128,7 +129,7 @@ class _AddIssueRequestScreenState extends State<AddIssueRequestScreen> {
                           "Submit",
                           style: TextStyle(
                             fontSize: 16,
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.bold,color: AppColors.white,
                           ),
                         ),
                       ),
