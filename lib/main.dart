@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation/presentation/screens/auth_screens/auth_screen.dart';
 import '../blocs/auth_bloc/auth_bloc.dart';
-import 'package:graduation/presentation/screens/auth_screens/login_screen.dart';
 
 import 'blocs/my_bloc_observere.dart';
 import 'blocs/user_bloc/user_bloc.dart';
@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
             create: (context) => UserBloc(),
           ),
         ],
-        child: const LoginScreen(),
+        child: const AuthScreen(),
       ),
     );
   }
