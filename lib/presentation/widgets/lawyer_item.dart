@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:graduation/data/models/lawyer_model.dart';
-import 'package:graduation/presentation/widgets/info_row.dart';
 
 import '../../blocs/lawyer_bloc/lawyer_bloc.dart';
 import '../../blocs/lawyer_bloc/lawyer_event.dart';
 import '../../blocs/lawyer_profile_bloc/lawyer_profiel_bloc.dart';
+import '../../data/models/lawyer_model.dart';
 import '../screens/lawyer_screens/lawyer_profile_screens/lawyer_details_screen.dart';
+import 'info_row.dart';
 
 class LawyerItem extends StatelessWidget {
   const LawyerItem({super.key, required this.lawyer});

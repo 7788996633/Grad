@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:graduation/presentation/widgets/lawyers_list.dart';
-import 'package:graduation/presentation/widgets/refresh_button.dart';
 
 import '../../../blocs/lawyer_bloc/lawyer_bloc.dart';
 import '../../../blocs/lawyer_bloc/lawyer_event.dart';
 import '../widgets/custom_search_bar.dart';
+import '../widgets/lawyers_list.dart';
+import '../widgets/refresh_button.dart';
 
 class AllLawyersScreen extends StatefulWidget {
   const AllLawyersScreen({super.key});

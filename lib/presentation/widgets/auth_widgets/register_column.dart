@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../constant.dart';
+
 class RegisterColumn extends StatelessWidget {
   const RegisterColumn({super.key, this.onPressed});
   final void Function()? onPressed;
@@ -23,7 +25,7 @@ class RegisterColumn extends StatelessWidget {
               child: const Text(
                 "Login",
                 style: TextStyle(
-                  color: Color(0xFF2196F3),
+                  color: AppColors.darkBlue,
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
                 ),

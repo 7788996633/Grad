@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../blocs/issue_bloc/issues_bloc.dart';
+import '../../../../constant.dart';
 import '../../../../data/models/issues_model.dart';
 import '../../../widgets/issue_item.dart';
 
@@ -34,7 +35,7 @@ class _AllIssuesScreenState extends State<AllIssuesScreen> {
     return Scaffold(
       backgroundColor: const Color(0xFFF5F6FA),
       appBar: AppBar(
-        backgroundColor: const Color(0xFFB8820E),
+        backgroundColor: AppColors.darkBlue,
         title: const Text(
           "All Issues",
           style: TextStyle(color: Colors.white),

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:graduation/presentation/screens/lawyer_screens/lawyer_profile_screens/edit_lawyer_profile_screen.dart';
+
 import 'package:http/http.dart' as http; // استيراد مكتبة http لتحميل الملفات
 import '../../../../blocs/lawyer_profile_bloc/lawyer_profiel_bloc.dart';
 import '../../../../constant.dart';
 import '../../../../data/models/lawyer_model.dart';
 import '../../../pdf_viewer_page.dart';
+import 'edit_lawyer_profile_screen.dart';
 
 class LawyerProfileScreen extends StatefulWidget {
   const LawyerProfileScreen({super.key});

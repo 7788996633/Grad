@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../screens/notifications_screen.dart';
-
-import '../screens/settings/setting_screen.dart';
 import '../../constant.dart';
 
 class CustomHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -18,19 +16,8 @@ class CustomHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
         style: const TextStyle(color: Colors.white),
       ),
       backgroundColor: AppColors.darkBlue,
+      iconTheme: const IconThemeData(color: Colors.white),
       actions: [
-        IconButton(
-          icon: const Icon(Icons.settings, color: Colors.white),
-          tooltip: 'Settings',
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const SettingsScreen(),
-              ),
-            );
-          },
-        ),
         IconButton(
           icon: const Icon(Icons.notifications, color: Colors.white),
           tooltip: 'Notifications',
@@ -43,6 +30,15 @@ class CustomHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
             );
           },
         ),
+
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 8),
+          child: CircleAvatar(
+            radius: 18,
+            backgroundImage: AssetImage('images/grad.jpg'),
+          ),
+        ),
+
       ],
     );
   }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../constant.dart';
+
 class AuthTopBlueCurvedContainor extends StatelessWidget {
   const AuthTopBlueCurvedContainor({super.key});
 
@@ -9,7 +11,7 @@ class AuthTopBlueCurvedContainor extends StatelessWidget {
       height: 250,
       width: double.infinity,
       decoration: const BoxDecoration(
-        color: Color(0xFF2196F3),
+        color: AppColors.darkBlue,
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(30),
           bottomRight: Radius.circular(30),

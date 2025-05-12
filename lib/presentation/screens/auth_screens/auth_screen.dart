@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:graduation/presentation/screens/home/home_page.dart';
-import 'package:graduation/presentation/widgets/auth_widgets/auth_form.dart';
+
 import '../../../blocs/auth_bloc/auth_bloc.dart';
 import '../../../blocs/user_bloc/user_bloc.dart';
 import '../../../constant.dart';
+import '../../widgets/auth_widgets/auth_form.dart';
 import '../../widgets/auth_widgets/auth_top_blue_curved_containor.dart';
 import '../../widgets/custom_error_dialog.dart';
+import '../home/home_page.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});

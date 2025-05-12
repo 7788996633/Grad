@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:graduation/presentation/screens/home/user_home_screen.dart';
+
 import '../../../constant.dart';
+import 'user_home_screen.dart';
 
 
 class UserHomePage extends StatefulWidget {

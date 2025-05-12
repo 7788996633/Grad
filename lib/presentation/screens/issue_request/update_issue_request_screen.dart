@@ -44,7 +44,7 @@ class _UpdateIssueRequestScreenState extends State<UpdateIssueRequestScreen> {
           description: _descriptionController.text.trim(),
         ),
       );
-      Navigator.pop(context); // رجوع بعد التحديث
+      Navigator.pop(context);
     }
   }
 
