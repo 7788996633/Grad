@@ -37,7 +37,7 @@ class IssueRequestsBloc extends Bloc<IssueRequestsEvent, IssueRequestsState> {
               .getIssueRequestById(event.issueRequestsId);
           emit(
             IssueRequestsLoadedSuccessfully(
-              issueRequestModel: issueRequest,
+              issueRequest: issueRequest,
             ),
           );
         } catch (e) {

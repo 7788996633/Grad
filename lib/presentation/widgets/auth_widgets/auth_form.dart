@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:untitled23/presentation/widgets/auth_widgets/register_column.dart';
 
 import '../../../blocs/auth_bloc/auth_bloc.dart';
+import '../../../constant.dart';
 import '../../../validator.dart';
 import '../custom_text_field.dart';
 import 'login_column.dart';
@@ -130,7 +131,7 @@ class _AuthFormState extends State<AuthForm> {
                           ? handleLogin
                           : handleRegister,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF2196F3),
+                    backgroundColor: AppColors.darkBlue,
                     padding: const EdgeInsets.symmetric(vertical: 14),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
@@ -140,7 +141,7 @@ class _AuthFormState extends State<AuthForm> {
                     isSubmitting
                         ? "Loading..."
                         : (isLogin ? "Login" : "Register"),
-                    style: const TextStyle(fontSize: 16),
+                    style: const TextStyle(fontSize: 16,color: AppColors.white,fontWeight: FontWeight.bold),
                   ),
                 ),
               ),

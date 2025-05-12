@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../constant.dart';
+
 class LoginColumn extends StatelessWidget {
   const LoginColumn({super.key, this.onPressed});
   final void Function()? onPressed;
@@ -20,7 +22,7 @@ class LoginColumn extends StatelessWidget {
           onPressed: onPressed,
           child: const Text(
             "Create a new account",
-            style: TextStyle(color: Colors.blue),
+            style: TextStyle(color:AppColors.darkBlue),
           ),
         ),
       ],
