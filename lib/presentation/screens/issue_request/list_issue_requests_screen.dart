@@ -15,7 +15,8 @@ class ListIssueRequestsScreen extends StatefulWidget {
   const ListIssueRequestsScreen({super.key});
 
   @override
-  State<ListIssueRequestsScreen> createState() => _ListIssueRequestsScreenState();
+  State<ListIssueRequestsScreen> createState() =>
+      _ListIssueRequestsScreenState();
 }
 
 class _ListIssueRequestsScreenState extends State<ListIssueRequestsScreen> {
@@ -57,11 +58,15 @@ class _ListIssueRequestsScreenState extends State<ListIssueRequestsScreen> {
               child: BlocBuilder<IssueRequestsBloc, IssueRequestsState>(
                 builder: (context, state) {
                   if (state is IssueRequestsLoading) {
-                    return const Center(child: CircularProgressIndicator());
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
                   } else if (state is IssueRequestsListLoaded) {
                     return RequestListWidget(requests: state.issueRequestsList);
                   } else if (state is IssueRequestsLoadedSuccessfully) {
-                    return RequestListWidget(requests: [state.issueRequest]);
+                    return RequestListWidget(
+                      requests: [state.issueRequest],
+                    );
                   } else if (state is IssueRequestsFail) {
                     return Center(
                       child: Text(
@@ -80,7 +85,9 @@ class _ListIssueRequestsScreenState extends State<ListIssueRequestsScreen> {
       ),
       floatingActionButton: RefreshButton(
         onPressed: () {
-          bloc.add(GetAllIssueRequestsEvent());
+          bloc.add(
+            GetAllIssueRequestsEvent(),
+          );
         },
       ),
     );

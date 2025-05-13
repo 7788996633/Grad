@@ -24,7 +24,7 @@ class IssueRequestCard extends StatelessWidget {
           MaterialPageRoute(
             builder: (context) => BlocProvider(
               create: (context) => IssueRequestsBloc(),
-              child: IssueRequestDetailsScreen(issueRequestId: request.id),
+              child: IssueRequestDetailsScreen(issueRequest: request),
             ),
           ),
         );

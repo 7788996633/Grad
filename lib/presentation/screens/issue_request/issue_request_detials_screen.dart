@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../blocs/issue_requests_bloc/issue_requests_bloc.dart';
-import '../../../blocs/issue_requests_bloc/issue_requests_event.dart';
-import '../../../blocs/issue_requests_bloc/issue_requests_state.dart';
 import '../../../constant.dart';
 import '../../../data/models/issue_request_model.dart';
 import '../../widgets/build_custom_appbar_detials.dart';
@@ -10,27 +8,10 @@ import '../../widgets/edit_button.dart';
 import '../../widgets/build_info_title.dart';
 import 'update_issue_request_screen.dart';
 
-class IssueRequestDetailsScreen extends StatefulWidget {
-  final int issueRequestId;
+class IssueRequestDetailsScreen extends StatelessWidget {
+  final IssueRequestModel issueRequest;
 
-  const IssueRequestDetailsScreen({super.key, required this.issueRequestId});
-  @override
-  State<IssueRequestDetailsScreen> createState() =>
-      _IssueRequestDetailsScreenState();
-}
-
-class _IssueRequestDetailsScreenState extends State<IssueRequestDetailsScreen> {
-
-  @override
-  void initState() {
-    super.initState();
-    BlocProvider.of<IssueRequestsBloc>(context).add(
-      GetIssueRequestsByIdEvent(
-        issueRequestsId: widget.issueRequestId,
-      ),
-    );
-  }
-
+  const IssueRequestDetailsScreen({super.key, required this.issueRequest});
   Widget buildProfileUI(IssueRequestModel request, BuildContext context) {
     return Center(
       child: SingleChildScrollView(
@@ -52,16 +33,23 @@ class _IssueRequestDetailsScreenState extends State<IssueRequestDetailsScreen> {
             mainAxisSize: MainAxisSize.min,
             children: [
               const SizedBox(height: 20),
-              buildInfoTile(Icons.subject, "title", request.title, ),
-              buildInfoTile(Icons.description, "description", request.description),
+              buildInfoTile(
+                Icons.subject,
+                "title",
+                request.title,
+              ),
+              buildInfoTile(
+                  Icons.description, "description", request.description),
               buildInfoTile(Icons.verified, "status", request.status),
               const SizedBox(height: 30),
               EditButton(
-                destinationScreen: UpdateIssueRequestScreen(
-                  issueRequest: request,
+                destinationScreen: BlocProvider(
+                  create: (context) => IssueRequestsBloc(),
+                  child: UpdateIssueRequestScreen(
+                    issueRequest: request,
+                  ),
                 ),
               ),
-
             ],
           ),
         ),
@@ -74,44 +62,7 @@ class _IssueRequestDetailsScreenState extends State<IssueRequestDetailsScreen> {
     return Scaffold(
       backgroundColor: AppColors.scaffold,
       appBar: buildCustomAppBar("Issue Request"),
-      body: BlocConsumer<IssueRequestsBloc, IssueRequestsState>(
-        listener: (context, state) {
-          if (state is IssueRequestsFail) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(state.errmsg),
-                backgroundColor: Colors.red,
-              ),
-            );
-          }
-        },
-        builder: (context, state) {
-          if (state is IssueRequestsLoadedSuccessfully) {
-            return buildProfileUI(state.issueRequest, context);
-          } else if (state is IssueRequestsFail) {
-            return Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Text("There is an error:",
-                      style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.red,
-                          fontWeight: FontWeight.bold)),
-                  const SizedBox(height: 10),
-                  Text(state.errmsg,
-                      style: const TextStyle(fontSize: 16, color: Colors.black),
-                      textAlign: TextAlign.center),
-                ],
-              ),
-            );
-          } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        },
-      ),
+      body: buildProfileUI(issueRequest, context),
     );
   }
 }

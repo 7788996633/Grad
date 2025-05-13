@@ -56,7 +56,10 @@ class ReusableListCard extends StatelessWidget {
       tileColor: Colors.white,
       onTap: onTap,
       trailing: IconButton(
-        icon: const Icon(Icons.delete, color: Colors.red),
+        icon: const Icon(
+          Icons.delete,
+          color: Colors.red,
+        ),
         onPressed: () => _showDeleteDialog(context),
       ),
     );

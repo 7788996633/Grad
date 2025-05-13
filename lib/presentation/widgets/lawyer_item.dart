@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../blocs/lawyer_bloc/lawyer_bloc.dart';
-import '../../blocs/lawyer_bloc/lawyer_event.dart';
 import '../../blocs/lawyer_profile_bloc/lawyer_profiel_bloc.dart';
 import '../../data/models/lawyer_model.dart';
 import '../screens/lawyer_screens/lawyer_profile_screens/lawyer_details_screen.dart';
@@ -35,35 +33,27 @@ class LawyerItem extends StatelessWidget {
         ),
         elevation: 6,
         shadowColor: Colors.deepPurple.withOpacity(0.3),
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+        child: ListTile(
+          leading: CircleAvatar(
+            backgroundImage: NetworkImage(lawyer.image),
+          ),
+          title: Text(
+            lawyer.name,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+              color: Color(0XFF472A0C),
+            ),
+          ),
+          subtitle: Column(
             children: [
-              Text(
-                lawyer.name,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                  color: Color(0XFF472A0C),
-                ),
-              ),
-              const SizedBox(height: 8),
               InfoRow(
-                  title: 'Experience:',
-                  value: '${lawyer.experienceYears} years'),
-              InfoRow(title: 'Specialization:', value: lawyer.specialization),
-              const SizedBox(height: 10),
-              Align(
-                alignment: Alignment.bottomRight,
-                child: IconButton(
-                  onPressed: () {
-                    BlocProvider.of<LawyerBloc>(context).add(
-                      DeleteLawyerByIdEvent(lawyerId: lawyer.id),
-                    );
-                  },
-                  icon: const Icon(Icons.delete, color: Colors.red),
-                ),
+                title: 'Experience:',
+                value: '${lawyer.experienceYears} years',
+              ),
+              InfoRow(
+                title: 'Specialization:',
+                value: '${lawyer.specialization} ',
               ),
             ],
           ),
