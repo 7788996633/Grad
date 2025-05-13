@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:untitled23/presentation/widgets/custom_text_field_add.dart';
-import 'package:untitled23/presentation/widgets/elevated_button_submit.dart';
 
 import '../../../blocs/issue_requests_bloc/issue_requests_bloc.dart';
 import '../../../blocs/issue_requests_bloc/issue_requests_event.dart';
 import '../../../blocs/issue_requests_bloc/issue_requests_state.dart';
-import '../../../constant.dart';
-import '../../widgets/build_custom_appbar_detials.dart';
+import '../../widgets/appbar/custom_appbar_title.dart';
+import '../../widgets/button/elevated_button_submit.dart';
+import '../../widgets/custom_text_field_add.dart';
 
 class AddIssueRequestScreen extends StatefulWidget {
   const AddIssueRequestScreen({super.key});
@@ -26,7 +25,7 @@ class _AddIssueRequestScreenState extends State<AddIssueRequestScreen> {
 
     return Scaffold(
       backgroundColor: const Color(0xFFF5F7FA),
-     appBar:  buildCustomAppBar("Add Issue Request"),
+     appBar:  customAppBar("Add Issue Request"),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: BlocConsumer<IssueRequestsBloc, IssueRequestsState>(

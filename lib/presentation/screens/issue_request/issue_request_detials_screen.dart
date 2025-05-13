@@ -5,9 +5,10 @@ import '../../../blocs/issue_requests_bloc/issue_requests_event.dart';
 import '../../../blocs/issue_requests_bloc/issue_requests_state.dart';
 import '../../../constant.dart';
 import '../../../data/models/issue_request_model.dart';
-import '../../widgets/build_custom_appbar_detials.dart';
-import '../../widgets/edit_button.dart';
-import '../../widgets/build_info_title.dart';
+
+import '../../widgets/appbar/custom_appbar_title.dart';
+import '../../widgets/button/edit_button.dart';
+import '../../widgets/profile_detials/build_info_title.dart';
 import 'update_issue_request_screen.dart';
 
 class IssueRequestDetailsScreen extends StatefulWidget {
@@ -73,7 +74,7 @@ class _IssueRequestDetailsScreenState extends State<IssueRequestDetailsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.scaffold,
-      appBar: buildCustomAppBar("Issue Request"),
+      appBar: customAppBar("Issue Request"),
       body: BlocConsumer<IssueRequestsBloc, IssueRequestsState>(
         listener: (context, state) {
           if (state is IssueRequestsFail) {

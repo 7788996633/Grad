@@ -8,8 +8,7 @@ class CustomListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(
-        title,
-      ),
+        title,),
       leading: Icon(icon),
     );
   }

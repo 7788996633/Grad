@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import '../../blocs/issue_requests_bloc/issue_requests_bloc.dart';
-import '../../blocs/issue_requests_bloc/issue_requests_event.dart';
-import '../../data/models/issue_request_model.dart';
-import '../screens/issue_request/issue_request_detials_screen.dart';
-import '../widgets/reusable_list_card.dart';
+import '../../../blocs/issue_requests_bloc/issue_requests_bloc.dart';
+import '../../../blocs/issue_requests_bloc/issue_requests_event.dart';
+import '../../../data/models/issue_request_model.dart';
+import '../../screens/issue_request/issue_request_detials_screen.dart';
+import 'reusable_list_card.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class IssueRequestCard extends StatelessWidget {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../widgets/section_card.dart';
+import '../../widgets/list/section_card.dart';
 import '../settings/setting_screen.dart';
-import '../../widgets/custom_home_appbar.dart';
+import '../../widgets/appbar/custom_home_appbar.dart';
 
 class AccountanHomeScreen extends StatelessWidget {
   const AccountanHomeScreen({super.key});

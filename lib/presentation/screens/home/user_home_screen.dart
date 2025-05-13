@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../blocs/user_profile_bloc/user_profile_bloc.dart';
-import '../../widgets/custom_app_drawer.dart';
-import '../../widgets/section_card.dart';
+import '../../widgets/appbar/custom_app_drawer.dart';
+import '../../widgets/list/section_card.dart';
 import '../settings/setting_screen.dart';
-import '../../widgets/custom_home_appbar.dart';
+import '../../widgets/appbar/custom_home_appbar.dart';
 
 class UserHomeScreen extends StatelessWidget {
   const UserHomeScreen({super.key});

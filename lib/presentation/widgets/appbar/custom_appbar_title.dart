@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../constant.dart';
+import '../../../constant.dart';
 
-PreferredSizeWidget buildCustomAppBar(String title) {
+PreferredSizeWidget customAppBar(String title) {
   return AppBar(
     backgroundColor: AppColors.darkBlue,
     iconTheme: const IconThemeData(color: Colors.white),

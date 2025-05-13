@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../blocs/hiring_requests/hiring_requests_block.dart';
+import '../../../blocs/hiring_requests/hiring_requests_event.dart';
+import '../../../blocs/issue_requests_bloc/issue_requests_bloc.dart';
 import '../../../constant.dart';
+import '../../widgets/appbar/custom_appbar_title.dart';
+import '../../widgets/button/elevated_button_submit.dart';
 
 class AddHiringRequestScreen extends StatefulWidget {
   const AddHiringRequestScreen({super.key});
@@ -45,11 +51,7 @@ class _AddHiringRequestScreenState extends State<AddHiringRequestScreen> {
 
     return Scaffold(
       backgroundColor: const Color(0xFFD9D9D9),
-      appBar: AppBar(
-        title: const Text("Create Hiring Request"),
-        backgroundColor: AppColors.darkBlue,
-        elevation: 0,
-      ),
+      appBar:   customAppBar("Add Hiring Request"),
       body: LayoutBuilder(
         builder: (context, constraints) {
           return Padding(
@@ -85,45 +87,17 @@ class _AddHiringRequestScreenState extends State<AddHiringRequestScreen> {
                           ? const CircularProgressIndicator()
                           : SizedBox(
                         width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: _submitRequest,
-                          style: ElevatedButton.styleFrom(
-                            padding: EdgeInsets.zero,
-                            elevation: 8,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            backgroundColor: Colors.transparent,
-                            shadowColor:
-                            Colors.deepPurple.withOpacity(0.5),
-                          ),
-                          child: Ink(
-                            decoration: BoxDecoration(
-                              gradient: const LinearGradient(
-                                colors: [
-                                  Color(0xFFB8820E),
-                                  Color(0xFF523A06)
-                                ],
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
+                        child: CustomElevatedButtonSubmit(
+                          label: "Submit",
+                          onPressed: () {
+                            BlocProvider.of<HiringRequestsBloc>(context).add(
+                              CreateHiringRequestsEvent(
+                                jopTitle: _jobTitleController.text,
+                                type: _typeController.text,
+                                description: _descriptionController.text,
                               ),
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: Container(
-                              width: double.infinity,
-                              padding:
-                              const EdgeInsets.symmetric(vertical: 16),
-                              alignment: Alignment.center,
-                              child: const Text(
-                                'Submit Request',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                          ),
+                            );
+                          },
                         ),
                       ),
                     ],

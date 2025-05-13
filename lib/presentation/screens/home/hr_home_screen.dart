@@ -4,11 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../blocs/hiring_requests/hiring_requests_block.dart';
 import '../../../blocs/user_profile_bloc/user_profile_bloc.dart';
 
-import '../../widgets/custom_app_drawer.dart';
-import '../../widgets/section_card.dart';
+import '../../widgets/appbar/custom_app_drawer.dart';
+import '../../widgets/list/section_card.dart';
 import '../hr_screen/add_hiring_request_screen.dart';
 import '../hr_screen/list_hiring_requests_screen.dart';
-import '../../widgets/custom_home_appbar.dart';
+import '../../widgets/appbar/custom_home_appbar.dart';
 import 'hr_home_page.dart';
 
 class HrHomeScreen extends StatelessWidget {

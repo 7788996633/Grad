@@ -6,9 +6,9 @@ import '../../../blocs/issue_requests_bloc/issue_requests_event.dart';
 import '../../../blocs/issue_requests_bloc/issue_requests_state.dart';
 import '../../../constant.dart';
 
-import '../../widgets/auth_widgets/issue_request_list_widget.dart';
-import '../../widgets/custom_appbar_add.dart';
-import '../../widgets/refresh_button.dart';
+import '../../widgets/list/issue_request_list_widget.dart';
+import '../../widgets/appbar/custom_appbar_add.dart';
+import '../../widgets/button/refresh_button.dart';
 import 'add_issue_request.dart';
 
 class ListIssueRequestsScreen extends StatefulWidget {

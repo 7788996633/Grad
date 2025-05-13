@@ -1,13 +1,14 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../blocs/lawyer_profile_bloc/lawyer_profiel_bloc.dart';
+import '../../../../blocs/user_profile_bloc/user_profile_bloc.dart';
+import '../../../constant.dart';
+import '../../screens/settings/setting_screen.dart';
+import '../../screens/user_screens/user_profile_screens/user_profile_screen.dart';
 
-import '../screens/lawyer_screens/lawyer_profile_screens/lawyer_profile_screen.dart';
-import '../screens/settings/setting_screen.dart';
-
-class CustomDrawerLawyer extends StatelessWidget {
-  const CustomDrawerLawyer({super.key});
+class CustomAppDrawer extends StatelessWidget {
+  const CustomAppDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,9 +18,9 @@ class CustomDrawerLawyer extends StatelessWidget {
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-            BlocConsumer<LawyerProfileBloc, LawyerProfileState>(
+            BlocConsumer<UserProfileBloc, UserProfileState>(
               listener: (context, state) {
-                if (state is LawyerProfileFail) {
+                if (state is UserProfileFail) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text('فشل تحميل الملف الشخصي: ${state.errmsg}'),
@@ -29,36 +30,40 @@ class CustomDrawerLawyer extends StatelessWidget {
                 }
               },
               builder: (context, state) {
-                if (state is LawyerProfileLoadedSuccessfully) {
-                  final lawyerModel = state.lawyerModel;
+                if (state is UserProfileLoadedSuccessfully) {
+                  final userProfileModel = state.userProfileModel;
+                  const File? pickedImage = null;
 
                   return GestureDetector(
                     onTap: () {
-                      Navigator.pop(context);
+                      Navigator.pop(context); // لإغلاق الـ Drawer
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (_) => BlocProvider(
-                            create: (context) => LawyerProfileBloc(),
-                            child: const LawyerProfileScreen(),
+                            create: (context) => UserProfileBloc(),
+                            child: const UserProfileScreen(),
                           ),
                         ),
                       );
                     },
                     child: UserAccountsDrawerHeader(
                       decoration: const BoxDecoration(color: Color(0XFF472A0C)),
-                      accountName: Text(lawyerModel.name),
-                      accountEmail: Text(lawyerModel.email),
+                      accountName: Text(userProfileModel.name),
+                      accountEmail: Text(userProfileModel.email),
                       currentAccountPicture: CircleAvatar(
                         radius: 30,
-                        backgroundImage: lawyerModel.image.isNotEmpty
-                            ? NetworkImage(lawyerModel.image)
-                            : const AssetImage('assets/default_image.png')
+                        backgroundImage: pickedImage != null
+                            ? FileImage(pickedImage)
+                            : (userProfileModel.image.isNotEmpty
+                                    ? NetworkImage(userProfileModel.image)
+                                    : const AssetImage(
+                                        'assets/default_image.png'))
                                 as ImageProvider,
                       ),
                     ),
                   );
-                } else if (state is LawyerProfileFail) {
+                } else if (state is UserProfileFail) {
                   return const DrawerHeader(
                     decoration: BoxDecoration(color: Color(0XFF472A0C)),
                     child: Center(
@@ -67,7 +72,7 @@ class CustomDrawerLawyer extends StatelessWidget {
                   );
                 } else {
                   return const DrawerHeader(
-                    decoration: BoxDecoration(color: Color(0XFF472A0C)),
+                    decoration: BoxDecoration(color: AppColors.darkBlue),
                     child: Center(
                       child: CircularProgressIndicator(color: Colors.white),
                     ),
