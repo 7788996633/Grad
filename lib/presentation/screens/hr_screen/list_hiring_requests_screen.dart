@@ -21,9 +21,9 @@ class ListHiringRequestsScreen extends StatefulWidget {
 }
 
 class _ListHiringRequestsScreenState extends State<ListHiringRequestsScreen> {
-  final TextEditingController _searchController = TextEditingController();
+
   late HiringRequestsBloc bloc;
-  List<HiringRequestModel> _allRequests = [];
+
 
   @override
   void initState() {
