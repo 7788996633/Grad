@@ -16,7 +16,6 @@ class ChangeUserRole extends UserEvent {
   final String role;
 
   ChangeUserRole({required this.userId, required this.role});
-
 }
 
 // class GetUserById extends UserEvent {
@@ -25,8 +24,4 @@ class ChangeUserRole extends UserEvent {
 //   GetUserById({required this.userId});
 // }
 
-// class GetUserRole extends UserEvent {
-//   final int groupId;
-
-//   GetUserRole({required this.groupId});
-// }
+class GetUserRole extends UserEvent {}

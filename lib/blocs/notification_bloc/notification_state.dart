@@ -23,3 +23,8 @@ final class NotificationFail extends NotificationState {
 
   NotificationFail({required this.errmsg});
 }
+final class UnreadNotificationsListLoaded extends NotificationState {
+  final List<NotificationModel> notificationsList;
+
+  UnreadNotificationsListLoaded({required this.notificationsList});
+}

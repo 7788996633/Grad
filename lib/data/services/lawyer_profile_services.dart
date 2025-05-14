@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'package:graduation/data/models/lawyer_model.dart';
 import 'package:http/http.dart' as http;
 
 import '../../constant.dart';
+import '../models/lawyer_model.dart';
 
 class LawyerProfileServices {
   Future<LawyerModel> getMyLawyerProfile() async {
@@ -42,7 +42,9 @@ class LawyerProfileServices {
     print(jsonResponse);
     if (response.statusCode == 200) {
       if (jsonResponse['status'] == 'success') {
-        return LawyerModel.fromJson(jsonResponse['data']);
+        return LawyerModel.fromJson(
+          jsonResponse['data'],
+        );
       } else {
         throw Exception('failed: ${jsonResponse['message']}');
       }
@@ -96,17 +98,33 @@ class LawyerProfileServices {
     String experienceYears,
     String specialization,
     String certificatePath,
+    String phone,
+    String imagePath,
+    String address,
+    String age,
   ) async {
     var headers = {
       'Accept': 'application/json',
       'Authorization': 'Bearer $myToken',
       'Content-Type': 'application/x-www-form-urlencoded'
     };
-    var request = http.Request('PUT', Uri.parse('${myUrl}lawyers/profile'));
-    request.bodyFields = {
-      'salary': '7899.9',
-      'certificate': 'updated/certificate.pdf'
-    };
+    var request =
+        http.MultipartRequest('PUT', Uri.parse('${myUrl}lawyers/profile'));
+    request.fields.addAll(
+      {
+        'certificate': certificatePath,
+        'age': age,
+        'specialization': specialization,
+        'phone': phone,
+        'experience_years': experienceYears,
+        'address': address,
+        'license_number': licenseNumber,
+      },
+    );
+    request.files.add(await http.MultipartFile.fromPath(
+      'image',
+      imagePath,
+    ));
 
     request.headers.addAll(headers);
 
@@ -127,31 +145,18 @@ class LawyerProfileServices {
     }
   }
 
-  Future<String> deleteLawyerProrile(
-    String licenseNumber,
-    String experienceYears,
-    String specialization,
-    String certificatePath,
-  ) async {
+  Future<String> deleteProfile(int lawyerid) async {
     var headers = {
       'Accept': 'application/json',
-      'Authorization': 'Bearer $myToken',
-      'Content-Type': 'application/x-www-form-urlencoded'
+      'Authorization': 'Bearer $myToken'
     };
-    var request = http.Request('PUT', Uri.parse('${myUrl}lawyers/create'));
-    request.bodyFields = {
-      'salary': '7899.9',
-      'certificate': 'updated/certificate.pdf'
-    };
-
+    var request =
+        http.Request('DELETE', Uri.parse('${myUrl}lawyers/$lawyerid'));
     request.headers.addAll(headers);
-
     var streamedResponse = await request.send();
-
     var response = await http.Response.fromStream(streamedResponse);
     var jsonResponse = json.decode(response.body);
     print(jsonResponse);
-
     if (response.statusCode == 200) {
       if (jsonResponse['status'] == 'success') {
         return jsonResponse['message'];

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:graduation/blocs/user_bloc/user_bloc.dart';
-import 'package:graduation/data/models/user_model.dart';
+import '../../../blocs/user_bloc/user_bloc.dart';
+import '../../../data/models/user_model.dart';
 
 class UserItem extends StatelessWidget {
   const UserItem({super.key, required this.userModel});
@@ -47,6 +47,10 @@ class UserItem extends StatelessWidget {
                       ],
                     ),
                   );
+
+                  // التأكد إذا كان الـ context لسه موجود
+                  if (!context.mounted) return;
+
                   if (confirmed == true) {
                     BlocProvider.of<UserBloc>(context).add(
                       ChangeUserRole(
@@ -99,10 +103,9 @@ class UserItem extends StatelessWidget {
             style: TextStyle(color: Colors.blueGrey)),
       ),
       'Admin': const PopupMenuItem<String>(
-        value: 'Admin',
-        child: Text("You are the admin",
-            style: TextStyle(color: Color.fromARGB(255, 179, 34, 106))),
-      ),
+          value: 'Admin',
+          child: Text("You are the admin",
+              style: TextStyle(color: Color.fromARGB(255, 179, 34, 106)))),
     };
 
     final current = currentRole.toUpperCase();

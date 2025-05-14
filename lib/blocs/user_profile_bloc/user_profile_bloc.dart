@@ -1,7 +1,11 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
-import 'package:graduation/data/models/user_profile_model.dart';
-import 'package:graduation/data/services/user_profile_services.dart';
+
 import 'package:meta/meta.dart';
+
+import '../../data/models/user_profile_model.dart';
+import '../../data/services/user_profile_services.dart';
 
 
 part 'user_profile_event.dart';
@@ -63,6 +67,7 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
           UserProfileLoading(),
         );
         try {
+          log("");
           String value = await UserProfileServices().deleteProfile();
           emit(UserProfileSuccess(successmsg: value));
         } catch (e) {

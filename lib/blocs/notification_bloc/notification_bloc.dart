@@ -1,8 +1,9 @@
 import 'package:bloc/bloc.dart';
-import 'package:graduation/data/models/notification_model.dart';
-import 'package:graduation/data/repositories/notifications_repositories.dart';
-import 'package:graduation/data/services/notifications_services.dart';
 import 'package:meta/meta.dart';
+
+import '../../data/models/notification_model.dart';
+import '../../data/repositories/notifications_repositories.dart';
+import '../../data/services/notifications_services.dart';
 
 part 'notification_event.dart';
 part 'notification_state.dart';
@@ -10,7 +11,26 @@ part 'notification_state.dart';
 class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
   NotificationBloc() : super(NotificationInitial()) {
     on<NotificationEvent>((event, emit) async {
-      if (event is GetAllNotificationsEvent) {
+      if (event is GetAllUnreadNotificationsEvent) {
+        emit(
+          NotificationLoading(),
+        );
+        try {
+          List<NotificationModel> value =
+          await NotificationsRepositories().getAllNotifications();
+          emit(
+            NotificationsListLoaded(
+              notificationsList: value,
+            ),
+          );
+        } catch (e) {
+          emit(
+            NotificationFail(
+              errmsg: e.toString(),
+            ),
+          );
+        }}
+        else if (event is GetAllUnreadNotificationsEvent) {
         emit(
           NotificationLoading(),
         );

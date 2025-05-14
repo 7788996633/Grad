@@ -16,7 +16,9 @@ final class LawyerProfileSuccess extends LawyerProfileState {
 final class LawyerProfileLoadedSuccessfully extends LawyerProfileState {
   final LawyerModel lawyerModel;
 
-  LawyerProfileLoadedSuccessfully({required this.lawyerModel});
+  LawyerProfileLoadedSuccessfully({
+    required this.lawyerModel,
+  });
 }
 
 final class LawyerProfileFail extends LawyerProfileState {

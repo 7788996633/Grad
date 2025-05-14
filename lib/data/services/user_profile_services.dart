@@ -19,7 +19,34 @@ class UserProfileServices {
     print(jsonResponse);
     if (response.statusCode == 200) {
       if (jsonResponse['status'] == 'success') {
-        return UserProfileModel.fromJson(jsonResponse['data']);
+        return UserProfileModel.fromJson(
+          jsonResponse['data'],
+        );
+      } else {
+        throw Exception('failed: ${jsonResponse['message']}');
+        //زبط بحيث اذا فشل يرجع ايدي سالب وخزن السبب واعرضو لا تنسى
+      }
+    } else {
+      throw Exception(
+          'failed: ${response.statusCode} - ${response.reasonPhrase}');
+    }
+  }
+  Future<UserProfileModel> showProfileById(int userId) async {
+    var headers = {
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $myToken'
+    };
+    var request = http.Request('GET', Uri.parse('${myUrl}profile/$userId'));
+    request.headers.addAll(headers);
+    var streamedResponse = await request.send();
+    var response = await http.Response.fromStream(streamedResponse);
+    var jsonResponse = json.decode(response.body);
+    print(jsonResponse);
+    if (response.statusCode == 200) {
+      if (jsonResponse['status'] == 'success') {
+        return UserProfileModel.fromJson(
+          jsonResponse['data'],
+        );
       } else {
         throw Exception('failed: ${jsonResponse['message']}');
         //زبط بحيث اذا فشل يرجع ايدي سالب وخزن السبب واعرضو لا تنسى
@@ -30,6 +57,7 @@ class UserProfileServices {
     }
   }
 
+
   Future<dynamic> updateProfile(
       String phone, String address, String age, String scientificLevel) async {
     var headers = {
@@ -37,7 +65,7 @@ class UserProfileServices {
       'Content-Type': 'application/x-www-form-urlencoded',
       'Authorization': 'Bearer $myToken'
     };
-    var request = http.Request('PUT', Uri.parse('${myUrl}profile'));
+    var request = http.Request('POST', Uri.parse('${myUrl}profile/update'));
     request.bodyFields = {
       'phone': phone,
       'address': address,
@@ -67,7 +95,7 @@ class UserProfileServices {
       'Authorization': 'Bearer $myToken'
     };
     var request =
-        http.MultipartRequest('POST', Uri.parse('${myUrl}profiles/create/'));
+        http.MultipartRequest('POST', Uri.parse('${myUrl}profiles/create'));
     request.fields.addAll(
       {
         'phone': phone,

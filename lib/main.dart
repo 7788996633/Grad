@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:graduation/blocs/auth_bloc/auth_bloc.dart';
-import 'package:graduation/presentation/localNotification.dart';
-import 'package:graduation/presentation/screens/login_screen.dart';
 
-void main() async{
-  WidgetsFlutterBinding.ensureInitialized();
-  await LocalNotification.init();
+import 'package:graduation/presentation/screens/auth_screens/auth_screen.dart';
+import '../blocs/auth_bloc/auth_bloc.dart';
+
+import 'blocs/my_bloc_observere.dart';
+import 'blocs/user_bloc/user_bloc.dart';
+
+void main() {
+  Bloc.observer = MyBlocObserver();
   runApp(const MyApp());
 }
 
@@ -21,9 +23,16 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: BlocProvider(
-        create: (context) => AuthBloc(),
-        child: const LoginScreen(),
+      home: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => AuthBloc(),
+          ),
+          BlocProvider(
+            create: (context) => UserBloc(),
+          ),
+        ],
+        child: const AuthScreen(),
       ),
     );
   }
