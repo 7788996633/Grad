@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:untitled23/blocs/hiring_requests/hiring_requests_block.dart';
-import 'package:untitled23/data/models/hiring_request_model.dart';
+import 'package:graduation/blocs/hiring_requests/hiring_requests_block.dart';
+import 'package:graduation/data/models/hiring_request_model.dart';
 import '../../../blocs/issue_requests_bloc/issue_requests_bloc.dart';
 import '../../../blocs/issue_requests_bloc/issue_requests_event.dart';
 

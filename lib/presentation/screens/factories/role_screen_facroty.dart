@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:untitled23/presentation/screens/factories/screen_type.dart';
+import 'package:graduation/presentation/screens/factories/screen_type.dart';
 
 import '../home/accountant_home_page.dart';
 import '../home/admin_home_page.dart';

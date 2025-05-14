@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:untitled23/constant.dart';
+import 'package:graduation/constant.dart';
 import '../../../../blocs/issue_bloc/issues_bloc.dart';
 import '../../../../data/models/issues_model.dart';
 import '../../../widgets/issue_item.dart';

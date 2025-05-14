@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:untitled23/presentation/screens/auth_screens/auth_screen.dart';
+import 'package:graduation/presentation/screens/auth_screens/auth_screen.dart';
 import '../blocs/auth_bloc/auth_bloc.dart';
 
 import 'blocs/my_bloc_observere.dart';
