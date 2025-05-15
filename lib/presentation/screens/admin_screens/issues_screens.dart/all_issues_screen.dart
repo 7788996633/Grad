@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation/presentation/screens/admin_screens/issues_screens.dart/create_issue_screen.dart';
 import '../../../../blocs/issue_bloc/issues_bloc.dart';
 import '../../../../constant.dart';
 import '../../../../data/models/issues_model.dart';
@@ -35,6 +36,23 @@ class _AllIssuesScreenState extends State<AllIssuesScreen> {
     return Scaffold(
       backgroundColor: const Color(0xFFF5F6FA),
       appBar: AppBar(
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => BlocProvider(
+                    create: (context) => IssuesBloc(),
+                    child: const CreateIssueScreen(),
+                  ),
+                ),
+              );
+            },
+            icon: const Icon(
+              Icons.add,
+            ),
+          ),
+        ],
         backgroundColor: AppColors.darkBlue,
         title: const Text(
           "All Issues",

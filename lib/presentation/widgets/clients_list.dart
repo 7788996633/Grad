@@ -1,39 +1,52 @@
+// clients_list.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation/blocs/user_profile_bloc/user_profile_bloc.dart';
+import 'package:graduation/presentation/widgets/user_radio_item.dart';
 
 import '../../blocs/user_bloc/user_bloc.dart';
 import '../../data/models/user_model.dart';
-import 'user_item.dart';
 
-class UsersList extends StatefulWidget {
-  const UsersList({super.key});
+class ClientsList extends StatefulWidget {
+  final Function(int?)? onUserSelected;
+
+  const ClientsList({super.key, this.onUserSelected});
 
   @override
-  State<UsersList> createState() => _UserListState();
+  State<ClientsList> createState() => _ClientsListState();
 }
 
-class _UserListState extends State<UsersList> {
+class _ClientsListState extends State<ClientsList> {
+  List<UserModel> clientsList = [];
+  int? selectedUserId;
+
   @override
   void initState() {
-    BlocProvider.of<UserBloc>(context).add(
-      GetAllUsers(),
-    );
     super.initState();
+    BlocProvider.of<UserBloc>(context).add(GetAllClients());
   }
 
-  List<UserModel> usersList = [];
-  Widget buildUserModel() {
+  Widget buildUserList() {
     return ListView.builder(
-      itemCount: usersList.length,
+      itemCount: clientsList.length,
       shrinkWrap: true,
       physics: const ClampingScrollPhysics(),
-      itemBuilder: (context, index) => BlocProvider(
-        create: (context) => UserProfileBloc(),
-        child: UserItem(
-          userModel: usersList[index],
-        ),
-      ),
+      itemBuilder: (context, index) {
+        final user = clientsList[index];
+        return BlocProvider(
+          create: (context) => UserProfileBloc(),
+          child: UserRadioItem(
+            userModel: user,
+            groupValue: selectedUserId,
+            onChanged: (value) {
+              setState(() {
+                selectedUserId = value;
+              });
+              widget.onUserSelected?.call(value);
+            },
+          ),
+        );
+      },
     );
   }
 
@@ -51,9 +64,7 @@ class _UserListState extends State<UsersList> {
               backgroundColor: Colors.green,
             ),
           );
-          BlocProvider.of<UserBloc>(context).add(
-            GetAllUsers(),
-          );
+          BlocProvider.of<UserBloc>(context).add(GetAllUsers());
         } else if (state is UserFail) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -69,10 +80,10 @@ class _UserListState extends State<UsersList> {
       child: BlocBuilder<UserBloc, UserState>(
         builder: (context, state) {
           if (state is UsersListLoaded) {
-            usersList = state.usersList;
-            return usersList.isEmpty
-                ? const Text('There is no users')
-                : buildUserModel();
+            clientsList = state.usersList;
+            return clientsList.isEmpty
+                ? const Center(child: Text('There are no users'))
+                : buildUserList();
           } else if (state is UserFail) {
             return Column(
               children: [
@@ -95,7 +106,7 @@ class _UserListState extends State<UsersList> {
               ],
             );
           } else {
-            return const CircularProgressIndicator();
+            return const Center(child: CircularProgressIndicator());
           }
         },
       ),

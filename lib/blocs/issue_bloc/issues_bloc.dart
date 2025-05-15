@@ -26,6 +26,9 @@ class IssuesBloc extends Bloc<IssuesEvent, IssuesState> {
             event.totalCost,
             event.numberOfPayments,
             event.opponentName,
+            event.userId,
+            event.amoountPaid,
+            event.description,
           );
           emit(
             IssuesSuccess(
@@ -83,7 +86,7 @@ class IssuesBloc extends Bloc<IssuesEvent, IssuesState> {
             ),
           );
         }
-      }  else if (event is IssueShowbyId) {
+      } else if (event is IssueShowbyId) {
         emit(
           IssuesLoading(),
         );

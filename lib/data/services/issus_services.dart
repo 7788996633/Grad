@@ -17,12 +17,16 @@ class IssusServices {
     String totalCost,
     int numberOfPayments,
     String opponentName,
+    int userId,
+    int amoountPaid,
+    String description,
   ) async {
     var headers = {
       'Accept': 'application/json',
       'Authorization': 'Bearer $myToken'
     };
-    var request = http.MultipartRequest('POST', Uri.parse('${myUrl}issues/5'));
+    var request =
+        http.MultipartRequest('POST', Uri.parse('${myUrl}issues/$userId'));
     request.fields.addAll({
       'title': title,
       'issue_number': issueNumber,
@@ -34,7 +38,9 @@ class IssusServices {
       'end_date': endDate,
       'total_cost': totalCost,
       'number_of_payments': numberOfPayments.toString(),
-      'opponent_name': opponentName
+      'opponent_name': opponentName,
+      'amount_paid': amoountPaid.toString(),
+      'description': description
     });
 
     request.headers.addAll(headers);
