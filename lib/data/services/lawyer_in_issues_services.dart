@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:graduation/constant.dart';
-import 'package:graduation/data/models/lawyer_in_issues.dart';
 
 class LawyerInIssuesServices {
   Future<List> getLawyerInIssuesServices() async {
