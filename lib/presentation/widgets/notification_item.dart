@@ -27,7 +27,7 @@ class NotificationItem extends StatelessWidget {
             color: notificationModel.isRead ? Colors.grey : Colors.green,
           ),
           title: Text(
-            notificationModel.data.title,
+            notificationModel.title,
             style: TextStyle(
               fontWeight: notificationModel.isRead
                   ? FontWeight.normal
@@ -35,7 +35,7 @@ class NotificationItem extends StatelessWidget {
               color: notificationModel.isRead ? Colors.black : Colors.black87,
             ),
           ),
-          subtitle: Text(notificationModel.data.message),
+          subtitle: Text(notificationModel.body),
           trailing: IconButton(
             icon: const Icon(Icons.delete, color: Colors.red),
             onPressed: () {

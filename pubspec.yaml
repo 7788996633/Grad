@@ -55,6 +55,7 @@ dependencies:
   path_provider:
   video_player:
   socket_io_client:
+  flutter_local_notifications: ^19.2.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
