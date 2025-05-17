@@ -89,3 +89,10 @@ class IssueShowbyId extends IssuesEvent {
 }
 
 class GetAllIssuesEvent extends IssuesEvent {}
+
+class AssignIsuueToLawyerEvent extends IssuesEvent {
+  final int issueId;
+  final int lawyerId;
+
+  AssignIsuueToLawyerEvent({required this.issueId, required this.lawyerId});
+}

@@ -1,20 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation/presentation/widgets/lawyer_radio_item.dart';
 
 import '../../blocs/lawyer_bloc/lawyer_bloc.dart';
 import '../../blocs/lawyer_bloc/lawyer_state.dart';
 import '../../data/models/lawyer_model.dart';
-import 'lawyer_item.dart';
 
-class LawyersList extends StatefulWidget {
-  const LawyersList({super.key, required this.bloc});
+class SelectLawyersForIssueList extends StatefulWidget {
+  const SelectLawyersForIssueList(
+      {super.key, required this.bloc, this.onLawyerSelected});
   final LawyerBloc bloc;
+  final Function(int?)? onLawyerSelected;
+
   @override
-  State<LawyersList> createState() => _LawyersListState();
+  State<SelectLawyersForIssueList> createState() =>
+      _SelectLawyersForIssueListState();
 }
 
-class _LawyersListState extends State<LawyersList> {
+class _SelectLawyersForIssueListState extends State<SelectLawyersForIssueList> {
   List<LawyerModel> _allLawyers = [];
+  int? selectedLawyerId;
 
   Widget _buildLawyerList(List<LawyerModel> lawyers) {
     if (lawyers.isEmpty) {
@@ -26,8 +31,15 @@ class _LawyersListState extends State<LawyersList> {
       itemCount: lawyers.length,
       separatorBuilder: (_, __) => const SizedBox(height: 12),
       itemBuilder: (context, index) {
-        return LawyerItem(
-          lawyer: lawyers[index],
+        return LawyerRadioItem(
+          lawyerModel: lawyers[index],
+          onChanged: (value) {
+            setState(() {
+              selectedLawyerId = value;
+            });
+            widget.onLawyerSelected?.call(value);
+          },
+          groupValue: selectedLawyerId,
         );
       },
     );
@@ -53,7 +65,11 @@ class _LawyersListState extends State<LawyersList> {
               ),
             );
           } else {
-            return const Center(child: Text('No data yet.'));
+            return const Center(
+              child: Text(
+                'No data yet.',
+              ),
+            );
           }
         },
       ),

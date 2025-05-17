@@ -98,6 +98,36 @@ class IssusServices {
     }
   }
 
+  Future<String> issuePriorityUpdateService(
+    int id,
+    String priority,
+  ) async {
+    var headers = {
+      'Accept': 'application/json',
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Authorization': 'Bearer $myToken'
+    };
+    var request =
+        http.MultipartRequest('POST', Uri.parse('${myUrl}issues/$id/priority'));
+    request.fields.addAll({'priority': priority});
+
+    request.headers.addAll(headers);
+
+    var streamedResponse = await request.send();
+    var response = await http.Response.fromStream(streamedResponse);
+    var jsonResponse = json.decode(response.body);
+    print(jsonResponse);
+    if (response.statusCode == 200) {
+      if (jsonResponse['status'] == 'success') {
+        return jsonResponse['message'];
+      } else {
+        return 'failed: ${jsonResponse['message']}';
+      }
+    } else {
+      return 'failed: ${response.statusCode} - ${response.reasonPhrase}';
+    }
+  }
+
   Future<IssuesModel> issueShowService(int id) async {
     var headers = {
       'Accept': 'application/json',
@@ -171,6 +201,35 @@ class IssusServices {
       }
     } else {
       return [];
+    }
+  }
+
+  Future<String> addLawyerToIssueService(
+    int issueId,
+    int lawyerId,
+  ) async {
+    var headers = {
+      'Accept': 'application/json',
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Authorization': 'Bearer $myToken'
+    };
+    var request = http.MultipartRequest(
+        'POST', Uri.parse('${myUrl}issues/$issueId/lawyers/$lawyerId'));
+
+    request.headers.addAll(headers);
+
+    var streamedResponse = await request.send();
+    var response = await http.Response.fromStream(streamedResponse);
+    var jsonResponse = json.decode(response.body);
+    print(jsonResponse);
+    if (response.statusCode == 200) {
+      if (jsonResponse['status'] == 'success') {
+        return jsonResponse['message'];
+      } else {
+        return 'failed: ${jsonResponse['message']}';
+      }
+    } else {
+      return 'failed: ${response.statusCode} - ${response.reasonPhrase}';
     }
   }
 }

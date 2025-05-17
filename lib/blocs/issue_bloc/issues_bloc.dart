@@ -118,6 +118,23 @@ class IssuesBloc extends Bloc<IssuesEvent, IssuesState> {
             ),
           );
         }
+      } else if (event is AssignIsuueToLawyerEvent) {
+        emit(
+          IssuesLoading(),
+        );
+        try {
+          String value = await IssusServices()
+              .addLawyerToIssueService(event.issueId, event.lawyerId);
+          emit(
+            IssuesSuccess(successmsg: value),
+          );
+        } catch (e) {
+          emit(
+            IssuesFail(
+              errmsg: e.toString(),
+            ),
+          );
+        }
       }
     });
   }

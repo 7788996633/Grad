@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../blocs/lawyer_bloc/lawyer_bloc.dart';
 import '../../../blocs/lawyer_bloc/lawyer_event.dart';
 import '../widgets/custom_search_bar.dart';
-import '../widgets/lawyers_list.dart';
+import '../widgets/all_lawyers_list.dart';
 import '../widgets/refresh_button.dart';
 
 class AllLawyersScreen extends StatefulWidget {
@@ -62,7 +62,7 @@ class _AllLawyersScreenState extends State<AllLawyersScreen> {
               onSearch: _onSearch,
             ),
             const SizedBox(height: 20),
-            LawyersList(
+            AllLawyersList(
               bloc: bloc,
             ),
           ],

@@ -6,9 +6,16 @@ import '../../data/models/lawyer_model.dart';
 import '../screens/lawyer_screens/lawyer_profile_screens/lawyer_details_screen.dart';
 import 'info_row.dart';
 
-class LawyerItem extends StatelessWidget {
-  const LawyerItem({super.key, required this.lawyer});
+class CustomLawyerItem extends StatelessWidget {
+  const CustomLawyerItem({
+    super.key,
+    required this.lawyer,
+     this.subtitle,
+     this.trailing,
+  });
   final LawyerModel lawyer;
+  final Widget? subtitle;
+  final Widget? trailing;
 
   @override
   Widget build(BuildContext context) {
@@ -57,6 +64,20 @@ class LawyerItem extends StatelessWidget {
               ),
             ],
           ),
+          onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => BlocProvider(
+              create: (context) => LawyerProfileBloc(),
+              child: LawyerDetailsScreen(
+                lawyerId: lawyer.id,
+              ),
+            ),
+          ),
+        );
+      },
+
+          trailing: trailing,
         ),
       ),
     );
