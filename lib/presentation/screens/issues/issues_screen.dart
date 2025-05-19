@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation/blocs/issue_bloc/issues_bloc.dart';
 import 'package:graduation/data/models/issues_model.dart';
 
+import '../../../constant.dart';
+
 
 class JobRequestScreen extends StatelessWidget {
   const JobRequestScreen({super.key});
@@ -11,7 +13,7 @@ class JobRequestScreen extends StatelessWidget {
     return BlocProvider(
       create: (_) => IssuesBloc() ,
       child: Scaffold(
-        backgroundColor: const Color(0xFF6D6C3E),
+        backgroundColor: AppColors.softGray,
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
@@ -68,7 +70,7 @@ class JobRequestCard extends StatelessWidget {
         children: [
           Container(
             padding: const EdgeInsets.all(12),
-            color: const Color(0xFFD9A100),
+            color: AppColors.darkBlue ,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -104,7 +106,7 @@ class JobRequestCard extends StatelessWidget {
             alignment: Alignment.centerLeft,
             child: ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFFD9A100),
+                backgroundColor: AppColors.darkBlue,
                 foregroundColor: Colors.black,
               ),
               icon: const Icon(Icons.remove_red_eye),
