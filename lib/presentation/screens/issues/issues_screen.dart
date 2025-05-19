@@ -17,7 +17,6 @@ class JobRequestScreen extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
-          title: const Text('موارد', style: TextStyle(color: Colors.white)),
         ),
         body: Center(
           child: Container(
@@ -28,7 +27,7 @@ class JobRequestScreen extends StatelessWidget {
               children: [
                 const SizedBox(height: 16),
                 const Text(
-                  'إدارة طلبات التوظيف',
+                  'إدارة قضايا',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                 ),
                 const SizedBox(height: 20),
@@ -88,9 +87,9 @@ class JobRequestCard extends StatelessWidget {
               children: [
                 Text(' ${issue.opponentName}'),
                 const SizedBox(height: 4),
-                Text('${issue.status}'),
+                Text('الحالة :${issue.status}'),
                 const SizedBox(height: 4),
-                Text('${issue.priority}'),
+                Text(' الاولوية:${issue.priority}'),
                 const Row(
                   children: [
                     Icon(Icons.visibility),
@@ -110,7 +109,7 @@ class JobRequestCard extends StatelessWidget {
                 foregroundColor: Colors.black,
               ),
               icon: const Icon(Icons.remove_red_eye),
-              label: const Text('عرض تفاصيل الطلب'),
+              label: const Text('عرض تفاصيل القضية'),
               onPressed: () {},
             ),
           ),
