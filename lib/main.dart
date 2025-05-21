@@ -7,10 +7,11 @@ import 'package:graduation/localnotification.dart';
 import 'package:graduation/presentation/screens/auth_screens/auth_screen.dart';
 
 void main() async {
-  await LocalNotification.init();
-  LocalNotification.ensureConnected();
   Bloc.observer = MyBlocObserver();
   runApp(const MyApp());
+  LocalNotification.init();
+ LocalNotification.ensureConnected();
+
 }
 
 class MyApp extends StatelessWidget {
