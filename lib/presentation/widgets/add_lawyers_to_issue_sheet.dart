@@ -13,7 +13,7 @@ class AddLawyersToIssueSheet extends StatefulWidget {
 }
 
 class _AddLawyersToIssueSheetState extends State<AddLawyersToIssueSheet> {
-  int? selectedUserId;
+  List<int> selectedLawyersIds = [];
 
   late LawyerBloc bloc;
   @override
@@ -38,10 +38,9 @@ class _AddLawyersToIssueSheetState extends State<AddLawyersToIssueSheet> {
           SelectLawyersForIssueList(
             bloc: bloc,
             onLawyerSelected: (id) {
+              selectedLawyersIds.add(id!);
               setState(
-                () {
-                  selectedUserId = id;
-                },
+                () {},
               );
             },
           ),
@@ -75,7 +74,7 @@ class _AddLawyersToIssueSheetState extends State<AddLawyersToIssueSheet> {
                   BlocProvider.of<IssuesBloc>(context).add(
                     AssignIsuueToLawyerEvent(
                       issueId: widget.issueId,
-                      lawyerId: selectedUserId!,
+                      lawyerIds: selectedLawyersIds,
                     ),
                   );
                 },

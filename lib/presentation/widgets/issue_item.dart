@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation/blocs/user_profile_bloc/user_profile_bloc.dart';
 import 'package:graduation/presentation/screens/admin_screens/issues_screens.dart/issuescreen.dart';
+import '../../blocs/issue_bloc/issues_bloc.dart';
 import '../../data/models/issues_model.dart';
 
 class IssueItem extends StatefulWidget {
@@ -55,7 +56,9 @@ class _IssueItemState extends State<IssueItem> {
                         items: IssuePriority.values.map((value) {
                           return DropdownMenuItem<IssuePriority>(
                             value: value,
-                            child: Text(priorityToString(value)),
+                            child: Text(
+                              priorityToString(value),
+                            ),
                           );
                         }).toList(),
                         onChanged: (newValue) {
@@ -93,19 +96,60 @@ class _IssueItemState extends State<IssueItem> {
                     : Text(statusToString(selectedStatus)),
               ],
             ),
+            if (isEditing)
+              ElevatedButton(
+                onPressed: () {},
+                child: const Text("Delete"),
+              ),
           ],
         ),
-        trailing: IconButton(
-          icon: Icon(isEditing ? Icons.check : Icons.edit),
-          onPressed: () {
-            if (isEditing) {
-              // هنا ممكن تضيف حدث الحفظ مثل إرسال القيم للبلوك أو API
-              print(
-                  'Saving priority: $selectedPriority, status: $selectedStatus');
+        trailing: BlocConsumer<IssuesBloc, IssuesState>(
+          listener: (context, state) {
+            if (state is IssuesSuccess) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    state.successmsg,
+                    style: const TextStyle(fontSize: 16),
+                  ),
+                  backgroundColor: Colors.green,
+                ),
+              );
+            } else if (state is IssuesFail) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    state.errmsg,
+                    style: const TextStyle(fontSize: 16),
+                  ),
+                  backgroundColor: Colors.red,
+                ),
+              );
             }
-            setState(() {
-              isEditing = !isEditing;
-            });
+          },
+          builder: (context, state) {
+            return IconButton(
+              icon: Icon(isEditing ? Icons.check : Icons.edit),
+              onPressed: () {
+                if (isEditing) {
+                  if (priorityToString(selectedPriority).toLowerCase() !=
+                      widget.issuesModel.priority.toLowerCase()) {
+                    BlocProvider.of<IssuesBloc>(context).add(
+                      UpdateIssuePriorityEvent(
+                        issueId: widget.issuesModel.id,
+                        priority:
+                            priorityToString(selectedPriority).toLowerCase(),
+                      ),
+                    );
+                  }
+                  print(
+                      'Saving priority: $selectedPriority, status: $selectedStatus');
+                }
+                setState(() {
+                  isEditing = !isEditing;
+                });
+              },
+            );
           },
         ),
       ),

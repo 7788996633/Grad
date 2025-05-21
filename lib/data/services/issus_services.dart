@@ -206,15 +206,16 @@ class IssusServices {
 
   Future<String> addLawyerToIssueService(
     int issueId,
-    int lawyerId,
+    List<int> lawyerIds,
   ) async {
     var headers = {
       'Accept': 'application/json',
       'Content-Type': 'application/x-www-form-urlencoded',
       'Authorization': 'Bearer $myToken'
     };
-    var request = http.MultipartRequest(
-        'POST', Uri.parse('${myUrl}issues/$issueId/lawyers/$lawyerId'));
+    var request =
+        http.Request('POST', Uri.parse('${myUrl}issues/$issueId/assign'));
+    request.body = json.encode({"lawyer_ids": lawyerIds});
 
     request.headers.addAll(headers);
 

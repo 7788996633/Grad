@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 String myToken = '';
-String myUrl = 'http://192.168.142.86:8000/api/';
+String myUrl = 'http://192.168.1.107:8000/api/';
 String myRole = '';
 
 class AppColors {

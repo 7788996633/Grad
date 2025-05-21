@@ -9,6 +9,7 @@ import 'lawyer_state.dart';
 
 class LawyerBloc extends Bloc<LawyerEvent, LawyerState> {
   LawyerBloc() : super(LawyerInitial()) {
+    List<LawyerModel> allLawyers = [];
     on<LawyerEvent>(
       (event, emit) async {
         if (event is GetAllLawyersEvent) {
@@ -16,11 +17,10 @@ class LawyerBloc extends Bloc<LawyerEvent, LawyerState> {
             LawyerLoading(),
           );
           try {
-            List<LawyerModel> lawyersList =
-                await LawyerRepository().getAllLawyers();
+            allLawyers = await LawyerRepository().getAllLawyers();
             emit(
               LawyersListLoaded(
-                lawyersList: lawyersList,
+                lawyersList: allLawyers,
               ),
             );
           } catch (e) {
@@ -54,9 +54,6 @@ class LawyerBloc extends Bloc<LawyerEvent, LawyerState> {
           emit(LawyerLoading());
 
           try {
-            List<LawyerModel> allLawyers =
-                await LawyerRepository().getAllLawyers();
-
             final query = event.name.trim().toLowerCase();
 
             List<LawyerModel> filteredLawyers = allLawyers.where(
@@ -68,6 +65,30 @@ class LawyerBloc extends Bloc<LawyerEvent, LawyerState> {
             emit(
               LawyersListLoaded(
                 lawyersList: filteredLawyers,
+              ),
+            );
+          } catch (e) {
+            emit(
+              LawyerFail(
+                errorMsg: e.toString(),
+              ),
+            );
+          }
+        } else if (event is FilterLawyers) {
+          emit(
+            LawyerLoading(),
+          );
+          try {
+            final filtered = allLawyers
+                .where(
+                  (lawyer) => event.filter.apply(
+                    lawyer,
+                  ),
+                )
+                .toList();
+            emit(
+              LawyersListLoaded(
+                lawyersList: filtered,
               ),
             );
           } catch (e) {

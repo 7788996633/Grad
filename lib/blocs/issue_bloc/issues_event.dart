@@ -92,7 +92,14 @@ class GetAllIssuesEvent extends IssuesEvent {}
 
 class AssignIsuueToLawyerEvent extends IssuesEvent {
   final int issueId;
-  final int lawyerId;
+  final List<int> lawyerIds;
 
-  AssignIsuueToLawyerEvent({required this.issueId, required this.lawyerId});
+  AssignIsuueToLawyerEvent({required this.issueId, required this.lawyerIds});
+}
+
+class UpdateIssuePriorityEvent extends IssuesEvent {
+  final int issueId;
+  final String priority;
+
+  UpdateIssuePriorityEvent({required this.issueId, required this.priority});
 }
