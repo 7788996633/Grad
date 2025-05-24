@@ -38,7 +38,7 @@ class _IssueItemState extends State<IssueItem> {
             MaterialPageRoute(
               builder: (context) => BlocProvider(
                 create: (context) => UserProfileBloc(),
-                child: IssueScreen(
+                child: IssuesScreen(
                   issuesModel: widget.issuesModel,
                 ),
               ),

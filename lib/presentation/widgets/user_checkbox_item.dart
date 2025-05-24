@@ -4,26 +4,25 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../blocs/user_profile_bloc/user_profile_bloc.dart';
 import '../../data/models/user_model.dart';
 import 'custom_user_item.dart';
-
-class UserRadioItem extends StatefulWidget {
-  const UserRadioItem({
+class UserCheckboxItem extends StatefulWidget {
+  const UserCheckboxItem({
     super.key,
     required this.userModel,
-    required this.groupValue,
+    required this.selected,
     required this.onChanged,
     this.subtitle,
   });
 
   final UserModel userModel;
-  final int? groupValue;
-  final void Function(int?) onChanged;
+  final bool selected;
+  final void Function(bool?) onChanged;
   final Widget? subtitle;
 
   @override
-  State<UserRadioItem> createState() => _UserRadioItemState();
+  State<UserCheckboxItem> createState() => _UserCheckboxItemState();
 }
 
-class _UserRadioItemState extends State<UserRadioItem> {
+class _UserCheckboxItemState extends State<UserCheckboxItem> {
   @override
   void initState() {
     super.initState();
@@ -40,18 +39,18 @@ class _UserRadioItemState extends State<UserRadioItem> {
           return CustomUserItem(
             userProfileModel: state.userProfileModel,
             subtitle: widget.subtitle,
-            trailing: Radio<int>(
-              value: widget.userModel.id,
-              groupValue: widget.groupValue,
+            trailing: Checkbox(
+              value: widget.selected,
               onChanged: widget.onChanged,
             ),
           );
         } else if (state is UserProfileFail) {
           return Text(state.errmsg);
         } else {
-          return const Text("");
+          return const SizedBox.shrink(); // Empty widget
         }
       },
     );
   }
 }
+

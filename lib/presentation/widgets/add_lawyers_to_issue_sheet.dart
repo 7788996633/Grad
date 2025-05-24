@@ -10,6 +10,7 @@ import '../../blocs/lawyer_bloc/lawyer_event.dart';
 class AddLawyersToIssueSheet extends StatefulWidget {
   const AddLawyersToIssueSheet({super.key, required this.issueId});
   final int issueId;
+
   @override
   State<AddLawyersToIssueSheet> createState() => _AddLawyersToIssueSheetState();
 }
@@ -18,13 +19,12 @@ class _AddLawyersToIssueSheetState extends State<AddLawyersToIssueSheet> {
   List<int> selectedLawyersIds = [];
 
   late LawyerBloc bloc;
+
   @override
   void initState() {
-    bloc = BlocProvider.of<LawyerBloc>(context);
-    bloc.add(
-      GetAllLawyersEvent(),
-    );
     super.initState();
+    bloc = BlocProvider.of<LawyerBloc>(context);
+    bloc.add(GetAllLawyersEvent());
   }
 
   @override
@@ -35,16 +35,18 @@ class _AddLawyersToIssueSheetState extends State<AddLawyersToIssueSheet> {
       child: Column(
         children: [
           const Text(
-            "Select Lawyer",
+            "Select Lawyers",
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
-          SelectLawyersForIssueList(
-            bloc: bloc,
-            onLawyerSelected: (id) {
-              selectedLawyersIds.add(id!);
-              setState(
-                () {},
-              );
-            },
+          Expanded(
+            child: SelectLawyersForIssueList(
+              bloc: bloc,
+              onLawyersSelected: (ids) {
+                setState(() {
+                  selectedLawyersIds = ids;
+                });
+              },
+            ),
           ),
           BlocConsumer<IssuesBloc, IssuesState>(
             listener: (context, state) {
@@ -72,7 +74,9 @@ class _AddLawyersToIssueSheetState extends State<AddLawyersToIssueSheet> {
             },
             builder: (context, state) {
               return ElevatedButton(
-                onPressed: () {
+                onPressed: selectedLawyersIds.isEmpty
+                    ? null
+                    : () {
                   BlocProvider.of<IssuesBloc>(context).add(
                     AssignIsuueToLawyerEvent(
                       issueId: widget.issueId,
@@ -80,9 +84,7 @@ class _AddLawyersToIssueSheetState extends State<AddLawyersToIssueSheet> {
                     ),
                   );
                 },
-                child: const Text(
-                  "Add",
-                ),
+                child: const Text("Add"),
               );
             },
           ),

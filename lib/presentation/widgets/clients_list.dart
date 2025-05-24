@@ -1,14 +1,12 @@
-// clients_list.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:untitled24/presentation/widgets/user_radio_item.dart';
+import 'package:untitled24/presentation/widgets/user_checkbox_item.dart';
 
 import '../../blocs/user_bloc/user_bloc.dart';
 import '../../blocs/user_profile_bloc/user_profile_bloc.dart';
 import '../../data/models/user_model.dart';
-
 class ClientsList extends StatefulWidget {
-  final Function(int?)? onUserSelected;
+  final Function(int)? onUserSelected;
 
   const ClientsList({super.key, this.onUserSelected});
 
@@ -35,14 +33,16 @@ class _ClientsListState extends State<ClientsList> {
         final user = clientsList[index];
         return BlocProvider(
           create: (context) => UserProfileBloc(),
-          child: UserRadioItem(
+          child: UserCheckboxItem(
             userModel: user,
-            groupValue: selectedUserId,
-            onChanged: (value) {
+            selected: selectedUserId == user.id,
+            onChanged: (checked) {
               setState(() {
-                selectedUserId = value;
+                selectedUserId = checked == true ? user.id : null;
               });
-              widget.onUserSelected?.call(value);
+              if (selectedUserId != null) {
+                widget.onUserSelected?.call(selectedUserId!);
+              }
             },
           ),
         );
@@ -55,23 +55,11 @@ class _ClientsListState extends State<ClientsList> {
     return BlocListener<UserBloc, UserState>(
       listener: (context, state) {
         if (state is UserSuccess) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                state.successmsg,
-                style: const TextStyle(fontSize: 16),
-              ),
-              backgroundColor: Colors.green,
-            ),
-          );
           BlocProvider.of<UserBloc>(context).add(GetAllUsers());
         } else if (state is UserFail) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(
-                state.errmsg,
-                style: const TextStyle(fontSize: 16),
-              ),
+              content: Text(state.errmsg, style: const TextStyle(fontSize: 16)),
               backgroundColor: Colors.red,
             ),
           );
@@ -87,22 +75,8 @@ class _ClientsListState extends State<ClientsList> {
           } else if (state is UserFail) {
             return Column(
               children: [
-                const Text(
-                  "There is an error:",
-                  style: TextStyle(
-                    fontSize: 30,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Text(
-                  state.errmsg,
-                  style: const TextStyle(
-                    fontSize: 30,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                const Text("There is an error:", style: TextStyle(fontSize: 30)),
+                Text(state.errmsg, style: const TextStyle(fontSize: 30)),
               ],
             );
           } else {
