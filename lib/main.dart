@@ -10,8 +10,7 @@ void main() async {
   Bloc.observer = MyBlocObserver();
   runApp(const MyApp());
   LocalNotification.init();
- LocalNotification.ensureConnected();
-
+  LocalNotification.ensureConnected();
 }
 
 class MyApp extends StatelessWidget {

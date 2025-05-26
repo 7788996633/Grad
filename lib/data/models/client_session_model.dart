@@ -3,7 +3,6 @@ import 'package:graduation/data/models/issues_model.dart';
 class ClientSessionModel {
   ClientSessionModel({
     required this.issue,
-
     required this.sessions,
   });
 
@@ -13,7 +12,7 @@ class ClientSessionModel {
 
   factory ClientSessionModel.fromJson(Map<String, dynamic> json) {
     return ClientSessionModel(
-     issue : IssuesModel.fromJson(json),
+      issue: IssuesModel.fromJson(json),
       sessions: json["sessions"] == null
           ? []
           : List<Session>.from(
@@ -55,4 +54,17 @@ class Session {
       updatedAt: DateTime.tryParse(json["updated_at"] ?? ""),
     );
   }
+}
+
+enum Sessiontype { follow_down, follow_up }
+
+String typeToString(Sessiontype p) {
+  return p.name[0].toUpperCase() + p.name.substring(1);
+}
+
+Sessiontype stringToPriority(String s) {
+  return Sessiontype.values.firstWhere(
+    (e) => e.name.toLowerCase() == s.toLowerCase(),
+    orElse: () => Sessiontype.follow_up,
+  );
 }
