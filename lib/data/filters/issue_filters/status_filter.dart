@@ -1,5 +1,5 @@
-import 'package:graduation/data/models/issues_model.dart';
 
+import '../../models/issues_model.dart';
 import '../filters_strategy.dart';
 
 class StatusFilter implements FiltersStrategy<IssuesModel> {

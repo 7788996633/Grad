@@ -1,5 +1,5 @@
-import 'package:graduation/data/models/lawyer_model.dart';
 
+import '../../models/lawyer_model.dart';
 import '../filters_strategy.dart';
 
 class SpecializationFilter implements FiltersStrategy<LawyerModel> {

@@ -1,12 +1,13 @@
-import 'package:graduation/data/models/lawyer_in_issues.dart';
-import 'package:graduation/data/services/lawyer_in_issues_services.dart';
+
+import '../models/lawyer_model.dart';
+import '../services/lawyer_in_issues_services.dart';
 
 class LawyerInIssuesRepository {
-  Future<List<LawyerInIssues>> getAllLawyerInIssuesServices() async {
-    var issueList = await LawyerInIssuesServices().getLawyerInIssuesServices();
+  Future<List<LawyerModel>> getAllLawyerInIssuesServices(int issueId) async {
+    var issueList = await LawyerInIssuesServices().getLawyerInIssuesServices( issueId);
     return issueList
         .map(
-          (e) => LawyerInIssues.fromJson(e),
+          (e) => LawyerModel.fromJson(e),
         )
         .toList();
   }

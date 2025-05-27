@@ -1,44 +1,39 @@
-import 'package:flutter/material.dart';
-import 'custom_drawer_web.dart';
-import 'main_page_web.dart';
+// import 'package:flutter/material.dart';
 
+// import '../../widgets/drawer_web/custom_drawer_web.dart';
+// import '../home_web/main_page_web.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
+// class HomeWebPage extends StatefulWidget {
+//   const HomeWebPage({super.key});
 
-class _HomePageState extends State<HomePage> {
-  int selectedIndex = 0;
+//   @override
+//   State<HomeWebPage> createState() => _HomeWebPageState();
+// }
 
-  final List<Widget> pages = const [
-    MainScreen(),
-    Center(child: Text('الإعدادات', style: TextStyle(fontSize: 24))),
-    Center(child: Text('الملف الشخصي', style: TextStyle(fontSize: 24))),
-    Center(child: Text('تسجيل الخروج', style: TextStyle(fontSize: 24))),
-  ];
+// class _HomeWebPageState extends State<HomeWebPage> {
+//   int selectedPage = 0;
 
-  void onSelectItem(int index) {
-    setState(() {
-      selectedIndex = index;
-    });
-  }
+//   final List<Widget> pages = [
+//     const MainScreen(),
+//     Center(child: Text("Page 2")),
+//     Center(child: Text("Page 3")),
+//   ];
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Row(
-        children: [
-          CustomDrawer(
-            selectedIndex: selectedIndex,
-            onItemSelected: onSelectItem,
-          ),
-          Expanded(
-            child: pages[selectedIndex],
-          ),
-        ],
-      ),
-    );
-  }
-}
+//   void _onDrawerItemSelected(int index) {
+//     setState(() {
+//       selectedPage = index;
+//     });
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: Row(
+//         children: [
+//           CustomDrawerWeb(onItemSelected: _onDrawerItemSelected),
+//           Expanded(child: pages[selectedPage]),
+//         ],
+//       ),
+//     );
+//   }
+// }

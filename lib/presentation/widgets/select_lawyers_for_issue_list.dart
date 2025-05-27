@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:graduation/presentation/widgets/lawyer_radio_item.dart';
 
 import '../../blocs/lawyer_bloc/lawyer_bloc.dart';
 import '../../blocs/lawyer_bloc/lawyer_state.dart';
 import '../../data/models/lawyer_model.dart';
 
+import 'lawyer_checkbox_item.dart';
+
 class SelectLawyersForIssueList extends StatefulWidget {
-  const SelectLawyersForIssueList(
-      {super.key, required this.bloc, this.onLawyerSelected});
+  const SelectLawyersForIssueList({
+    super.key,
+    required this.bloc,
+    this.onLawyersSelected,
+  });
+
   final LawyerBloc bloc;
-  final Function(int?)? onLawyerSelected;
+  final Function(List<int>)? onLawyersSelected;
 
   @override
   State<SelectLawyersForIssueList> createState() =>
@@ -19,7 +24,7 @@ class SelectLawyersForIssueList extends StatefulWidget {
 
 class _SelectLawyersForIssueListState extends State<SelectLawyersForIssueList> {
   List<LawyerModel> _allLawyers = [];
-  int? selectedLawyerId;
+  List<int> selectedLawyerIds = [];
 
   Widget _buildLawyerList(List<LawyerModel> lawyers) {
     if (lawyers.isEmpty) {
@@ -31,15 +36,22 @@ class _SelectLawyersForIssueListState extends State<SelectLawyersForIssueList> {
       itemCount: lawyers.length,
       separatorBuilder: (_, __) => const SizedBox(height: 12),
       itemBuilder: (context, index) {
-        return LawyerRadioItem(
-          lawyerModel: lawyers[index],
-          onChanged: (value) {
+        final lawyer = lawyers[index];
+        final isChecked = selectedLawyerIds.contains(lawyer.id);
+
+        return LawyerCheckboxItem(
+          lawyerModel: lawyer,
+          isChecked: isChecked,
+          onChanged: (checked) {
             setState(() {
-              selectedLawyerId = value;
+              if (checked == true) {
+                selectedLawyerIds.add(lawyer.id);
+              } else {
+                selectedLawyerIds.remove(lawyer.id);
+              }
             });
-            widget.onLawyerSelected?.call(value);
+            widget.onLawyersSelected?.call(selectedLawyerIds);
           },
-          groupValue: selectedLawyerId,
         );
       },
     );
@@ -51,9 +63,7 @@ class _SelectLawyersForIssueListState extends State<SelectLawyersForIssueList> {
       child: BlocBuilder<LawyerBloc, LawyerState>(
         builder: (context, state) {
           if (state is LawyerLoading) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+            return const Center(child: CircularProgressIndicator());
           } else if (state is LawyersListLoaded) {
             _allLawyers = state.lawyersList;
             return _buildLawyerList(_allLawyers);
@@ -65,11 +75,7 @@ class _SelectLawyersForIssueListState extends State<SelectLawyersForIssueList> {
               ),
             );
           } else {
-            return const Center(
-              child: Text(
-                'No data yet.',
-              ),
-            );
+            return const Center(child: Text('No data yet.'));
           }
         },
       ),

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:graduation/data/models/lawyer_in_issues.dart';
-import 'package:graduation/presentation/widgets/info_row.dart' show InfoRow;
-import 'package:graduation/blocs/lawyer_in_issues_bloc/lawyer_in_issues_bloc.dart';
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:graduation/data/models/lawyer_model.dart';
+
+import '../../blocs/lawyer_in_issues_bloc/lawyer_in_issues_bloc.dart';
+import 'info_row.dart';
 
 class LawyerInIssuesItem extends StatelessWidget {
-  final LawyerInIssues lawyerInIssues;
+  final LawyerModel lawyerInIssues;
   const LawyerInIssuesItem({
     super.key,
     required this.lawyerInIssues,
@@ -36,7 +36,7 @@ class LawyerInIssuesItem extends StatelessWidget {
               //  backgroundImage: NetworkImage(),
               ),
           title: Text(
-            lawyerInIssues.user.name,
+            lawyerInIssues.name,
             style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 18,

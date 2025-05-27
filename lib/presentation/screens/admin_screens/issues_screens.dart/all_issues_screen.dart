@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:graduation/presentation/screens/admin_screens/issues_screens.dart/create_issue_screen.dart';
+
 import '../../../../blocs/issue_bloc/issues_bloc.dart';
 import '../../../../constant.dart';
 import '../../../../data/models/issues_model.dart';
 import '../../../widgets/issue_item.dart';
+import 'create_issue_screen.dart';
 
 class AllIssuesScreen extends StatefulWidget {
   const AllIssuesScreen({super.key});

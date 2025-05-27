@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation/blocs/issue_bloc/issues_bloc.dart';
 import 'package:graduation/blocs/lawyer_bloc/lawyer_bloc.dart';
+import 'package:graduation/blocs/lawyer_in_issues_bloc/lawyer_in_issues_bloc.dart';
+import 'package:graduation/blocs/sessions/sessions_bloc.dart';
 import 'package:graduation/blocs/user_profile_bloc/user_profile_bloc.dart';
 import 'package:graduation/data/models/user_profile_model.dart';
+import 'package:graduation/presentation/screens/session/list_session_screen.dart';
 import 'package:graduation/presentation/widgets/add_lawyers_to_issue_sheet.dart';
+import 'package:graduation/presentation/widgets/lawyers_in_issue_list.dart';
 
 import '../../../../data/models/issues_model.dart';
 import 'edit_issue_screen.dart';
@@ -81,6 +85,11 @@ class _IssueScreenState extends State<IssueScreen> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
+              BlocProvider(
+                create: (context) => LawyerInIssuesBloc(),
+                child: LawyersInIssueList(issueId: widget.issuesModel.id,),
+              ),
+
               BlocBuilder<UserProfileBloc, UserProfileState>(
                 builder: (context, state) {
                   if (state is UserProfileLoadedSuccessfully) {
@@ -197,6 +206,21 @@ class _IssueScreenState extends State<IssueScreen> {
                   );
                 },
                 child: const Text("Add Lawyers"),
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => BlocProvider(
+                      create: (context) => SessionsBloc(),
+                      child: ListSessionsScreen(),
+                    ),
+                  ),
+                );
+              },
+              child: Text(
+                "Sessions",
               ),
             ),
           ],

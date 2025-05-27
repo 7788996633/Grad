@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:graduation/presentation/widgets/custom_user_item.dart';
+
 import '../../../blocs/user_bloc/user_bloc.dart';
 import '../../../data/models/user_model.dart';
 import '../../blocs/user_profile_bloc/user_profile_bloc.dart';
+import 'custom_user_item.dart';
 
 class UserItem extends StatefulWidget {
   const UserItem({super.key, required this.userModel});

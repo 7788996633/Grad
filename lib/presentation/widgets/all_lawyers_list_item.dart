@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:graduation/presentation/widgets/custom_lawyer_item.dart';
 
 import '../../data/models/lawyer_model.dart';
+import 'custom_lawyer_item.dart';
 import 'info_row.dart';
 
 class AllLawyersListItem extends StatelessWidget {

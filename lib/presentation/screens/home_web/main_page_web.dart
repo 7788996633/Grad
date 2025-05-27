@@ -1,126 +1,135 @@
-import 'package:flutter/material.dart';
+// import 'package:flutter/material.dart';
 
-class MainScreen extends StatefulWidget {
-  const MainScreen({super.key});
 
-  @override
-  State<MainScreen> createState() => _MainScreenState();
-}
+// import 'custom_main_app_bar.dart';
+// import 'line_chart.dart';
+// import 'orders_table.dart';
+// import 'pie_chart.dart';
+// import 'recent_activity.dart';
+// import 'summary_cards.dart';
 
-class _MainScreenState extends State<MainScreen> {
-  String selectedLanguage = 'العربية';
-  bool isDarkMode = false;
+// class MainScreen extends StatefulWidget {
+//   const MainScreen({super.key});
 
-  // لإنشاء GlobalKey للزر
-  final GlobalKey _languageKey = GlobalKey();
+//   @override
+//   State<MainScreen> createState() => _MainScreenState();
+// }
 
-  void toggleTheme() {
-    setState(() {
-      isDarkMode = !isDarkMode;
-    });
-  }
+// class _MainScreenState extends State<MainScreen> {
+//   String selectedLanguage = 'العربية';
+//   bool isDarkMode = false;
 
-  void selectLanguage(String language) {
-    setState(() {
-      selectedLanguage = language;
-    });
-  }
+//   final GlobalKey _languageKey = GlobalKey();
 
-  // دالة لعرض القائمة أسفل الزر
-  void _showLanguageMenu(BuildContext context) async {
-    final RenderBox renderBox = _languageKey.currentContext!.findRenderObject() as RenderBox;
-    final Offset position = renderBox.localToGlobal(Offset.zero); // تحديد موقع الزر
+//   void toggleTheme() {
+//     setState(() {
+//       isDarkMode = !isDarkMode;
+//     });
+//   }
 
-    await showMenu(
-      context: context,
-      position: RelativeRect.fromLTRB(position.dx, position.dy + renderBox.size.height, position.dx + renderBox.size.width, position.dy),
-      items: [
-        const PopupMenuItem<String>(
-          value: 'العربية',
-          child: Text('العربية'),
-        ),
-        const PopupMenuItem<String>(
-          value: 'الإنجليزية',
-          child: Text('English'),
-        ),
-      ],
-    ).then((selected) {
-      if (selected != null) {
-        selectLanguage(selected);
-      }
-    });
-  }
+//   void selectLanguage(String language) {
+//     setState(() {
+//       selectedLanguage = language;
+//     });
+//   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('الصفحة الرئيسية'),
-        backgroundColor: Colors.transparent, // تعيين اللون إلى شفاف
-        elevation: 0, // إزالة الظل تحت الـ AppBar
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.notifications),
-            iconSize: 28, // تصغير حجم الأيقونة
-            onPressed: () {
-              // هنا تفتح صفحة الإشعارات أو تظهر رسالة
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('لا يوجد إشعارات جديدة')),
-              );
-            },
-          ),
-          ElevatedButton(
-            key: _languageKey, // إعطاء الزر مفتاح فريد
-            onPressed: () {
-              // عند الضغط على الزر، سيتم عرض القائمة أسفله
-              _showLanguageMenu(context);
-            },
-            style: ElevatedButton.styleFrom(
-              foregroundColor: Colors.blue,
-              backgroundColor: Colors.transparent, // اللون عند الضغط
-              shadowColor: Colors.transparent, // إزالة الظل
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-            ),
-            child: Text('تغيير اللغة - $selectedLanguage'),
-          ),
-          IconButton(
-            icon: Icon(isDarkMode ? Icons.dark_mode : Icons.light_mode),
-            iconSize: 28, // تصغير حجم الأيقونة
-            onPressed: toggleTheme,
-          ),
-          IconButton(
-            icon: const Icon(Icons.settings),
-            iconSize: 28, // تصغير حجم الأيقونة
-            onPressed: () {
-              // ممكن تنقله لصفحة الإعدادات
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('فتح الإعدادات')),
-              );
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.logout),
-            iconSize: 28, // تصغير حجم الأيقونة
-            onPressed: () {
-              // تنفيذ تسجيل الخروج
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('تم تسجيل الخروج')),
-              );
-            },
-          ),
-          const SizedBox(width: 10),
-        ],
-      ),
-      body: Center(
-        child: Text(
-          'مرحباً بك في الرئيسية!',
-          style: TextStyle(
-            fontSize: 24,
-            color: isDarkMode ? Colors.white : Colors.black,
-          ),
-        ),
-      ),
-      backgroundColor: isDarkMode ? Colors.black : Colors.white,
-    );
-  }
-}
+//   void _showLanguageMenu(BuildContext context) async {
+//     final RenderBox renderBox = _languageKey.currentContext!.findRenderObject() as RenderBox;
+//     final Offset position = renderBox.localToGlobal(Offset.zero);
+
+//     await showMenu(
+//       context: context,
+//       position: RelativeRect.fromLTRB(
+//         position.dx,
+//         position.dy + renderBox.size.height,
+//         position.dx + renderBox.size.width,
+//         position.dy,
+//       ),
+//       items: const [
+//         PopupMenuItem<String>(
+//           value: 'العربية',
+//           child: Text('العربية'),
+//         ),
+//         PopupMenuItem<String>(
+//           value: 'الإنجليزية',
+//           child: Text('English'),
+//         ),
+//       ],
+//     ).then((selected) {
+//       if (selected != null) {
+//         selectLanguage(selected);
+//       }
+//     });
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     final screenWidth = MediaQuery.of(context).size.width;
+
+//     return Scaffold(
+//       backgroundColor: Colors.grey[200],
+//       appBar: CustomMainAppBar(
+//         selectedLanguage: selectedLanguage,
+//         isDarkMode: isDarkMode,
+//         onToggleTheme: toggleTheme,
+//         onSelectLanguage: selectLanguage,
+//         languageKey: _languageKey,
+//       ),
+//       body: SingleChildScrollView(
+//         padding: const EdgeInsets.all(20),
+//         child: Column(
+//           crossAxisAlignment: CrossAxisAlignment.start,
+//           children: [
+//             const Text(
+//               "Dashboard Overview",
+//               style: TextStyle(
+//                 fontSize: 24,
+//                 fontWeight: FontWeight.bold,
+//               ),
+//             ),
+//             const SizedBox(height: 20),
+//             const SummaryCards(),
+//             const SizedBox(height: 20),
+
+//             // ⚙️ Responsive charts layout
+//             screenWidth > 800
+//                 ? Row(
+//               children: const [
+//                 Expanded(
+//                   child: SizedBox(
+//                     height: 250,
+//                     child: LineChartWidget(),
+//                   ),
+//                 ),
+//                 SizedBox(width: 20),
+//                 Expanded(
+//                   child: SizedBox(
+//                     height: 250,
+//                     child: TrafficPieChart(),
+//                   ),
+//                 ),
+//               ],
+//             )
+//                 : Column(
+//               children: const [
+//                 SizedBox(
+//                   height: 250,
+//                   child: LineChartWidget(),
+//                 ),
+//                 SizedBox(height: 20),
+//                 SizedBox(
+//                   height: 250,
+//                   child: TrafficPieChart(),
+//                 ),
+//               ],
+//             ),
+//             const SizedBox(height: 20),
+//             const RecentActivity(),
+//             const SizedBox(height: 20),
+//             const OrdersTable(),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }

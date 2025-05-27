@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:graduation/blocs/issue_bloc/issues_bloc.dart';
-import 'package:graduation/blocs/lawyer_bloc/lawyer_bloc.dart';
-import 'package:graduation/blocs/lawyer_bloc/lawyer_event.dart';
-import 'package:graduation/presentation/widgets/select_lawyers_for_issue_list.dart';
+
+import '../../blocs/issue_bloc/issues_bloc.dart';
+import '../../blocs/lawyer_bloc/lawyer_bloc.dart';
+import '../../blocs/lawyer_bloc/lawyer_event.dart';
+import 'select_lawyers_for_issue_list.dart';
 
 class AddLawyersToIssueSheet extends StatefulWidget {
   const AddLawyersToIssueSheet({super.key, required this.issueId});
   final int issueId;
+
   @override
   State<AddLawyersToIssueSheet> createState() => _AddLawyersToIssueSheetState();
 }
@@ -16,13 +18,14 @@ class _AddLawyersToIssueSheetState extends State<AddLawyersToIssueSheet> {
   List<int> selectedLawyersIds = [];
 
   late LawyerBloc bloc;
+
   @override
   void initState() {
+    super.initState();
     bloc = BlocProvider.of<LawyerBloc>(context);
     bloc.add(
       GetAllLawyersEvent(),
     );
-    super.initState();
   }
 
   @override
@@ -33,16 +36,20 @@ class _AddLawyersToIssueSheetState extends State<AddLawyersToIssueSheet> {
       child: Column(
         children: [
           const Text(
-            "Select Lawyer",
+            "Select Lawyers",
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
-          SelectLawyersForIssueList(
-            bloc: bloc,
-            onLawyerSelected: (id) {
-              selectedLawyersIds.add(id!);
-              setState(
-                () {},
-              );
-            },
+          Expanded(
+            child: SelectLawyersForIssueList(
+              bloc: bloc,
+              onLawyersSelected: (ids) {
+                setState(
+                  () {
+                    selectedLawyersIds = ids;
+                  },
+                );
+              },
+            ),
           ),
           BlocConsumer<IssuesBloc, IssuesState>(
             listener: (context, state) {
@@ -70,17 +77,20 @@ class _AddLawyersToIssueSheetState extends State<AddLawyersToIssueSheet> {
             },
             builder: (context, state) {
               return ElevatedButton(
-                onPressed: () {
-                  BlocProvider.of<IssuesBloc>(context).add(
-                    AssignIsuueToLawyerEvent(
-                      issueId: widget.issueId,
-                      lawyerIds: selectedLawyersIds,
-                    ),
-                  );
-                },
-                child: const Text(
-                  "Add",
-                ),
+                onPressed: selectedLawyersIds.isEmpty
+                    ? null
+                    : () {
+                        BlocProvider.of<IssuesBloc>(context).add(
+                          AssignIsuueToLawyerEvent(
+                            issueId: widget.issueId,
+                            lawyerIds: selectedLawyersIds,
+                          ),
+                        );
+                        print("===========================================");
+
+                        print(selectedLawyersIds);
+                      },
+                child: const Text("Add"),
               );
             },
           ),

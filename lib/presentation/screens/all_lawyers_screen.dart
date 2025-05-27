@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../blocs/lawyer_bloc/lawyer_bloc.dart';
 import '../../../blocs/lawyer_bloc/lawyer_event.dart';
+
 import '../../data/filters/filters_strategy.dart';
 import '../../data/models/lawyer_model.dart';
 import '../widgets/custom_search_bar.dart';

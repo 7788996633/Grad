@@ -9,8 +9,12 @@ class LocalNotification {
       FlutterLocalNotificationsPlugin();
 
   static Socket? _socket;
-  // تهيئة الإشعارات
+  static bool _initialized = false;
+
   static Future<void> init() async {
+    if (_initialized) return;
+    _initialized = true;
+
     const AndroidInitializationSettings initializationSettingsAndroid =
         AndroidInitializationSettings('@mipmap/ic_launcher');
 
@@ -36,14 +40,12 @@ class LocalNotification {
       initializationSettings,
       onDidReceiveNotificationResponse: (details) {
         if (details.payload != null) {
-          print('Notification clicked: ${details.payload}');
-          // يمكن التنقل داخل التطبيق بناءً على الـ payload
+          print('Notification clicked: \${details.payload}');
         }
       },
     );
   }
 
-  // إظهار إشعار
   static void showNotification({
     required String title,
     required String body,
@@ -68,22 +70,25 @@ class LocalNotification {
 
   static Future<void> ensureConnected() async {
     if (_socket == null) {
-      _socket = await Socket.connect(ip, 4040);
-      _socket!.listen(
-        _handleResponse,
-        onError: (e) {
-          print("Socket error: $e");
-          _socket = null;
-        },
-        onDone: () {
-          print("Socket closed");
-          _socket = null;
-        },
-      );
+      try {
+        _socket = await Socket.connect(ip, 4040);
+        _socket!.listen(
+          _handleResponse,
+          onError: (e) {
+            print("Socket error: \$e");
+            _socket = null;
+          },
+          onDone: () {
+            print("Socket closed");
+            _socket = null;
+          },
+        );
+      } catch (e) {
+        print("Failed to connect: \$e");
+      }
     }
   }
 
-  // معالجة الرسائل المستقبلة من السيرفر
   static void _handleResponse(List<int> data) {
     final response = jsonDecode(utf8.decode(data));
     if (response['type'] == 'message') {

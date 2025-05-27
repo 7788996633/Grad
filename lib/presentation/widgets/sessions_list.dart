@@ -1,47 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation/blocs/sessions/sessions_bloc.dart';
+import 'package:graduation/blocs/sessions/sessions_event.dart';
+import 'package:graduation/blocs/sessions/sessions_state.dart';
+import 'package:graduation/data/models/session_model.dart';
+import 'package:graduation/presentation/widgets/session_item.dart';
 
-import '../../blocs/user_bloc/user_bloc.dart';
-import '../../blocs/user_profile_bloc/user_profile_bloc.dart';
-import '../../data/models/user_model.dart';
-import 'user_item.dart';
-
-class UsersList extends StatefulWidget {
-  const UsersList({super.key});
-
+class SessionsList extends StatefulWidget {
+  const SessionsList({super.key, required this.bloc});
+  final SessionsBloc bloc;
   @override
-  State<UsersList> createState() => _UserListState();
+  State<SessionsList> createState() => _SessionsListState();
 }
 
-class _UserListState extends State<UsersList> {
+class _SessionsListState extends State<SessionsList> {
   @override
   void initState() {
-    BlocProvider.of<UserBloc>(context).add(
-      GetAllUsers(),
+    widget.bloc.add(
+      GetAllSessionsEvent(),
     );
     super.initState();
   }
 
-  List<UserModel> usersList = [];
-  Widget buildUserModel() {
+  List<SessionModel> sessionsList = [];
+  Widget buildSessionModel() {
     return ListView.builder(
-      itemCount: usersList.length,
+      itemCount: sessionsList.length,
       shrinkWrap: true,
       physics: const ClampingScrollPhysics(),
-      itemBuilder: (context, index) => BlocProvider(
-        create: (context) => UserProfileBloc(),
-        child: UserItem(
-          userModel: usersList[index],
-        ),
+      itemBuilder: (context, index) => SessionItem(
+        sessionModel: sessionsList[index],
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<UserBloc, UserState>(
+    return BlocListener<SessionsBloc, SessionsState>(
       listener: (context, state) {
-        if (state is UserSuccess) {
+        if (state is SessionsSuccess) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(
@@ -51,10 +48,10 @@ class _UserListState extends State<UsersList> {
               backgroundColor: Colors.green,
             ),
           );
-          BlocProvider.of<UserBloc>(context).add(
-            GetAllUsers(),
+          BlocProvider.of<SessionsBloc>(context).add(
+            GetAllSessionsEvent(),
           );
-        } else if (state is UserFail) {
+        } else if (state is SessionsFail) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(
@@ -64,18 +61,16 @@ class _UserListState extends State<UsersList> {
               backgroundColor: Colors.red,
             ),
           );
-        } else {
-          CircularProgressIndicator();
         }
       },
-      child: BlocBuilder<UserBloc, UserState>(
+      child: BlocBuilder<SessionsBloc, SessionsState>(
         builder: (context, state) {
-          if (state is UsersListLoaded) {
-            usersList = state.usersList;
-            return usersList.isEmpty
-                ? const Text('There is no users')
-                : buildUserModel();
-          } else if (state is UserFail) {
+          if (state is SessionsListLoaded) {
+            sessionsList = state.sessionsList;
+            return sessionsList.isEmpty
+                ? const Text('There is no sessions')
+                : buildSessionModel();
+          } else if (state is SessionsFail) {
             return Column(
               children: [
                 const Text(

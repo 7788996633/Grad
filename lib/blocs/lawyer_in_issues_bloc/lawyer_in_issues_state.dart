@@ -5,10 +5,10 @@ sealed class LawyerInIssuesState {}
 
 final class LawyerInIssuesInitial extends LawyerInIssuesState {}
 
-class LawyerInIssuesLoadedSuccessfully extends LawyerInIssuesState {
-  final List<LawyerInIssues> lawyerInissues;
+class LawyerInIssuesListLoadedSuccessfully extends LawyerInIssuesState {
+  final List<LawyerModel> lawyerInissues;
 
-  LawyerInIssuesLoadedSuccessfully({required this.lawyerInissues});
+  LawyerInIssuesListLoadedSuccessfully({required this.lawyerInissues});
 }
 
 final class LawyerInIssuesLoading extends LawyerInIssuesState {}

@@ -1,14 +1,16 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:graduation/constant.dart';
+
+import '../../constant.dart';
 
 class LawyerInIssuesServices {
-  Future<List> getLawyerInIssuesServices() async {
+  Future<List> getLawyerInIssuesServices(int issueId) async {
     var headers = {
       'Accept': 'application/json',
-      'Content-Type': 'application/x-www-form-urlencoded'
+      'Authorization': 'Bearer $myToken'
     };
-    var request = http.Request('GET', Uri.parse('${myUrl}issues/1/lawyers'));
+    var request =
+        http.Request('GET', Uri.parse('${myUrl}issues/$issueId/lawyers'));
 
     request.headers.addAll(headers);
     var streamedResponse = await request.send();

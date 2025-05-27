@@ -1,9 +1,10 @@
-import 'package:graduation/data/filters/issue_filters/status_filter.dart';
-import 'package:graduation/data/models/issues_model.dart';
 
+
+import '../../models/issues_model.dart';
 import '../filter_builder.dart';
 import '../filters_strategy.dart';
 import 'priority_filters.dart';
+import 'status_filter.dart';
 
 class IssueFilterFactory {
   static FiltersStrategy<IssuesModel> build({
