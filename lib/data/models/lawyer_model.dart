@@ -3,7 +3,6 @@ class LawyerModel {
   final String licenseNumber;
   final int experienceYears;
   final String certificate;
-  final String type;
   final String specialization;
   final String name;
   final String email;
@@ -17,7 +16,6 @@ class LawyerModel {
       licenseNumber: json['license_number'],
       experienceYears: json['experience_years'],
       certificate: json['certificate'],
-      type: json['type'],
       specialization: json['specialization'],
       address: json['address'],
       name: json['name'],
@@ -33,7 +31,6 @@ class LawyerModel {
       required this.licenseNumber,
       required this.experienceYears,
       required this.certificate,
-      required this.type,
       required this.specialization,
       required this.name,
       required this.email,

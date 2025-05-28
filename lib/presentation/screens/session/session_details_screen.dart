@@ -8,9 +8,12 @@ class SessionDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
-            sessionModel.type,
+          Center(
+            child: Text(
+              sessionModel.type,
+            ),
           ),
         ],
       ),
