@@ -6,6 +6,7 @@ import 'package:graduation/blocs/lawyer_in_issues_bloc/lawyer_in_issues_bloc.dar
 import 'package:graduation/blocs/sessions/sessions_bloc.dart';
 import 'package:graduation/blocs/user_profile_bloc/user_profile_bloc.dart';
 import 'package:graduation/data/models/user_profile_model.dart';
+import 'package:graduation/presentation/screens/AttendDemand/all_attend_demand_screen.dart';
 import 'package:graduation/presentation/screens/session/list_session_screen.dart';
 import 'package:graduation/presentation/widgets/add_lawyers_to_issue_sheet.dart';
 import 'package:graduation/presentation/widgets/lawyers_in_issue_list.dart';
@@ -87,7 +88,9 @@ class _IssueScreenState extends State<IssueScreen> {
             children: [
               BlocProvider(
                 create: (context) => LawyerInIssuesBloc(),
-                child: LawyersInIssueList(issueId: widget.issuesModel.id,),
+                child: LawyersInIssueList(
+                  issueId: widget.issuesModel.id,
+                ),
               ),
 
               BlocBuilder<UserProfileBloc, UserProfileState>(
@@ -221,6 +224,20 @@ class _IssueScreenState extends State<IssueScreen> {
               },
               child: Text(
                 "Sessions",
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => AllAttendDemandScreen(
+                      issueId: widget.issuesModel.id,
+                    ),
+                  ),
+                );
+              },
+              child: Text(
+                "Demands",
               ),
             ),
           ],
