@@ -1,19 +1,28 @@
 import 'package:flutter/material.dart';
-
 import '../../constant.dart';
 
 class CustomActionAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
-  final IconData actionIcon;
-  final String tooltip;
-  final VoidCallback onActionPressed;
+
+  /// الزر الأول (مثل إضافة)
+  final IconData? actionIcon;
+  final String? tooltip;
+  final VoidCallback? onActionPressed;
+
+  /// زر إضافي (مثل تعديل)
+  final IconData? secondaryIcon;
+  final String? secondaryTooltip;
+  final VoidCallback? onSecondaryPressed;
 
   const CustomActionAppBar({
     super.key,
     required this.title,
-    required this.actionIcon,
-    required this.tooltip,
-    required this.onActionPressed,
+    this.actionIcon,
+    this.tooltip,
+    this.onActionPressed,
+    this.secondaryIcon,
+    this.secondaryTooltip,
+    this.onSecondaryPressed,
   });
 
   @override
@@ -28,11 +37,18 @@ class CustomActionAppBar extends StatelessWidget implements PreferredSizeWidget 
       backgroundColor: AppColors.darkBlue,
       iconTheme: const IconThemeData(color: Colors.white),
       actions: [
-        IconButton(
-          icon: Icon(actionIcon, color: Colors.white),
-          tooltip: tooltip,
-          onPressed: onActionPressed,
-        ),
+        if (secondaryIcon != null && onSecondaryPressed != null)
+          IconButton(
+            icon: Icon(secondaryIcon, color: Colors.white),
+            tooltip: secondaryTooltip,
+            onPressed: onSecondaryPressed,
+          ),
+        if (actionIcon != null && onActionPressed != null)
+          IconButton(
+            icon: Icon(actionIcon, color: Colors.white),
+            tooltip: tooltip,
+            onPressed: onActionPressed,
+          ),
       ],
     );
   }

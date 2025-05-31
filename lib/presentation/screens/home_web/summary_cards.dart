@@ -12,33 +12,33 @@ class SummaryCards extends StatelessWidget {
         children: const [
           Expanded(
             child: SummaryCard(
-              title: "Revenue",
-              amount: "\$4,567.53",
+              title: "Open Cases",
+              amount: "25",
               color: Colors.red,
             ),
           ),
           SizedBox(width: 12),
           Expanded(
             child: SummaryCard(
-              title: "Referral Earning",
-              amount: "\$1689.53",
+              title: "Total Clients",
+              amount: "132",
               color: Colors.indigo,
             ),
           ),
           SizedBox(width: 12),
           Expanded(
             child: SummaryCard(
-              title: "Estimated Sales",
-              amount: "\$2851.53",
-              color: Colors.green,
+              title: "Sessions This Month",
+              amount: "18",
+              color: Colors.orange,
             ),
           ),
           SizedBox(width: 12),
           Expanded(
             child: SummaryCard(
-              title: "Earning",
-              amount: "\$52,567.53",
-              color: Colors.purple,
+              title: "Total Revenue",
+              amount: "\$12,340.00",
+              color: Colors.green,
             ),
           ),
         ],
@@ -66,15 +66,24 @@ class SummaryCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black12,
+            blurRadius: 4,
+            offset: Offset(0, 2),
+          )
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title,
-              style: const TextStyle(
-                fontSize: 14,
-                color: Colors.black54,
-              )),
+          Text(
+            title,
+            style: const TextStyle(
+              fontSize: 14,
+              color: Colors.black54,
+            ),
+          ),
           const SizedBox(height: 8),
           Text(
             amount,

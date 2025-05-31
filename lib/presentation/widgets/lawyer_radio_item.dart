@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:graduation/data/models/lawyer_model.dart';
-import 'package:graduation/presentation/widgets/custom_lawyer_item.dart';
+
+import '../../data/models/lawyer_model.dart';
+import 'custom_lawyer_item.dart';
 
 class LawyerRadioItem extends StatefulWidget {
   const LawyerRadioItem(

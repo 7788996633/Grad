@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:graduation/blocs/sessions/sessions_bloc.dart';
-import 'package:graduation/blocs/sessions/sessions_event.dart';
-import 'package:graduation/blocs/sessions/sessions_state.dart';
-import 'package:graduation/data/models/session_model.dart';
-import 'package:graduation/presentation/widgets/session_item.dart';
+
+
+import '../../blocs/sessions/sessions_bloc.dart';
+import '../../blocs/sessions/sessions_event.dart';
+import '../../blocs/sessions/sessions_state.dart';
+import '../../data/models/session_model.dart';
+import 'session_item.dart';
 
 class SessionsList extends StatefulWidget {
   const SessionsList({super.key, required this.bloc});

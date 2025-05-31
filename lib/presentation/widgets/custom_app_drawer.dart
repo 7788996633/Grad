@@ -36,13 +36,15 @@ class CustomAppDrawer extends StatelessWidget {
 
                   return GestureDetector(
                     onTap: () {
-                      Navigator.pop(context); // لإغلاق الـ Drawer
+                      Navigator.pop(context); 
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (_) => BlocProvider(
                             create: (context) => UserProfileBloc(),
-                            child: const UserProfileScreen(),
+                            child: UserProfileScreen(
+                              userId: myUserId,
+                            ),
                           ),
                         ),
                       );

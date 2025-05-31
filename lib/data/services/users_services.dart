@@ -1,22 +1,19 @@
 import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 import '../../../constant.dart';
-import 'package:http/http.dart' as http;
 
 class UsersServices {
   Future<String> deleteUserById(int userId) async {
+    var url = Uri.parse('${myUrl}users/delete/$userId');
     var headers = {
       'Accept': 'application/json',
-      'Authorization': 'Bearer $myToken'
+      'Authorization': 'Bearer $myToken',
     };
-    var request = http.MultipartRequest(
-        'DELETE', Uri.parse('${myUrl}users/delete/$userId'));
 
-    request.headers.addAll(headers);
+    // نستخدم http.delete بدلاً من MultipartRequest للحذف
+    var response = await http.delete(url, headers: headers);
 
-    var streamedResponse = await request.send();
-
-    var response = await http.Response.fromStream(streamedResponse);
     var jsonResponse = json.decode(response.body);
     print(jsonResponse);
 
@@ -32,16 +29,15 @@ class UsersServices {
   }
 
   Future<List> getAllUsers() async {
+    var url = Uri.parse('${myUrl}users');
     var headers = {
       'Accept': 'application/json',
-      'Authorization': 'Bearer $myToken'
+      'Authorization': 'Bearer $myToken',
     };
-    var request = http.MultipartRequest('GET', Uri.parse('${myUrl}users'));
 
-    request.headers.addAll(headers);
-    var streamedResponse = await request.send();
+    // نستخدم http.get بدلاً من MultipartRequest للتحميل
+    var response = await http.get(url, headers: headers);
 
-    var response = await http.Response.fromStream(streamedResponse);
     var jsonResponse = json.decode(response.body);
     print(jsonResponse);
 
@@ -57,19 +53,16 @@ class UsersServices {
   }
 
   Future<String> changeUserRole(int userId, String role) async {
+    var url = Uri.parse('${myUrl}users/change-role/$userId');
     var headers = {
       'Accept': 'application/json',
       'Authorization': 'Bearer $myToken',
-      'Content-Type': 'application/x-www-form-urlencoded'
+      'Content-Type': 'application/x-www-form-urlencoded',
     };
-    var request =
-        http.Request('PUT', Uri.parse('${myUrl}users/change-role/$userId'));
-    request.bodyFields = {'role_name': role};
-    request.headers.addAll(headers);
 
-    var streamedResponse = await request.send();
+    // نستخدم http.put بدلاً من http.Request مع send
+    var response = await http.put(url, headers: headers, body: {'role_name': role});
 
-    var response = await http.Response.fromStream(streamedResponse);
     var jsonResponse = json.decode(response.body);
     print(jsonResponse);
 
@@ -85,17 +78,18 @@ class UsersServices {
   }
 
   Future<String> getMyRole() async {
+    var url = Uri.parse('${myUrl}getRole');
     var headers = {
       'Accept': 'application/json',
-      'Authorization': 'Bearer $myToken'
+      'Authorization': 'Bearer $myToken',
     };
-    var request = http.MultipartRequest('GET', Uri.parse('${myUrl}getRole'));
 
-    request.headers.addAll(headers);
-    var streamedResponse = await request.send();
-    var response = await http.Response.fromStream(streamedResponse);
+    // نستخدم http.get بدلاً من MultipartRequest
+    var response = await http.get(url, headers: headers);
+
     var jsonResponse = json.decode(response.body);
     print(jsonResponse);
+
     if (response.statusCode == 200) {
       if (jsonResponse['status'] == 'success') {
         return jsonResponse['data'];

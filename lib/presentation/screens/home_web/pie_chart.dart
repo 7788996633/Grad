@@ -16,22 +16,22 @@
 //               sections: [
 //                 PieChartSectionData(
 //                   color: Colors.blue,
-//                   value: 34,
-//                   title: '34%',
+//                   value: 40,
+//                   title: '40%',
 //                   radius: 50,
 //                   titleStyle: const TextStyle(color: Colors.white),
 //                 ),
 //                 PieChartSectionData(
 //                   color: Colors.red,
-//                   value: 55,
-//                   title: '55%',
+//                   value: 35,
+//                   title: '35%',
 //                   radius: 50,
 //                   titleStyle: const TextStyle(color: Colors.white),
 //                 ),
 //                 PieChartSectionData(
 //                   color: Colors.orange,
-//                   value: 11,
-//                   title: '11%',
+//                   value: 25,
+//                   title: '25%',
 //                   radius: 50,
 //                   titleStyle: const TextStyle(color: Colors.white),
 //                 ),
@@ -46,9 +46,9 @@
 //         Wrap(
 //           spacing: 20,
 //           children: const [
-//             LegendItem(color: Colors.blue, text: 'Desktop'),
-//             LegendItem(color: Colors.red, text: 'Mobile'),
-//             LegendItem(color: Colors.orange, text: 'Tablet'),
+//             LegendItem(color: Colors.blue, text: 'Civil Cases'),
+//             LegendItem(color: Colors.red, text: 'Criminal Cases'),
+//             LegendItem(color: Colors.orange, text: 'Business Cases'),
 //           ],
 //         ),
 //       ],

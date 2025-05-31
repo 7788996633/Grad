@@ -1,6 +1,6 @@
 class SessionModel {
   SessionModel({
-    required this.id,
+    required this.sessionId,
     required this.type,
     required this.outcome,
     required this.lawyerId,
@@ -8,7 +8,7 @@ class SessionModel {
     this.createdAt,
   });
 
-  final int id;
+  final int sessionId;
   final String type;
   final String outcome;
   final int lawyerId;
@@ -17,7 +17,7 @@ class SessionModel {
 
   factory SessionModel.fromJson(json) {
     return SessionModel(
-      id: json['id'],
+      sessionId: json['id'],
       type: json['type'],
       outcome: json['outcome'],
       lawyerId: json['lawyer_id'] ?? 0,

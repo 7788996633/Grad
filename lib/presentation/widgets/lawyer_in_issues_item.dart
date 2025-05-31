@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:graduation/data/models/lawyer_model.dart';
 
 import '../../blocs/lawyer_in_issues_bloc/lawyer_in_issues_bloc.dart';
+import '../../data/models/lawyer_model.dart';
 import 'info_row.dart';
 
 class LawyerInIssuesItem extends StatelessWidget {

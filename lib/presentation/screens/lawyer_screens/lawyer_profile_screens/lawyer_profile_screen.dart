@@ -6,6 +6,7 @@ import '../../../../blocs/lawyer_profile_bloc/lawyer_profiel_bloc.dart';
 import '../../../../constant.dart';
 import '../../../../data/models/lawyer_model.dart';
 import '../../../pdf_viewer_page.dart';
+import '../../../widgets/custom_appbar_add.dart';
 import 'edit_lawyer_profile_screen.dart';
 
 class LawyerProfileScreen extends StatefulWidget {
@@ -134,31 +135,23 @@ class _LawyerProfileScreenState extends State<LawyerProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF5F6FA),
-      appBar: AppBar(
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => BlocProvider(
-                    create: (context) => LawyerProfileBloc(),
-                    child: EditLawyerProfileScreen(lawyer: lawyerProfile),
-                  ),
-                ),
-              );
-            },
-            icon: const Icon(Icons.edit, color: Colors.white),
-          ),
-        ],
-        backgroundColor: customColor,
-        title: const Text("Lawyer Profile",
-            style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 22,
-                color: Colors.white)),
-        centerTitle: true,
-        elevation: 4,
+
+      appBar:CustomActionAppBar(
+        title: 'Lawyer Profile',
+        secondaryIcon: Icons.edit,
+        secondaryTooltip: 'Edit Lawyer Profile',
+        onSecondaryPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => BlocProvider(
+                create: (context) => LawyerProfileBloc(),
+                child: EditLawyerProfileScreen(lawyer: lawyerProfile),
+              ),
+            ),
+          );
+        },
       ),
+
       body: BlocBuilder<LawyerProfileBloc, LawyerProfileState>(
         builder: (context, state) {
           if (state is LawyerProfileLoading) {

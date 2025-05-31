@@ -54,15 +54,23 @@ class _AddLawyersToIssueSheetState extends State<AddLawyersToIssueSheet> {
           BlocConsumer<IssuesBloc, IssuesState>(
             listener: (context, state) {
               if (state is IssuesSuccess) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
+                showDialog(
+                  context: context,
+                  barrierDismissible: false, // منع إغلاقه بالنقر خارج الصندوق
+                  builder: (context) => AlertDialog(
                     content: Text(
                       state.successmsg,
+                      textAlign: TextAlign.center,
                       style: const TextStyle(fontSize: 16),
                     ),
-                    backgroundColor: Colors.green,
                   ),
                 );
+
+                // إغلاق الرسالة بعد 2 ثانية و إغلاق الـ Bottom Sheet
+                Future.delayed(const Duration(seconds: 2), () {
+                  Navigator.of(context).pop(); // إغلاق الـ AlertDialog
+                  Navigator.of(context).pop(); // إغلاق الـ Bottom Sheet
+                });
               } else if (state is IssuesFail) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
@@ -80,20 +88,20 @@ class _AddLawyersToIssueSheetState extends State<AddLawyersToIssueSheet> {
                 onPressed: selectedLawyersIds.isEmpty
                     ? null
                     : () {
-                        BlocProvider.of<IssuesBloc>(context).add(
-                          AssignIsuueToLawyerEvent(
-                            issueId: widget.issueId,
-                            lawyerIds: selectedLawyersIds,
-                          ),
-                        );
-                        print("===========================================");
-
-                        print(selectedLawyersIds);
-                      },
+                  BlocProvider.of<IssuesBloc>(context).add(
+                    AssignIsuueToLawyerEvent(
+                      issueId: widget.issueId,
+                      lawyerIds: selectedLawyersIds,
+                    ),
+                  );
+                  print("===========================================");
+                  print(selectedLawyersIds);
+                },
                 child: const Text("Add"),
               );
             },
           ),
+
         ],
       ),
     );

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:graduation/data/models/user_model.dart';
 
 import '../../blocs/user_profile_bloc/user_profile_bloc.dart';
+import '../../data/models/user_model.dart';
 import 'custom_user_item.dart';
 
 class UserRadioItem extends StatefulWidget {

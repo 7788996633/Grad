@@ -14,7 +14,7 @@ class LawyerDetailsScreen extends StatefulWidget {
 }
 
 class _LawyerDetailsScreenState extends State<LawyerDetailsScreen> {
-  final Color customColor = const Color(0xFF472A0C);
+  final Color customColor = AppColors.darkBlue;
   final Color valueColor = const Color(0xFF0F6829);
 
   @override

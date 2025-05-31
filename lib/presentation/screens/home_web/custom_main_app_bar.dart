@@ -31,11 +31,11 @@ class CustomMainAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       items: const [
         PopupMenuItem<String>(
-          value: 'العربية',
-          child: Text('العربية'),
+          value: 'Arabic',
+          child: Text('Arabic'),
         ),
         PopupMenuItem<String>(
-          value: 'الإنجليزية',
+          value: 'English',
           child: Text('English'),
         ),
       ],
@@ -49,17 +49,16 @@ class CustomMainAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      elevation: 2,
-      color: Colors.white,
+      color: Colors.transparent,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         height: 45,
         child: Row(
           children: [
-            Expanded(
+            const Expanded(
               child: Text(
-                'الصفحة الرئيسية',
-                style: const TextStyle(
+                'Home Page',
+                style: TextStyle(
                   fontSize: 16,
                   color: Colors.black87,
                   fontWeight: FontWeight.bold,
@@ -67,37 +66,37 @@ class CustomMainAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
             ),
             IconButton(
-              tooltip: 'الإشعارات',
-              icon: const Icon(Icons.notifications, size: 22, color: Colors.black87),
+              tooltip: 'Notifications',
+              icon: const Icon(Icons.notifications, size: 18, color: Colors.black87),
               onPressed: () {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('لا يوجد إشعارات جديدة')),
+                  const SnackBar(content: Text('No new notifications')),
                 );
               },
             ),
-            const SizedBox(width: 12),
+            const SizedBox(width: 8),
             TextButton(
               key: languageKey,
               onPressed: () => _showLanguageMenu(context),
               child: Text(
-                'تغيير اللغة - $selectedLanguage',
+                'Change Language - $selectedLanguage',
                 style: const TextStyle(fontSize: 13, color: Colors.black87),
               ),
             ),
-            const SizedBox(width: 12),
+            const SizedBox(width: 8),
             IconButton(
-              tooltip: isDarkMode ? 'وضع داكن' : 'وضع فاتح',
+              tooltip: isDarkMode ? 'Dark Mode' : 'Light Mode',
               icon: Icon(
                 isDarkMode ? Icons.dark_mode : Icons.light_mode,
-                size: 22,
+                size: 18,
                 color: Colors.black87,
               ),
               onPressed: onToggleTheme,
             ),
-            const SizedBox(width: 12),
+            const SizedBox(width: 8),
             IconButton(
-              tooltip: 'الإعدادات',
-              icon: const Icon(Icons.settings, size: 22, color: Colors.black87),
+              tooltip: 'Settings',
+              icon: const Icon(Icons.settings, size: 18, color: Colors.black87),
               onPressed: () {
                 Navigator.push(
                   context,
@@ -105,13 +104,13 @@ class CustomMainAppBar extends StatelessWidget implements PreferredSizeWidget {
                 );
               },
             ),
-            const SizedBox(width: 12),
+            const SizedBox(width: 8),
             IconButton(
-              tooltip: 'تسجيل الخروج',
-              icon: const Icon(Icons.logout, size: 22, color: Colors.black87),
+              tooltip: 'Logout',
+              icon: const Icon(Icons.logout, size: 18, color: Colors.black87),
               onPressed: () {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('تم تسجيل الخروج')),
+                  const SnackBar(content: Text('Logged out')),
                 );
               },
             ),
@@ -122,5 +121,5 @@ class CustomMainAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(45); // الطول الجديد
+  Size get preferredSize => const Size.fromHeight(45);
 }

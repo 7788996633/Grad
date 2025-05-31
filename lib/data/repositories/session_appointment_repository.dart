@@ -1,6 +1,6 @@
-import 'package:graduation/data/services/session_appointment_services.dart';
 
 import '../models/session_appointement_model.dart';
+import '../services/session_appointment_services.dart';
 
 
 class SessionAppointmentRepository {

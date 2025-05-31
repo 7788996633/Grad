@@ -19,7 +19,6 @@ class CreateSessionScreen extends StatefulWidget {
 
 class _CreateSessionScreenState extends State<CreateSessionScreen> {
   final TextEditingController _typeController = TextEditingController();
-  final TextEditingController _descriptionController = TextEditingController();
 
   AttendStatus? _selectedAttendStatus; // الحالة للاختيار
 
@@ -85,13 +84,7 @@ class _CreateSessionScreenState extends State<CreateSessionScreen> {
                       label: 'Type',
                     ),
                     const SizedBox(height: 20),
-                    CustomTextFieldAdd(
-                      controller: _descriptionController,
-                      label: 'Description',
-                      maxLines: 5,
-                      filled: true,
-                      fillColor: Colors.grey[100],
-                    ),
+
                     const SizedBox(height: 20),
                     AttendRadio(
                       selectedStatus: _selectedAttendStatus,
@@ -117,10 +110,10 @@ class _CreateSessionScreenState extends State<CreateSessionScreen> {
                             BlocProvider.of<SessionsBloc>(context).add(
                               CreateSessionsEvent(
                                 type: _typeController.text,
-                                lawyerId: 0, // قيمة افتراضية بدل null
+                                lawyerId: 0,
                                 isAttend: isAttendValue ??
-                                    0, // تأكد من عدم مرور null، 0 إذا null
-                                sessionId: 0, // قيمة افتراضية بدل null
+                                    0,
+                                sessionId: 0,
                               ),
                             );
                           },

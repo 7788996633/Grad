@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation/blocs/user_profile_bloc/user_profile_bloc.dart';
+import 'package:graduation/presentation/screens/user_screens/user_profile_screens/user_profile_screen.dart';
 import '../../data/models/user_profile_model.dart';
 
 class CustomUserItem extends StatelessWidget {
@@ -17,21 +20,35 @@ class CustomUserItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 5,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: ListTile(
-        leading: CircleAvatar(
-          backgroundImage: NetworkImage(userProfileModel.image),
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => BlocProvider(
+              create: (context) => UserProfileBloc(),
+              child: UserProfileScreen(
+                userId: userProfileModel.userId,
+              ),
+            ),
+          ),
+        );
+      },
+      child: Card(
+        elevation: 5,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
         ),
-        title: Text(
-          userProfileModel.name,
+        child: ListTile(
+          leading: CircleAvatar(
+            backgroundImage: NetworkImage(userProfileModel.image),
+          ),
+          title: Text(
+            userProfileModel.name,
+          ),
+          subtitle: subtitle,
+          trailing: trailing,
+          onTap: onTap,
         ),
-        subtitle: subtitle,
-        trailing: trailing,
-        onTap: onTap,
       ),
     );
   }

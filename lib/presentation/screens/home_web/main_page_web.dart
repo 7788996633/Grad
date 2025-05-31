@@ -1,6 +1,5 @@
 // import 'package:flutter/material.dart';
-
-
+// import 'client_requests_table.dart';
 // import 'custom_main_app_bar.dart';
 // import 'line_chart.dart';
 // import 'orders_table.dart';
@@ -65,7 +64,6 @@
 //   @override
 //   Widget build(BuildContext context) {
 //     final screenWidth = MediaQuery.of(context).size.width;
-
 //     return Scaffold(
 //       backgroundColor: Colors.grey[200],
 //       appBar: CustomMainAppBar(
@@ -98,7 +96,7 @@
 //                 Expanded(
 //                   child: SizedBox(
 //                     height: 250,
-//                     child: LineChartWidget(),
+//                     child:  LineChartWidget(),
 //                   ),
 //                 ),
 //                 SizedBox(width: 20),
@@ -126,7 +124,24 @@
 //             const SizedBox(height: 20),
 //             const RecentActivity(),
 //             const SizedBox(height: 20),
-//             const OrdersTable(),
+// // جعل OrdersTable و ClientRequestsTable جنبًا إلى جنب في الشاشات الكبيرة
+//             screenWidth > 800
+//                 ? Row(
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               children: const [
+//                 Expanded(child: OrdersTable()),
+//                 SizedBox(width: 20),
+//                 Expanded(child: ClientRequestsTable()),
+//               ],
+//             )
+//                 : Column(
+//               children: const [
+//                 OrdersTable(),
+//                 SizedBox(height: 20),
+//                 ClientRequestsTable(),
+//               ],
+//             ),
+
 //           ],
 //         ),
 //       ),

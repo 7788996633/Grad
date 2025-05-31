@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../blocs/issue_bloc/issues_bloc.dart';
 import '../../../../blocs/user_bloc/user_bloc.dart';
 import '../../../widgets/clients_list.dart';
+import '../../../widgets/custom_appbar_add.dart';
 
 class CreateIssueScreen extends StatefulWidget {
   const CreateIssueScreen({super.key});
@@ -161,25 +162,10 @@ class _CreateIssueScreenState extends State<CreateIssueScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: backgroundColor,
-      appBar: AppBar(
-        title: const Text(
-          "➕ Create Issue",
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 22,
-            letterSpacing: 1.1,
-          ),
-        ),
-        backgroundColor: mainColor,
-        centerTitle: true,
-        elevation: 8,
-        shadowColor: Colors.black.withOpacity(0.4),
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(
-            bottom: Radius.circular(25),
-          ),
-        ),
+      appBar: CustomActionAppBar(
+        title: 'Create Issue',
       ),
+
       body: Padding(
         padding: const EdgeInsets.all(12),
         child: Form(

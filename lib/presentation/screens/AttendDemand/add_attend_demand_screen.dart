@@ -1,7 +1,8 @@
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:graduation/blocs/attend_Demand_bloc/attend_demand_bloc.dart';
+
+import '../../../blocs/attend_Demand_bloc/attend_demand_bloc.dart';
 
 class AttendDemandScreen extends StatefulWidget {
   const AttendDemandScreen({super.key});

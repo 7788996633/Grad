@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../blocs/auth_bloc/auth_bloc.dart';
-import '../../../constant.dart';
 import '../../widgets/auth_widgets/auth_form.dart';
 import '../../widgets/custom_error_dialog.dart';
 
@@ -38,10 +37,10 @@ class _AuthWebScreenState extends State<AuthWebScreen> {
                 builder: (_) => CustomErrorDialog(errorMsg: state.errmsg),
               );
             } else if (state is AuthSuccess) {
-              Navigator.of(context).pop();
-              setState(() {
-                myToken = state.token;
-              });
+              // Navigator.of(context).pop();
+              // setState(() {
+              //   myToken = state.token;
+              // });
               // Navigator.of(context).pushReplacement(
               //   MaterialPageRoute(builder: (_) => const HomeWebPage()),
               // );

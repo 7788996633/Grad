@@ -4,11 +4,36 @@ class RecentActivity extends StatelessWidget {
   const RecentActivity({super.key});
 
   final List<Activity> activities = const [
-    Activity(time: '42 mins ago', title: 'Task Updated', description: 'Nikolai updated a Task', color: Colors.blue),
-    Activity(time: '1 day ago', title: 'Deal Added', description: 'Panshi updated a Task', color: Colors.red),
-    Activity(time: '40 mins ago', title: 'Published Article', description: 'Rasel published an Article', color: Colors.orange),
-    Activity(time: '1 day ago', title: 'Dock Updated', description: 'Roshni updated a Dock', color: Colors.purple),
-    Activity(time: '1 day ago', title: 'Replied Comment', description: 'Jonathan added a Comment', color: Colors.green),
+    Activity(
+      time: '30 mins ago',
+      title: 'Case Filed',
+      description: 'Attorney Ahmad filed a new civil case',
+      color: Colors.blue,
+    ),
+    Activity(
+      time: '2 hours ago',
+      title: 'Client Meeting',
+      description: 'Lawyer Laila met with a new client',
+      color: Colors.red,
+    ),
+    Activity(
+      time: '3 hours ago',
+      title: 'Contract Reviewed',
+      description: 'Mr. Samir reviewed a business contract',
+      color: Colors.orange,
+    ),
+    Activity(
+      time: 'Yesterday',
+      title: 'Hearing Scheduled',
+      description: 'Court hearing added for Case #1452',
+      color: Colors.purple,
+    ),
+    Activity(
+      time: '2 days ago',
+      title: 'Legal Advice Sent',
+      description: 'Legal assistant Rana responded to a client inquiry',
+      color: Colors.green,
+    ),
   ];
 
   @override

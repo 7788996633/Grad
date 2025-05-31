@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../blocs/issue_bloc/issues_bloc.dart';
-import '../../../../constant.dart';
 import '../../../../data/models/issues_model.dart';
+import '../../../widgets/custom_appbar_add.dart';
 import '../../../widgets/issue_item.dart';
 import 'create_issue_screen.dart';
 
@@ -36,31 +36,24 @@ class _AllIssuesScreenState extends State<AllIssuesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF5F6FA),
-      appBar: AppBar(
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => BlocProvider(
-                    create: (context) => IssuesBloc(),
-                    child: const CreateIssueScreen(),
-                  ),
-                ),
-              );
-            },
-            icon: const Icon(
-              Icons.add,
+      appBar: CustomActionAppBar(
+        title: 'List Issue ',
+        actionIcon: Icons.add_circle_rounded,
+        tooltip: 'Add New Issue',
+        onActionPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => BlocProvider(
+                create: (_) => IssuesBloc(),
+                child: const CreateIssueScreen(),
+              ),
             ),
-          ),
-        ],
-        backgroundColor: AppColors.darkBlue,
-        title: const Text(
-          "All Issues",
-          style: TextStyle(color: Colors.white),
-        ),
-        centerTitle: true,
+          );
+        },
       ),
+
+
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: BlocBuilder<IssuesBloc, IssuesState>(
@@ -71,7 +64,7 @@ class _AllIssuesScreenState extends State<AllIssuesScreen> {
                   ? const Center(child: Text('There is no issues'))
                   : buildIssuesList();
             } else if (state is IssuesFail) {
-              debugPrint("🛑 Error: ${state.errmsg}");
+              debugPrint(" Error: ${state.errmsg}");
               return Center(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,

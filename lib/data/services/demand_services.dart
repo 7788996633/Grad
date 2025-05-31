@@ -1,7 +1,8 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:graduation/constant.dart';
-import 'package:graduation/data/models/demand_model.dart';
+
+import '../../constant.dart';
+import '../models/demand_model.dart';
 
 class DemandServices {
   Future<List> getAllDemandByIssueId(int idIssue) async {

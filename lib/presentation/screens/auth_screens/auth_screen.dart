@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../blocs/auth_bloc/auth_bloc.dart';
 import '../../../blocs/user_bloc/user_bloc.dart';
+import '../../../blocs/user_profile_bloc/user_profile_bloc.dart'; // استيراد البلوك الجديد
 import '../../../constant.dart';
 import '../../widgets/auth_widgets/auth_form.dart';
 import '../../widgets/auth_widgets/auth_top_blue_curved_containor.dart';
@@ -27,9 +28,11 @@ class _AuthScreenState extends State<AuthScreen> {
               setState(() {
                 myToken = state.token;
               });
-              BlocProvider.of<UserBloc>(context).add(
-                GetUserRole(),
-              );
+              // بعد تسجيل الدخول بنجاح، نطلب جلب دور المستخدم
+              BlocProvider.of<UserBloc>(context).add(GetUserRole());
+              // ونطلب جلب بيانات البروفايل الحالي
+              BlocProvider.of<UserProfileBloc>(context)
+                  .add(ShowUserProfileEvent());
             } else if (state is AuthFail) {
               Navigator.of(context).pop();
               showDialog(
@@ -60,6 +63,15 @@ class _AuthScreenState extends State<AuthScreen> {
                   builder: (context) => const HomePage(),
                 ),
               );
+            }
+          },
+        ),
+        BlocListener<UserProfileBloc, UserProfileState>(
+          listener: (context, state) {
+            if (state is UserProfileLoadedSuccessfully) {
+              setState(() {
+                myUserId = state.userProfileModel.userId;
+              });
             }
           },
         ),

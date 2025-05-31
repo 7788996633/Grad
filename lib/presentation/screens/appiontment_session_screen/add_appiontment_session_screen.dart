@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:graduation/blocs/session_appointment_bloc/session_appointment_bloc.dart';
+
+import '../../../blocs/session_appointment_bloc/session_appointment_bloc.dart';
 
 class AppointmentScreen extends StatefulWidget {
   final int sessionId;

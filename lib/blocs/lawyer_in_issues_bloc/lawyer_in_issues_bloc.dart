@@ -1,7 +1,8 @@
 import 'package:bloc/bloc.dart';
-import 'package:graduation/data/models/lawyer_model.dart';
+
 import 'package:meta/meta.dart';
 
+import '../../data/models/lawyer_model.dart';
 import '../../data/repositories/lawyer_in_issues_repository.dart';
 
 part 'lawyer_in_issues_event.dart';

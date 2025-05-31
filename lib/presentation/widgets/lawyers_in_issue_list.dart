@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:graduation/blocs/lawyer_in_issues_bloc/lawyer_in_issues_bloc.dart';
-import 'package:graduation/presentation/widgets/custom_lawyer_item.dart';
 
+import '../../blocs/lawyer_in_issues_bloc/lawyer_in_issues_bloc.dart';
 import '../../data/models/lawyer_model.dart';
+import 'custom_lawyer_item.dart';
 
 class LawyersInIssueList extends StatefulWidget {
   const LawyersInIssueList({
     super.key,
     required this.issueId,
   });
+
   @override
   State<LawyersInIssueList> createState() => _LawyersInIssueListState();
 
@@ -17,15 +18,16 @@ class LawyersInIssueList extends StatefulWidget {
 }
 
 class _LawyersInIssueListState extends State<LawyersInIssueList> {
+  List<LawyerModel> _allLawyers = [];
+  List<int> selectedLawyerIds = [];
+
   @override
   void initState() {
+    super.initState();
     BlocProvider.of<LawyerInIssuesBloc>(context).add(
       GetAllLawyersInIssuesEvent(issueId: widget.issueId),
     );
-    super.initState();
   }
-
-  List<LawyerModel> _allLawyers = [];
 
   Widget _buildLawyerList(List<LawyerModel> lawyers) {
     if (lawyers.isEmpty) {
@@ -33,6 +35,7 @@ class _LawyersInIssueListState extends State<LawyersInIssueList> {
         child: Text("No lawyers found."),
       );
     }
+
     return ListView.builder(
       itemCount: lawyers.length,
       shrinkWrap: true,
@@ -40,6 +43,7 @@ class _LawyersInIssueListState extends State<LawyersInIssueList> {
       itemBuilder: (context, index) {
         return CustomLawyerItem(
           lawyer: lawyers[index],
+          isSelected: selectedLawyerIds.contains(lawyers[index].id), // ✅ هذا السطر هو اللي يغير اللون
         );
       },
     );
@@ -55,6 +59,7 @@ class _LawyersInIssueListState extends State<LawyersInIssueList> {
           );
         } else if (state is LawyerInIssuesListLoadedSuccessfully) {
           _allLawyers = state.lawyerInissues;
+          selectedLawyerIds = _allLawyers.map((lawyer) => lawyer.id).toList(); // ✅ كل المحامين الحاليين مختارين
           return _buildLawyerList(_allLawyers);
         } else if (state is LawyerInIssuesFail) {
           return Center(

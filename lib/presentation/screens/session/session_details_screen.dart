@@ -1,40 +1,47 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:graduation/blocs/session_appointment_bloc/session_appointment_bloc.dart';
-import 'package:graduation/data/models/session_model.dart';
-import 'package:graduation/presentation/screens/appiontment_session_screen/appointment_session_list_screen.dart';
+import '../../../data/models/session_model.dart';
+import '../document/add_document_screen.dart';
 
 class SessionDetailsScreen extends StatelessWidget {
   const SessionDetailsScreen({super.key, required this.sessionModel});
   final SessionModel sessionModel;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Center(
-            child: Text(
-              sessionModel.type,
+      appBar: AppBar(
+        title: const Text('Session Details'),
+        backgroundColor: Colors.deepPurple.shade400,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          children: [
+            Text(
+              'Session ID: ${sessionModel.sessionId}',
+              style: const TextStyle(fontSize: 20),
             ),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => BlocProvider(
-                    create: (context) => SessionAppointmentBloc(),
-                    child: AppointmentSessionListScreen(
-                      sessionId: sessionModel.id,
-                    ),
+            const SizedBox(height: 30),
+            ElevatedButton.icon(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => AddDocumentScreen(sessionId: sessionModel.sessionId),
                   ),
-                ),
-              );
-            },
-            child: Text("Appointments"),
-          ),
-        ],
+                );
+              },
+              icon: const Icon(Icons.upload_file),
+              label: const Text('Add Document'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.deepPurple,
+                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                textStyle: const TextStyle(fontSize: 16),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
