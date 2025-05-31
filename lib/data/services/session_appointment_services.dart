@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:graduation/constant.dart';
 
+import '../../constant.dart';
 import '../models/session_appointement_model.dart';
 
 class SessionAppointmentServices {

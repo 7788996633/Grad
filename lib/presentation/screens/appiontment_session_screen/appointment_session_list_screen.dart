@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:graduation/blocs/session_appointment_bloc/session_appointment_bloc.dart';
-import 'package:graduation/presentation/widgets/session_appointment_list.dart';
+
+import '../../../blocs/session_appointment_bloc/session_appointment_bloc.dart';
+import '../../widgets/session_appointment_list.dart';
 
 class AppointmentSessionListScreen extends StatelessWidget {
   const AppointmentSessionListScreen({super.key, required this.sessionId});

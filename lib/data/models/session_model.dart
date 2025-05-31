@@ -1,6 +1,6 @@
 class SessionModel {
   SessionModel({
-    required this.id,
+    required this.sessionId,
     required this.type,
 
     required this.outcome,
@@ -9,7 +9,7 @@ class SessionModel {
     this.createdAt,
   });
 
-  final int id;
+  final int sessionId;
   final String type;
   final String outcome;
   final int lawyerId;
@@ -18,7 +18,7 @@ class SessionModel {
 
   factory SessionModel.fromJson(json) {
     return SessionModel(
-      id: json['id'],
+      sessionId: json['sessionId'],
       type: json['type'],
       outcome: json['outcome'],
       lawyerId: json['lawyer_id'] ?? 0,
@@ -28,6 +28,8 @@ class SessionModel {
       ),
     );
   }
+
+
 }
 
 enum AttendStatus { attend, absent }

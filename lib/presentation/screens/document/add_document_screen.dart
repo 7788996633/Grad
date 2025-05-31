@@ -22,7 +22,7 @@ class _AddDocumentScreenState extends State<AddDocumentScreen> {
   void pickFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
 
-    if (result != null) {
+    if (result != null && result.files.single.path != null) {
       setState(() {
         selectedFile = File(result.files.single.path!);
       });
@@ -37,6 +37,10 @@ class _AddDocumentScreenState extends State<AddDocumentScreen> {
           privacy: privacy,
           sessionId: widget.sessionId,
         ),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please select a file')),
       );
     }
   }

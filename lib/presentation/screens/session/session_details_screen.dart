@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import '../../../data/models/session_model.dart';
 import '../document/add_document_screen.dart';
 
-
 class SessionDetailsScreen extends StatelessWidget {
-  const SessionDetailsScreen({super.key, required this.sessionId});
-
-  final int sessionId;
+  const SessionDetailsScreen({super.key, required this.sessionModel});
+  final SessionModel sessionModel;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +18,7 @@ class SessionDetailsScreen extends StatelessWidget {
         child: Column(
           children: [
             Text(
-              'Session ID: $sessionId',
+              'Session ID: ${sessionModel.sessionId}',
               style: const TextStyle(fontSize: 20),
             ),
             const SizedBox(height: 30),
@@ -28,7 +27,7 @@ class SessionDetailsScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (_) => AddDocumentScreen(sessionId: sessionId),
+                    builder: (_) => AddDocumentScreen(sessionId: sessionModel.sessionId),
                   ),
                 );
               },

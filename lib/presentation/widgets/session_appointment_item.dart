@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:graduation/data/models/session_appointement_model.dart';
+
+import '../../data/models/session_appointement_model.dart';
 
 class SessionAppointmentItem extends StatelessWidget {
   const SessionAppointmentItem(

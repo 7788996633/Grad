@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:graduation/blocs/attend_Demand_bloc/attend_demand_bloc.dart';
-import 'package:graduation/data/models/demand_model.dart';
-import 'package:graduation/presentation/widgets/demand_item.dart';
+
+import '../../blocs/attend_Demand_bloc/attend_demand_bloc.dart';
+import '../../data/models/demand_model.dart';
+import 'demand_item.dart';
 
 class AttendDemandList extends StatefulWidget {
   const AttendDemandList({super.key, required this.issueId});

@@ -20,7 +20,8 @@ class SessionItem extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (context) => SessionDetailsScreen(
-                sessionId: sessionModel.id,
+
+                sessionModel: sessionModel,
               ),
             ),
           );
@@ -28,7 +29,7 @@ class SessionItem extends StatelessWidget {
         leading: IconButton(
           onPressed: () {
             BlocProvider.of<SessionsBloc>(context).add(
-              DeleteSessionEvent(sessionId: sessionModel.id),
+              DeleteSessionEvent(sessionId: sessionModel.sessionId),
             );
           },
           icon: Icon(
@@ -36,7 +37,7 @@ class SessionItem extends StatelessWidget {
             color: Colors.red,
           ),
         ),
-        title: Text("${sessionModel.id}"),
+        title: Text("${sessionModel.sessionId}"),
         subtitle: Text(sessionModel.type),
       ),
     );

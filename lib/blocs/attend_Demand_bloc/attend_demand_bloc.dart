@@ -1,8 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:graduation/data/models/demand_model.dart';
-import 'package:graduation/data/services/demand_services.dart';
-import 'package:graduation/data/repositories/demand_repository.dart';
+
+import '../../data/models/demand_model.dart';
+import '../../data/repositories/demand_repository.dart';
+import '../../data/services/demand_services.dart';
 
 part 'attend_demand_event.dart';
 part 'attend_demand_state.dart';

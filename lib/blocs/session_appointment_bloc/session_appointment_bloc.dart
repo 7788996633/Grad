@@ -1,8 +1,10 @@
 import 'package:bloc/bloc.dart';
-import 'package:graduation/data/models/session_appointement_model.dart';
+
 import 'package:meta/meta.dart';
-import 'package:graduation/data/services/session_appointment_services.dart';
-import 'package:graduation/data/repositories/session_appointment_repository.dart';
+
+import '../../data/models/session_appointement_model.dart';
+import '../../data/repositories/session_appointment_repository.dart';
+import '../../data/services/session_appointment_services.dart';
 
 
 part 'session_appointment_event.dart';
