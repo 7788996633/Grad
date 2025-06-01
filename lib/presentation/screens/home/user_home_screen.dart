@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation/blocs/issue_requests_bloc/issue_requests_bloc.dart';
+import 'package:graduation/presentation/screens/issue_request/add_issue_request.dart';
 import 'package:graduation/presentation/screens/user_screens/user_issues_screens/user_issues_screens.dart';
 import 'package:graduation/presentation/screens/user_screens/user_sessions_screen/user_session_screens.dart';
 import '../../../blocs/issue_bloc/issues_bloc.dart';
@@ -47,12 +49,17 @@ class UserHomeScreen extends StatelessWidget {
         },
       },
       {
-        'title': 'Submit New Case',
+        'title': 'Submit Issue Request',
         'icon': Icons.add_circle,
         'onTap': () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (_) => const SettingsScreen()),
+            MaterialPageRoute(
+              builder: (_) => BlocProvider(
+                create: (context) => IssueRequestsBloc(),
+                child: const AddIssueRequestScreen(),
+              ),
+            ),
           );
         },
       },

@@ -24,18 +24,26 @@ class _AddIssueRequestScreenState extends State<AddIssueRequestScreen> {
 
     return Scaffold(
       backgroundColor: const Color(0xFFF5F7FA),
-     appBar:  buildCustomAppBar("Add Issue Request"),
+      appBar: buildCustomAppBar("Add Issue Request"),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: BlocConsumer<IssueRequestsBloc, IssueRequestsState>(
           listener: (context, state) {
             if (state is IssueRequestsSuccess) {
+              _titleController.clear();
+              _descriptionController.clear();
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text("Success: ${state.successmsg}"), backgroundColor: Colors.green,),
+                SnackBar(
+                  content: Text("Success: ${state.successmsg}"),
+                  backgroundColor: Colors.green,
+                ),
               );
             } else if (state is IssueRequestsFail) {
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text("Failed: ${state.errmsg}",)),
+                SnackBar(
+                    content: Text(
+                  "Failed: ${state.errmsg}",
+                )),
               );
             }
           },
@@ -70,7 +78,6 @@ class _AddIssueRequestScreenState extends State<AddIssueRequestScreen> {
                       controller: _titleController,
                       label: 'Title',
                     ),
-
                     const SizedBox(height: 20),
                     CustomTextFieldAdd(
                       controller: _descriptionController,
@@ -79,25 +86,23 @@ class _AddIssueRequestScreenState extends State<AddIssueRequestScreen> {
                       filled: true,
                       fillColor: Colors.grey[100],
                     ),
-
                     const SizedBox(height: 30),
                     state is IssueRequestsLoading
                         ? const Center(child: CircularProgressIndicator())
                         : SizedBox(
-                      height: 50,
-                      child:CustomElevatedButtonSubmit(
-                        label: "Submit",
-                        onPressed: () {
-                          BlocProvider.of<IssueRequestsBloc>(context).add(
-                            CreateIssueRequestsEvent(
-                              title: _titleController.text,
-                              description: _descriptionController.text,
+                            height: 50,
+                            child: CustomElevatedButtonSubmit(
+                              label: "Submit",
+                              onPressed: () {
+                                BlocProvider.of<IssueRequestsBloc>(context).add(
+                                  CreateIssueRequestsEvent(
+                                    title: _titleController.text,
+                                    description: _descriptionController.text,
+                                  ),
+                                );
+                              },
                             ),
-                          );
-                        },
-                      ),
-
-                    ),
+                          ),
                   ],
                 ),
               ),
