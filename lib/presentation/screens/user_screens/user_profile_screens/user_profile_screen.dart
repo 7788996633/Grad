@@ -10,15 +10,13 @@ import '../../../widgets/delete_profile_button.dart';
 import '../../../widgets/edit_profile_button.dart';
 
 class UserProfileScreen extends StatefulWidget {
-  const UserProfileScreen({super.key, required this.userId});
-  final int userId;
-
+  const UserProfileScreen({super.key, required this.userProfileModel});
+  final UserProfileModel userProfileModel;
   @override
   State<UserProfileScreen> createState() => _UserProfileScreenState();
 }
 
 class _UserProfileScreenState extends State<UserProfileScreen> {
-  UserProfileModel? userProfileModel;
   late TextEditingController nameController;
   late TextEditingController emailController;
   late TextEditingController phoneController;
@@ -34,12 +32,22 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   void initState() {
     super.initState();
     bloc = BlocProvider.of<UserProfileBloc>(context);
-    bloc.add(ShowUserProfileEvent());
+    nameController = TextEditingController(text: widget.userProfileModel.name);
+    emailController =
+        TextEditingController(text: widget.userProfileModel.email);
+    phoneController =
+        TextEditingController(text: widget.userProfileModel.phone);
+    addressController =
+        TextEditingController(text: widget.userProfileModel.address);
+    ageController =
+        TextEditingController(text: widget.userProfileModel.age.toString());
+    scientificLevelController =
+        TextEditingController(text: widget.userProfileModel.scientificLevel);
   }
 
   @override
   Widget build(BuildContext context) {
-    final bool isMyProfile = widget.userId == myUserId;
+    final bool isMyProfile = widget.userProfileModel.userId == myUserId;
 
     return Scaffold(
       backgroundColor: const Color(0xFFF3F4F6),
@@ -66,7 +74,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                       address: addressController.text,
                       age: ageController.text,
                       scientificLevel: scientificLevelController.text,
-                      imagePath: _pickedImage?.path ?? userProfileModel!.image,
+                      imagePath:
+                          _pickedImage?.path ?? widget.userProfileModel.image,
                     ));
                     bloc.add(ShowUserProfileEvent());
                   }
@@ -77,51 +86,14 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
           if (isMyProfile)
             DeleteProfileButton(
               onDelete: () {
-                bloc.add(DeleteUserProfileEvent());
+                bloc.add(
+                  DeleteUserProfileEvent(),
+                );
               },
             ),
         ],
       ),
-      body: BlocConsumer<UserProfileBloc, UserProfileState>(
-        listener: (context, state) {
-          if (state is UserProfileSuccess) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.successmsg)),
-            );
-            if (state.successmsg.contains('deleted')) {
-              Navigator.of(context).pop();
-            }
-          } else if (state is UserProfileFail) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Error: ${state.errmsg}')),
-            );
-          }
-        },
-        builder: (context, state) {
-          if (state is UserProfileLoadedSuccessfully) {
-            userProfileModel = state.userProfileModel;
-
-            nameController =
-                TextEditingController(text: userProfileModel!.name);
-            emailController =
-                TextEditingController(text: userProfileModel!.email);
-            phoneController =
-                TextEditingController(text: userProfileModel!.phone);
-            addressController =
-                TextEditingController(text: userProfileModel!.address);
-            ageController =
-                TextEditingController(text: userProfileModel!.age.toString());
-            scientificLevelController =
-                TextEditingController(text: userProfileModel!.scientificLevel);
-
-            return _buildProfileContent(isMyProfile);
-          } else if (state is UserProfileFail) {
-            return _buildErrorContent(state.errmsg);
-          } else {
-            return const Center(child: CircularProgressIndicator());
-          }
-        },
-      ),
+      body: _buildProfileContent(isMyProfile),
     );
   }
 
@@ -145,10 +117,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                       radius: 50,
                       backgroundImage: _pickedImage != null
                           ? FileImage(_pickedImage!)
-                          : (userProfileModel!.image.isNotEmpty
-                              ? NetworkImage(userProfileModel!.image)
-                              : const AssetImage(
-                                  'assets/default_image.png')) as ImageProvider,
+                          : NetworkImage(widget.userProfileModel.image),
                       backgroundColor: Colors.grey[300],
                     ),
                     if (isEditing && isMyProfile)
@@ -167,7 +136,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  userProfileModel!.name,
+                  widget.userProfileModel.name,
                   style: const TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,

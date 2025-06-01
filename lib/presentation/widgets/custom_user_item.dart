@@ -26,8 +26,7 @@ class CustomUserItem extends StatelessWidget {
           MaterialPageRoute(
             builder: (context) => BlocProvider(
               create: (context) => UserProfileBloc(),
-              child: UserProfileScreen(
-                userId: userProfileModel.userId,
+              child: UserProfileScreen(userProfileModel: userProfileModel,
               ),
             ),
           ),

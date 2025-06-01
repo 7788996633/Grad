@@ -36,14 +36,14 @@ class CustomAppDrawer extends StatelessWidget {
 
                   return GestureDetector(
                     onTap: () {
-                      Navigator.pop(context); 
+                      Navigator.pop(context);
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (_) => BlocProvider(
                             create: (context) => UserProfileBloc(),
                             child: UserProfileScreen(
-                              userId: myUserId,
+                              userProfileModel: userProfileModel,
                             ),
                           ),
                         ),
