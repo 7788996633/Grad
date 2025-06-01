@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../blocs/sessions/sessions_bloc.dart';
-import '../../../blocs/sessions/sessions_event.dart';
+import '../../../blocs/sessions_bloc/sessions_bloc.dart';
+import '../../../blocs/sessions_bloc/sessions_event.dart';
 import '../../../constant.dart';
 
 import '../../widgets/custom_appbar_add.dart';

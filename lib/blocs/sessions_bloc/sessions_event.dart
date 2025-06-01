@@ -2,6 +2,7 @@ import 'package:meta/meta.dart';
 
 @immutable
 abstract class SessionsEvent {}
+
 class CreateSessionsEvent extends SessionsEvent {
   final String type;
   final int lawyerId;
@@ -30,6 +31,8 @@ class UpdateSessionEvent extends SessionsEvent {
 
 class GetAllSessionsEvent extends SessionsEvent {}
 
+class GetLawyerSessionsEvent extends SessionsEvent {}
+
 class GetSessionsByIdEvent extends SessionsEvent {
   final int sessionId;
 
@@ -41,4 +44,3 @@ class DeleteSessionEvent extends SessionsEvent {
 
   DeleteSessionEvent({required this.sessionId});
 }
-

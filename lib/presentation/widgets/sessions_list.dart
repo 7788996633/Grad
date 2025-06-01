@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 
-import '../../blocs/sessions/sessions_bloc.dart';
-import '../../blocs/sessions/sessions_event.dart';
-import '../../blocs/sessions/sessions_state.dart';
+import '../../blocs/sessions_bloc/sessions_bloc.dart';
+import '../../blocs/sessions_bloc/sessions_event.dart';
+import '../../blocs/sessions_bloc/sessions_state.dart';
 import '../../data/models/session_model.dart';
 import 'session_item.dart';
 

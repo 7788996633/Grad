@@ -154,6 +154,23 @@ class IssuesBloc extends Bloc<IssuesEvent, IssuesState> {
               ),
             );
           }
+        } else if (event is GetAllLawyerIssuesEvent) {
+          emit(
+            IssuesLoading(),
+          );
+          try {
+            List<IssuesModel> value =
+                await IssuesRepository().getAllLawyerIssues();
+            emit(
+              IssuesListLoadedSuccessFully(issues: value),
+            );
+          } catch (e) {
+            emit(
+              IssuesFail(
+                errmsg: e.toString(),
+              ),
+            );
+          }
         }
       },
     );

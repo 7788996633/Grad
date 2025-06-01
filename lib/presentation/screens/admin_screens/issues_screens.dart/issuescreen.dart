@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../blocs/issue_bloc/issues_bloc.dart';
 import '../../../../blocs/lawyer_bloc/lawyer_bloc.dart';
 import '../../../../blocs/lawyer_in_issues_bloc/lawyer_in_issues_bloc.dart';
-import '../../../../blocs/sessions/sessions_bloc.dart';
+import '../../../../blocs/sessions_bloc/sessions_bloc.dart';
 import '../../../../blocs/user_profile_bloc/user_profile_bloc.dart';
 import '../../../../data/models/issues_model.dart';
 import '../../../../data/models/user_profile_model.dart';

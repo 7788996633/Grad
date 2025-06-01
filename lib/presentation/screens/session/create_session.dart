@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../blocs/issue_requests_bloc/issue_requests_state.dart';
-import '../../../blocs/sessions/sessions_bloc.dart';
-import '../../../blocs/sessions/sessions_event.dart';
-import '../../../blocs/sessions/sessions_state.dart';
+import '../../../blocs/sessions_bloc/sessions_bloc.dart';
+import '../../../blocs/sessions_bloc/sessions_event.dart';
+import '../../../blocs/sessions_bloc/sessions_state.dart';
 import '../../widgets/build_custom_appbar_detials.dart';
 import '../../widgets/custom_text_field_add.dart';
 import '../../widgets/elevated_button_submit.dart';
