@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation/data/models/user_profile_model.dart';
 import '../../../blocs/issue_requests_bloc/issue_requests_bloc.dart';
 import '../../../constant.dart';
 import '../../../data/models/issue_request_model.dart';
@@ -10,8 +11,9 @@ import 'update_issue_request_screen.dart';
 
 class IssueRequestDetailsScreen extends StatelessWidget {
   final IssueRequestModel issueRequest;
-
-  const IssueRequestDetailsScreen({super.key, required this.issueRequest});
+  final UserProfileModel userProfileModel;
+  const IssueRequestDetailsScreen(
+      {super.key, required this.issueRequest, required this.userProfileModel});
   Widget buildProfileUI(IssueRequestModel request, BuildContext context) {
     return Center(
       child: SingleChildScrollView(
@@ -32,6 +34,12 @@ class IssueRequestDetailsScreen extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
+              Text(userProfileModel.name),
+              CircleAvatar(
+                backgroundImage: NetworkImage(
+                  userProfileModel.image,
+                ),
+              ),
               const SizedBox(height: 20),
               buildInfoTile(
                 Icons.subject,
@@ -42,14 +50,15 @@ class IssueRequestDetailsScreen extends StatelessWidget {
                   Icons.description, "description", request.description),
               buildInfoTile(Icons.verified, "status", request.status),
               const SizedBox(height: 30),
-              EditButton(
-                destinationScreen: BlocProvider(
-                  create: (context) => IssueRequestsBloc(),
-                  child: UpdateIssueRequestScreen(
-                    issueRequest: request,
+              if (myUserId == userProfileModel.userId)
+                EditButton(
+                  destinationScreen: BlocProvider(
+                    create: (context) => IssueRequestsBloc(),
+                    child: UpdateIssueRequestScreen(
+                      issueRequest: request,
+                    ),
                   ),
                 ),
-              ),
             ],
           ),
         ),

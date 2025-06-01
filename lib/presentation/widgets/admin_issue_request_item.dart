@@ -68,6 +68,7 @@ class _AdminIssueRequestItemState extends State<AdminIssueRequestItem> {
                     builder: (context) => BlocProvider.value(
                       value: widget.bloc,
                       child: IssueRequestDetailsScreen(
+                        userProfileModel: state.userProfileModel,
                         issueRequest: widget.request,
                       ),
                     ),
