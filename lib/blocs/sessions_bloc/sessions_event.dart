@@ -33,6 +33,8 @@ class GetAllSessionsEvent extends SessionsEvent {}
 
 class GetLawyerSessionsEvent extends SessionsEvent {}
 
+class GetClientSessionsEvent extends SessionsEvent {}
+
 class GetSessionsByIdEvent extends SessionsEvent {
   final int sessionId;
 

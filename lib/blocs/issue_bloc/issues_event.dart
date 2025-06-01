@@ -92,6 +92,8 @@ class GetAllIssuesEvent extends IssuesEvent {}
 
 class GetAllLawyerIssuesEvent extends IssuesEvent {}
 
+class GetAllClientIssuesEvent extends IssuesEvent {}
+
 class AssignIsuueToLawyerEvent extends IssuesEvent {
   final int issueId;
   final List<int> lawyerIds;

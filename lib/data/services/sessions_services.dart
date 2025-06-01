@@ -46,6 +46,27 @@ class SessionServices {
     }
   }
 
+  Future<List> getClientSessions() async {
+    var headers = {
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $myToken',
+    };
+
+    var request =
+        http.MultipartRequest('GET', Uri.parse('${myUrl}sessions/client/show'));
+    request.headers.addAll(headers);
+    var streamedResponse = await request.send();
+    var response = await http.Response.fromStream(streamedResponse);
+    var jsonResponse = json.decode(response.body);
+    print(jsonResponse);
+
+    if (response.statusCode == 200 && jsonResponse['status'] == 'success') {
+      return jsonResponse['data'];
+    } else {
+      return [];
+    }
+  }
+
   Future<SessionModel> getSessionById(int sessionId) async {
     var headers = {
       'Accept': 'application/json',

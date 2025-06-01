@@ -19,4 +19,13 @@ class IssuesRepository {
         )
         .toList();
   }
+
+  Future<List<IssuesModel>> getAllClientissues() async {
+    var issueList = await IssusServices().showAllClientIssues();
+    return issueList
+        .map(
+          (e) => IssuesModel.fromJson(e),
+        )
+        .toList();
+  }
 }

@@ -8,14 +8,14 @@ import '../../../widgets/custom_appbar_add.dart';
 import '../../../widgets/refresh_button.dart';
 import '../../../widgets/sessions_list.dart';
 
-class LawyerSessionsScreen extends StatefulWidget {
-  const LawyerSessionsScreen({super.key});
+class UserSessionScreens extends StatefulWidget {
+  const UserSessionScreens({super.key});
 
   @override
-  State<LawyerSessionsScreen> createState() => _LawyerSessionsScreenState();
+  State<UserSessionScreens> createState() => _UserSessionScreensState();
 }
 
-class _LawyerSessionsScreenState extends State<LawyerSessionsScreen> {
+class _UserSessionScreensState extends State<UserSessionScreens> {
   late SessionsBloc bloc;
 
   @override
@@ -23,7 +23,7 @@ class _LawyerSessionsScreenState extends State<LawyerSessionsScreen> {
     super.initState();
     bloc = BlocProvider.of<SessionsBloc>(context);
     bloc.add(
-      GetLawyerSessionsEvent(),
+      GetClientSessionsEvent(),
     );
   }
 
@@ -32,7 +32,7 @@ class _LawyerSessionsScreenState extends State<LawyerSessionsScreen> {
     return Scaffold(
       backgroundColor: AppColors.scaffold,
       appBar: CustomActionAppBar(
-        title: 'Lawyer Sessions',
+        title: 'Client Sessions',
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -46,7 +46,7 @@ class _LawyerSessionsScreenState extends State<LawyerSessionsScreen> {
       floatingActionButton: RefreshButton(
         onPressed: () {
           bloc.add(
-            GetLawyerSessionsEvent(),
+            GetClientSessionsEvent(),
           );
         },
       ),

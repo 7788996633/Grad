@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation/presentation/screens/user_screens/user_issues_screens/user_issues_screens.dart';
+import 'package:graduation/presentation/screens/user_screens/user_sessions_screen/user_session_screens.dart';
+import '../../../blocs/issue_bloc/issues_bloc.dart';
+import '../../../blocs/sessions_bloc/sessions_bloc.dart';
 import '../../../blocs/user_profile_bloc/user_profile_bloc.dart';
 import '../../widgets/custom_app_drawer.dart';
 import '../../widgets/section_card.dart';
@@ -12,6 +16,36 @@ class UserHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final sections = [
+      {
+        'title': 'All Issues',
+        'icon': Icons.gavel,
+        'onTap': () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => BlocProvider(
+                create: (_) => IssuesBloc(),
+                child: const UserIssuesScreens(),
+              ),
+            ),
+          );
+        },
+      },
+      {
+        'title': 'Sessions',
+        'icon': Icons.assignment,
+        'onTap': () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => BlocProvider(
+                create: (_) => SessionsBloc(),
+                child: const UserSessionScreens(),
+              ),
+            ),
+          );
+        },
+      },
       {
         'title': 'Submit New Case',
         'icon': Icons.add_circle,

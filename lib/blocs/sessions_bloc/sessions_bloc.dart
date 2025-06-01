@@ -70,6 +70,25 @@ class SessionsBloc extends Bloc<SessionsEvent, SessionsState> {
               ),
             );
           }
+        } else if (event is GetClientSessionsEvent) {
+          emit(
+            SessionsLoading(),
+          );
+          try {
+            List<SessionModel> sessionsList =
+                await SessionsRepository().getClientSessions();
+            emit(
+              SessionsListLoaded(
+                sessionsList: sessionsList,
+              ),
+            );
+          } catch (e) {
+            emit(
+              SessionsFail(
+                errmsg: e.toString(),
+              ),
+            );
+          }
         } else if (event is GetSessionsByIdEvent) {
           emit(
             SessionsLoading(),
