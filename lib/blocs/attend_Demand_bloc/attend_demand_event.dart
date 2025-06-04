@@ -26,6 +26,15 @@ class UpdateDemandEvent extends AttendDemandEvent {
   });
 }
 
+class UpdateDemandAsAUserEvent extends AttendDemandEvent {
+  final int idDemand;
+  final String result;
+  UpdateDemandAsAUserEvent({
+    required this.idDemand,
+    required this.result,
+  });
+}
+
 class DeleteDemandEvent extends AttendDemandEvent {
   final int idDemand;
   final String date;

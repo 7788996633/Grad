@@ -11,8 +11,8 @@ import '../../widgets/sessions_list.dart';
 import 'create_session.dart';
 
 class ListSessionsScreen extends StatefulWidget {
-  const ListSessionsScreen({super.key});
-
+  const ListSessionsScreen({super.key, required this.issueId});
+  final int issueId;
   @override
   State<ListSessionsScreen> createState() => _ListSessionsScreenState();
 }
@@ -43,7 +43,9 @@ class _ListSessionsScreenState extends State<ListSessionsScreen> {
             MaterialPageRoute(
               builder: (_) => BlocProvider(
                 create: (_) => SessionsBloc(),
-                child: const CreateSessionScreen(),
+                child: CreateSessionScreen(
+                  issueId: widget.issueId,
+                ),
               ),
             ),
           );

@@ -185,8 +185,12 @@ class _IssueScreenState extends State<IssueScreen> {
                         context: context,
                         builder: (context) => MultiBlocProvider(
                           providers: [
-                            BlocProvider(create: (context) => LawyerBloc()),
-                            BlocProvider(create: (context) => IssuesBloc()),
+                            BlocProvider(
+                              create: (context) => LawyerBloc(),
+                            ),
+                            BlocProvider(
+                              create: (context) => IssuesBloc(),
+                            ),
                           ],
                           child: AddLawyersToIssueSheet(
                               issueId: widget.issuesModel.id),
@@ -208,7 +212,9 @@ class _IssueScreenState extends State<IssueScreen> {
                         MaterialPageRoute(
                           builder: (context) => BlocProvider(
                             create: (context) => SessionsBloc(),
-                            child: const ListSessionsScreen(),
+                            child: ListSessionsScreen(
+                              issueId: widget.issuesModel.id,
+                            ),
                           ),
                         ),
                       );

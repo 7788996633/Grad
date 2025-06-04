@@ -6,14 +6,12 @@ abstract class SessionsEvent {}
 class CreateSessionsEvent extends SessionsEvent {
   final String type;
   final int lawyerId;
-  final int isAttend;
-  final int sessionId;
+  final int issueId;
 
   CreateSessionsEvent({
     required this.type,
     required this.lawyerId,
-    required this.isAttend,
-    required this.sessionId,
+    required this.issueId,
   });
 }
 

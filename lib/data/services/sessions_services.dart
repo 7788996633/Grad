@@ -90,8 +90,7 @@ class SessionServices {
   Future<String> createSession(
     String type,
     int lawyerId,
-    int isAttend,
-    int sessionId,
+    int issueId,
   ) async {
     var headers = {
       'Accept': 'application/json',
@@ -99,11 +98,10 @@ class SessionServices {
     };
 
     var request =
-        http.MultipartRequest('POST', Uri.parse('${myUrl}sessions/$sessionId'));
+        http.MultipartRequest('POST', Uri.parse('${myUrl}sessions/$issueId'));
     request.fields.addAll({
       'type': type,
-      'lawyerId': lawyerId.toString(),
-      'isAttend': isAttend.toString(),
+      'lawyer_id': lawyerId.toString(),
     });
 
     request.headers.addAll(headers);

@@ -77,6 +77,21 @@ class AttendDemandBloc extends Bloc<AttendDemandEvent, AttendDemandState> {
             ),
           );
         }
+      } else if (event is UpdateDemandAsAUserEvent) {
+        emit(
+          DemandLoading(),
+        );
+        try {
+          String value =
+              await DemandServices().updateDemand(event.idDemand, event.result);
+          emit(DemandSuccess(successmsg: value));
+        } catch (e) {
+          emit(
+            DemandFail(
+              errmsg: e.toString(),
+            ),
+          );
+        }
       } else if (event is DeleteDemandEvent) {
         emit(
           DemandLoading(),

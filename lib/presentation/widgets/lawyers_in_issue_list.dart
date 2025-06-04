@@ -43,7 +43,9 @@ class _LawyersInIssueListState extends State<LawyersInIssueList> {
       itemBuilder: (context, index) {
         return CustomLawyerItem(
           lawyer: lawyers[index],
-          isSelected: selectedLawyerIds.contains(lawyers[index].id), // ✅ هذا السطر هو اللي يغير اللون
+          isSelected: selectedLawyerIds.contains(
+            lawyers[index].id,
+          ),
         );
       },
     );
@@ -59,7 +61,7 @@ class _LawyersInIssueListState extends State<LawyersInIssueList> {
           );
         } else if (state is LawyerInIssuesListLoadedSuccessfully) {
           _allLawyers = state.lawyerInissues;
-          selectedLawyerIds = _allLawyers.map((lawyer) => lawyer.id).toList(); // ✅ كل المحامين الحاليين مختارين
+          selectedLawyerIds = _allLawyers.map((lawyer) => lawyer.id).toList();
           return _buildLawyerList(_allLawyers);
         } else if (state is LawyerInIssuesFail) {
           return Center(
