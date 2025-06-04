@@ -13,7 +13,9 @@ class SessionAppointementModel {
     return SessionAppointementModel(
       id: data['id'],
       sessionId: data['session_id'],
-      date: data['date'],
+      date: DateTime.parse(
+        data['date'],
+      ),
       type: data['type'],
     );
   }

@@ -2,10 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation/blocs/lawyer_in_issues_bloc/lawyer_in_issues_bloc.dart';
 import 'package:graduation/presentation/widgets/add_lawyer_to_session_sheet.dart';
-import 'package:graduation/presentation/widgets/lawyers_in_issue_list.dart';
-
-import '../../../blocs/issue_bloc/issues_bloc.dart';
-import '../../../blocs/lawyer_bloc/lawyer_bloc.dart';
 import '../../../blocs/sessions_bloc/sessions_bloc.dart';
 import '../../../blocs/sessions_bloc/sessions_state.dart';
 import '../../widgets/build_custom_appbar_detials.dart';

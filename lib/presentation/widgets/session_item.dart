@@ -6,7 +6,6 @@ import '../../blocs/sessions_bloc/sessions_event.dart';
 import '../../data/models/session_model.dart';
 import '../screens/session/session_details_screen.dart';
 
-
 class SessionItem extends StatelessWidget {
   const SessionItem({super.key, required this.sessionModel});
   final SessionModel sessionModel;
@@ -20,7 +19,6 @@ class SessionItem extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (context) => SessionDetailsScreen(
-
                 sessionModel: sessionModel,
               ),
             ),

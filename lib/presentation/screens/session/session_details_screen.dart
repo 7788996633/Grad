@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:graduation/presentation/screens/appiontment_session_screen/appointment_session_list_screen.dart';
 import '../../../data/models/session_model.dart';
 import '../document/add_document_screen.dart';
 
@@ -27,7 +28,8 @@ class SessionDetailsScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (_) => AddDocumentScreen(sessionId: sessionModel.sessionId),
+                    builder: (_) =>
+                        AddDocumentScreen(sessionId: sessionModel.sessionId),
                   ),
                 );
               },
@@ -35,8 +37,31 @@ class SessionDetailsScreen extends StatelessWidget {
               label: const Text('Add Document'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.deepPurple,
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12)),
+                textStyle: const TextStyle(fontSize: 16),
+              ),
+            ),
+            ElevatedButton.icon(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => AppointmentSessionListScreen(
+                        sessionId: sessionModel.sessionId),
+                  ),
+                );
+              },
+              icon: const Icon(Icons.date_range),
+              label: const Text('Appointments'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.deepPurple,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12)),
                 textStyle: const TextStyle(fontSize: 16),
               ),
             ),

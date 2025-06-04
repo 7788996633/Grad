@@ -11,7 +11,7 @@ class SessionAppointmentItem extends StatelessWidget {
     return Card(
       child: ListTile(
         title: Text(
-          "$sessionAppointementModel{sessionAppointementModel.id}",
+          "${sessionAppointementModel.id}",
         ),
       ),
     );
