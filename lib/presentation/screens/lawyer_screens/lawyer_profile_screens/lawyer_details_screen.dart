@@ -98,7 +98,9 @@ class _LawyerDetailsScreenState extends State<LawyerDetailsScreen> {
             children: [
               CircleAvatar(
                 radius: 45,
-                backgroundImage: NetworkImage(lawyer.image),
+                backgroundImage: NetworkImage(
+                  '${lawyer.image}?v=${DateTime.now().millisecondsSinceEpoch}',
+                ),
               ),
               const SizedBox(height: 10),
               Text("Lawyer ${lawyer.name}",

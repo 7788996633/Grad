@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation/presentation/screens/home/lawyer_home_page.dart';
 import 'package:path/path.dart';
 
 import '../../../../blocs/lawyer_profile_bloc/lawyer_profiel_bloc.dart';
@@ -27,8 +28,9 @@ class _EditLawyerProfileScreenState extends State<EditLawyerProfileScreen> {
   late TextEditingController expereinceYearsController;
   late TextEditingController phoneController;
 
-  String? certificateFilePath;
+  String? certificateFilePath; // null إذا ما تغير
   File? _pickedImage;
+
   final Color customColor = const Color(0xFF472A0C);
 
   @override
@@ -43,8 +45,6 @@ class _EditLawyerProfileScreenState extends State<EditLawyerProfileScreen> {
     expereinceYearsController =
         TextEditingController(text: widget.lawyer.experienceYears.toString());
     phoneController = TextEditingController(text: widget.lawyer.phone);
-
-    certificateFilePath = widget.lawyer.certificate;
   }
 
   @override
@@ -64,9 +64,9 @@ class _EditLawyerProfileScreenState extends State<EditLawyerProfileScreen> {
       allowedExtensions: ['pdf', 'jpg', 'png', 'docx'],
     );
 
-    if (result != null) {
+    if (result != null && result.files.single.path != null) {
       setState(() {
-        certificateFilePath = result.files.single.path;
+        certificateFilePath = result.files.single.path!;
       });
     }
   }
@@ -85,27 +85,18 @@ class _EditLawyerProfileScreenState extends State<EditLawyerProfileScreen> {
 
   void _saveProfile(context) {
     if (_formKey.currentState!.validate()) {
-      if (certificateFilePath == null) {
-        ScaffoldMessenger.of(context as BuildContext).showSnackBar(
-          const SnackBar(content: Text("Please select a certificate file")),
-        );
-        return;
-      }
-
       BlocProvider.of<LawyerProfileBloc>(context).add(
         UpdateLawyerProfileEvent(
           licenseNumber: licenseController.text,
           specialization: specializationController.text,
-          certificatePath: certificateFilePath!,
+          certificatePath: certificateFilePath, // null إذا ما تغيّرت
           address: addressController.text,
           age: ageController.text,
           experienceYears: expereinceYearsController.text,
           phone: phoneController.text,
-          imagePath: _pickedImage?.path ?? widget.lawyer.image,
+          imagePath: _pickedImage?.path, // null إذا ما تغيّرت
         ),
       );
-
-      Navigator.pop(context as BuildContext);
     }
   }
 
@@ -146,7 +137,7 @@ class _EditLawyerProfileScreenState extends State<EditLawyerProfileScreen> {
                       radius: 50,
                       backgroundImage: _pickedImage != null
                           ? FileImage(_pickedImage!)
-                          : (widget.lawyer.image.isNotEmpty
+                          : (widget.lawyer.image.startsWith("http")
                               ? NetworkImage(widget.lawyer.image)
                               : const AssetImage(
                                   'assets/default_image.png')) as ImageProvider,
@@ -183,21 +174,66 @@ class _EditLawyerProfileScreenState extends State<EditLawyerProfileScreen> {
                 label: const Text("Edit Certificate"),
                 style: ElevatedButton.styleFrom(backgroundColor: customColor),
               ),
-              if (certificateFilePath != null)
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: Text(
-                    "📎 File: ${basename(certificateFilePath!)}",
-                    style: const TextStyle(color: Color(0xFF8E6944)),
-                  ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: Text(
+                  certificateFilePath != null
+                      ? "📎 File: ${basename(certificateFilePath!)}"
+                      : "📎 File: ${basename(widget.lawyer.certificate)}",
+                  style: const TextStyle(color: Color(0xFF8E6944)),
                 ),
+              ),
               const SizedBox(height: 30),
-              ElevatedButton(
-                onPressed: () {
-                  _saveProfile(context);
+              BlocConsumer<LawyerProfileBloc, LawyerProfileState>(
+                listener: (context, state) {
+                  if (state is LawyerProfileSuccess) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                          state.successmsg,
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                        backgroundColor: Colors.green,
+                      ),
+                    );
+                    Future.delayed(const Duration(milliseconds: 300), () {
+                      Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(
+                          builder: (context) => LawyerHomePage(),
+                        ),
+                        (route) => false,
+                      );
+                    });
+                  } else if (state is LawyerProfileFail) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                          state.errmsg,
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
+                  } else if (state is LawyerProfileLoading) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: const Text(
+                          "Loading ...",
+                          style: TextStyle(fontSize: 16),
+                        ),
+                        backgroundColor: Colors.grey,
+                      ),
+                    );
+                  }
                 },
-                style: ElevatedButton.styleFrom(backgroundColor: customColor),
-                child: const Text("Save Changes"),
+                builder: (context, state) {
+                  return ElevatedButton(
+                    onPressed: () => _saveProfile(context),
+                    style:
+                        ElevatedButton.styleFrom(backgroundColor: customColor),
+                    child: const Text("Save Changes"),
+                  );
+                },
               ),
             ],
           ),

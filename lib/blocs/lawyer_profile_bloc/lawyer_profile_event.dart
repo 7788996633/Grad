@@ -28,9 +28,9 @@ class UpdateLawyerProfileEvent extends LawyerProfileEvent {
   final String licenseNumber;
   final String experienceYears;
   final String specialization;
-  final String certificatePath;
+  final String? certificatePath;
   final String phone;
-  final String imagePath;
+  final String? imagePath;
   final String address;
   final String age;
 

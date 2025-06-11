@@ -40,7 +40,9 @@ class CustomDrawerLawyer extends StatelessWidget {
                         MaterialPageRoute(
                           builder: (_) => BlocProvider(
                             create: (context) => LawyerProfileBloc(),
-                            child: const LawyerProfileScreen(),
+                            child: LawyerProfileScreen(
+                              lawyerModel: lawyerModel,
+                            ),
                           ),
                         ),
                       );
@@ -52,7 +54,9 @@ class CustomDrawerLawyer extends StatelessWidget {
                       currentAccountPicture: CircleAvatar(
                         radius: 30,
                         backgroundImage: lawyerModel.image.isNotEmpty
-                            ? NetworkImage(lawyerModel.image)
+                            ? NetworkImage(
+                                '${lawyerModel.image}?v=${DateTime.now().millisecondsSinceEpoch}',
+                              )
                             : const AssetImage('assets/default_image.png')
                                 as ImageProvider,
                       ),

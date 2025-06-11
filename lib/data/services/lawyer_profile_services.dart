@@ -97,22 +97,20 @@ class LawyerProfileServices {
     String licenseNumber,
     String experienceYears,
     String specialization,
-    String certificatePath,
+    String? certificatePath,
     String phone,
-    String imagePath,
+    String? imagePath,
     String address,
     String age,
   ) async {
     var headers = {
       'Accept': 'application/json',
       'Authorization': 'Bearer $myToken',
-      'Content-Type': 'application/x-www-form-urlencoded'
     };
     var request =
-        http.MultipartRequest('PUT', Uri.parse('${myUrl}lawyers/profile'));
+        http.MultipartRequest('POST', Uri.parse('${myUrl}lawyer/profile'));
     request.fields.addAll(
       {
-        'certificate': certificatePath,
         'age': age,
         'specialization': specialization,
         'phone': phone,
@@ -121,10 +119,21 @@ class LawyerProfileServices {
         'license_number': licenseNumber,
       },
     );
-    request.files.add(await http.MultipartFile.fromPath(
-      'image',
-      imagePath,
-    ));
+    if (imagePath != null) {
+      request.files.add(await http.MultipartFile.fromPath(
+        'image',
+        imagePath,
+      ));
+      print(
+          '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++imagePath: $imagePath');
+    }
+
+    if (certificatePath != null) {
+      request.files.add(
+          await http.MultipartFile.fromPath('certificate', certificatePath));
+      print(
+          '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++certificatePath: $certificatePath');
+    }
 
     request.headers.addAll(headers);
 

@@ -148,14 +148,15 @@ class _CreateLawyerProfileScreenState extends State<CreateLawyerProfileScreen> {
                           backgroundColor: Colors.green,
                         ),
                       );
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => BlocProvider(
-                            create: (context) => LawyerProfileBloc(),
-                            child: const LawyerProfileScreen(),
-                          ),
-                        ),
-                      );
+                      
+                      // Navigator.of(context).push(
+                      //   MaterialPageRoute(
+                      //     builder: (context) => BlocProvider(
+                      //       create: (context) => LawyerProfileBloc(),
+                      //       child: const LawyerProfileScreen(),
+                      //     ),
+                      //   ),
+                      // );
                     } else if (state is LawyerProfileFail) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(

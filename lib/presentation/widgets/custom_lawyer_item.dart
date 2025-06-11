@@ -61,7 +61,9 @@ class CustomLawyerItem extends StatelessWidget {
         color: isSelected ? AppColors.darkBlue : Colors.white,
         child: ListTile(
           leading: CircleAvatar(
-            backgroundImage: NetworkImage(lawyer.image),
+            backgroundImage: NetworkImage(
+              '${lawyer.image}?v=${DateTime.now().millisecondsSinceEpoch}',
+            ),
           ),
           title: Text(
             lawyer.name,
