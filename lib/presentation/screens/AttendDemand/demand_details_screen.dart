@@ -93,6 +93,7 @@ class _DemandDetailsScreenState extends State<DemandDetailsScreen> {
                     child: Column(
                       children: [
                         CircleAvatar(
+                          radius: 50,
                           backgroundImage: NetworkImage(
                             state.lawyerModel.image,
                           ),
