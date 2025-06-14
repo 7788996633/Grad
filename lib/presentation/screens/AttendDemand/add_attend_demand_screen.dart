@@ -5,60 +5,99 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../blocs/attend_Demand_bloc/attend_demand_bloc.dart';
 
 class AttendDemandScreen extends StatefulWidget {
-  const AttendDemandScreen({super.key});
-
+  const AttendDemandScreen({super.key, required this.issueId});
+  final int issueId;
   @override
   State<AttendDemandScreen> createState() => _AttendDemandScreenState();
 }
 
 class _AttendDemandScreenState extends State<AttendDemandScreen> {
+  bool selected = false;
+  DateTime selectedDate = DateTime.now();
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: selectedDate,
+      firstDate: DateTime.now(),
+      lastDate: DateTime(2100),
+    );
+    if (picked != null && picked != selectedDate) {
+      setState(() {
+        selectedDate = picked;
+        selected = true;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    String date = DateFormat('yyyy-MM-dd').format(selectedDate);
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('الطلبات'),
+        title: const Text('Add Demand'),
       ),
-      body: BlocProvider(
-        create: (context) => AttendDemandBloc()
-          ..add(
-            GetAllDemandByIssueEvent(issueId: 1),
-          ), // تغيير ID حسب الحاجة
-        child: BlocBuilder<AttendDemandBloc, AttendDemandState>(
-          builder: (context, state) {
-            if (state is DemandLoading) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            } else if (state is DemandListLoadedSuccessfully) {
-              return ListView.builder(
-                itemCount: state.listdemand.length,
-                itemBuilder: (context, index) {
-                  final demand = state.listdemand[index];
-                  return ListTile(
-                    leading: const Icon(Icons.event),
-                    title: Text("الطلب رقم ${demand.id}"),
-                    subtitle: Text("التاريخ: ${demand.date}"),
+      body: Column(
+        children: [
+          ElevatedButton(
+            onPressed: () => _selectDate(context),
+            child: Text(
+              "Select Date",
+            ),
+          ),
+          Text(
+              selected ? "You have selected: $date" : 'You should select date'),
+          BlocConsumer<AttendDemandBloc, AttendDemandState>(
+            listener: (context, state) {
+              if (state is DemandSuccess) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      state.successmsg,
+                      style: const TextStyle(fontSize: 16),
+                    ),
+                    backgroundColor: Colors.green,
+                  ),
+                );
+              } else if (state is DemandFail) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      state.errmsg,
+                      style: const TextStyle(fontSize: 16),
+                    ),
+                    backgroundColor: Colors.red,
+                  ),
+                );
+              } else if (state is DemandLoading) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: const Text(
+                      "Loading ...",
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    backgroundColor: Colors.grey,
+                  ),
+                );
+              }
+            },
+            builder: (context, state) {
+              return ElevatedButton(
+                onPressed: () {
+                  BlocProvider.of<AttendDemandBloc>(context).add(
+                    AddDemandEvent(
+                      idIssue: widget.issueId,
+                      date: selectedDate.toString(),
+                    ),
                   );
                 },
+                child: Text(
+                  "Add",
+                ),
               );
-            } else if (state is DemandFail) {
-              return Center(child: Text('فشل: ${state.errmsg}'));
-            } else {
-              return const Center(child: Text('لا توجد بيانات'));
-            }
-          },
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          final now = DateTime.now();
-          final formattedDate = DateFormat('yyyy-MM-dd HH:mm:ss').format(now);
-          context
-              .read<AttendDemandBloc>()
-              .add(AddDemandEvent(idIssue: 1, date: formattedDate));
-        },
-        tooltip: 'إضافة طلب',
-        child: const Icon(Icons.add),
+            },
+          ),
+        ],
       ),
     );
   }

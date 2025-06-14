@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation/blocs/attend_Demand_bloc/attend_demand_bloc.dart';
 import 'package:graduation/blocs/lawyer_profile_bloc/lawyer_profiel_bloc.dart';
+import 'package:graduation/constant.dart';
+import 'package:graduation/presentation/screens/AttendDemand/updat_attend_damand_result_screen.dart';
+import 'package:graduation/presentation/screens/AttendDemand/update_attend_demand_screen.dart';
 import 'package:intl/intl.dart';
 
 import '../../../data/models/demand_model.dart';
@@ -30,6 +34,46 @@ class _DemandDetailsScreenState extends State<DemandDetailsScreen> {
 
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          if (widget.demandModel.resault == null)
+            if (myToken == 'user')
+              IconButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => BlocProvider(
+                        create: (context) => AttendDemandBloc(),
+                        child: UpdatAttendDamandResultScreen(
+                          demandModel: widget.demandModel,
+                        ),
+                      ),
+                    ),
+                  );
+                },
+                icon: Icon(
+                  Icons.edit,
+                ),
+              ),
+          if (widget.demandModel.resault == null)
+            if (myToken != 'user')
+              IconButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => BlocProvider(
+                        create: (context) => AttendDemandBloc(),
+                        child: UpdateAttendDemandScreen(
+                          demandModel: widget.demandModel,
+                        ),
+                      ),
+                    ),
+                  );
+                },
+                icon: Icon(
+                  Icons.edit,
+                ),
+              ),
+        ],
         title: Text(
           date,
         ),

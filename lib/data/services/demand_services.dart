@@ -85,15 +85,16 @@ class DemandServices {
     }
   }
 
-  Future<String> updateDemandAsAUser(int idDemand, String result) async {
+  Future<String> updateDemandResault(int idDemand, String resault) async {
     var headers = {
       'Accept': 'application/json',
       'Content-Type': 'application/x-www-form-urlencoded',
-      'Authorization': 'Bearer $myToken'
+      'Authorization':
+          'Bearer 44|BwUKDFK8lsVlqjzgIgyP7xksdeGfUu1yM5XVStB7526d7afa'
     };
     var request = http.Request(
-        'PUT', Uri.parse('${myUrl}AttendDemand/$idDemand/resault'));
-    request.bodyFields = {'result': result};
+        'PUT', Uri.parse('${myUrl}attendDemand/$idDemand/resault'));
+    request.bodyFields = {'resault': resault};
     request.headers.addAll(headers);
 
     var streamedResponse = await request.send();

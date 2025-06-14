@@ -62,7 +62,7 @@ class AttendDemandBloc extends Bloc<AttendDemandEvent, AttendDemandState> {
             ),
           );
         }
-      } else if (event is UpdateDemandEvent) {
+      } else if (event is UpdateDemandDateEvent) {
         emit(
           DemandLoading(),
         );
@@ -77,13 +77,13 @@ class AttendDemandBloc extends Bloc<AttendDemandEvent, AttendDemandState> {
             ),
           );
         }
-      } else if (event is UpdateDemandAsAUserEvent) {
+      } else if (event is UpdateDemandResaultEvent) {
         emit(
           DemandLoading(),
         );
         try {
-          String value =
-              await DemandServices().updateDemand(event.idDemand, event.result);
+          String value = await DemandServices()
+              .updateDemandResault(event.idDemand, event.resault);
           emit(DemandSuccess(successmsg: value));
         } catch (e) {
           emit(

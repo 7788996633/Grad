@@ -17,21 +17,21 @@ class GetDemandEvent extends AttendDemandEvent {
   GetDemandEvent({required this.idDemand});
 }
 
-class UpdateDemandEvent extends AttendDemandEvent {
+class UpdateDemandDateEvent extends AttendDemandEvent {
   final int idDemand;
   final String date;
-  UpdateDemandEvent({
+  UpdateDemandDateEvent({
     required this.idDemand,
     required this.date,
   });
 }
 
-class UpdateDemandAsAUserEvent extends AttendDemandEvent {
+class UpdateDemandResaultEvent extends AttendDemandEvent {
   final int idDemand;
-  final String result;
-  UpdateDemandAsAUserEvent({
+  final String resault;
+  UpdateDemandResaultEvent({
     required this.idDemand,
-    required this.result,
+    required this.resault,
   });
 }
 
